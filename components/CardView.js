@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
-import { Icon } from "react-native-elements";
-import { BLUE, GRAY, RED, SHADOW_COLOR } from "../common/colors";
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { BLUE, GRAY, RED, SHADOW_COLOR } from '../common/colors';
 
 /**
  *
@@ -10,111 +10,113 @@ import { BLUE, GRAY, RED, SHADOW_COLOR } from "../common/colors";
  * @returns {React.FC} A default card view
  */
 const CardView = ({
-	onPress = () => null,
-	icon = <Icon name="money" size={45} color={BLUE} type="font-awesome" />,
-	title = "title",
-	subTitle = "subtitle",
-	key1 = "key1",
-	value1 = "value1",
-	key2 = "key2",
-	value2 = "value2",
-	containerStyles = {},
-	headerContainerStyles = {},
-	contentContainerStyles = {},
-	iconContainerStyles = {},
-	titleContainerStyles = {},
-	keyStyles = {},
-	valueStyles = {},
+  onPress = () => null,
+  icon = <Icon name="money" size={45} color={BLUE} type="font-awesome" />,
+  title = 'title',
+  subTitle = 'subtitle',
+  key1 = 'key1',
+  value1 = 'value1',
+  key2 = 'key2',
+  value2 = 'value2',
+  containerStyles = {},
+  headerContainerStyles = {},
+  contentContainerStyles = {},
+  iconContainerStyles = {},
+  titleContainerStyles = {},
+  keyStyles = {},
+  valueStyles = {},
 }) => {
-	return (
-		<TouchableOpacity onPress={onPress}>
-			<View style={[styles.cardContainer, styles.blueBorder, containerStyles]}>
-				<View style={[styles.cardContainerHeader, headerContainerStyles]}>
-					<View style={[styles.iconContainer, iconContainerStyles]}>{icon}</View>
-					<View style={[styles.titleContainer, titleContainerStyles]}>
-						<Text style={{ fontSize: 18 }}>{title}</Text>
-						<Text style={{ fontSize: 12 }}>{subTitle}</Text>
-					</View>
-				</View>
-				<View style={[styles.cardContainerContent, contentContainerStyles]}>
-					<View
-						style={{
-							width: Dimensions.get("window").width * (40 / 100),
-						}}
-					>
-						<Text style={[styles.value, valueStyles]}>{value1}</Text>
-						<Text style={[styles.key, keyStyles]}>{key1}</Text>
-					</View>
-					<View style={{ width: Dimensions.get("window").width * (40 / 100) }}>
-						<Text style={[styles.value, valueStyles]}>{value2}</Text>
-						<Text style={[styles.key, keyStyles]}>{key2}</Text>
-					</View>
-				</View>
-			</View>
-		</TouchableOpacity>
-	);
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styles.cardContainer, styles.blueBorder, containerStyles]}>
+        <View style={[styles.cardContainerHeader, headerContainerStyles]}>
+          <View style={[styles.iconContainer, iconContainerStyles]}>
+            {icon}
+          </View>
+          <View style={[styles.titleContainer, titleContainerStyles]}>
+            <Text style={{ fontSize: 18 }}>{title}</Text>
+            <Text style={{ fontSize: 12 }}>{subTitle}</Text>
+          </View>
+        </View>
+        <View style={[styles.cardContainerContent, contentContainerStyles]}>
+          <View
+            style={{
+              width: Dimensions.get('window').width * (40 / 100),
+            }}
+          >
+            <Text style={[styles.value, valueStyles]}>{value1}</Text>
+            <Text style={[styles.key, keyStyles]}>{key1}</Text>
+          </View>
+          <View style={{ width: Dimensions.get('window').width * (40 / 100) }}>
+            <Text style={[styles.value, valueStyles]}>{value2}</Text>
+            <Text style={[styles.key, keyStyles]}>{key2}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
 };
 
 export default CardView;
 
 const styles = StyleSheet.create({
-	iconContainer: {
-		width: 75,
-		height: 45,
-		backgroundColor: "white",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	titleContainer: {
-		width: Dimensions.get("window").width * (90 / 100) - (75 + 25),
-		height: 45,
-		flex: 1,
-		justifyContent: "flex-start",
-	},
-	value: {
-		textAlign: "center",
-		fontSize: 19,
-		fontWeight: "bold",
-	},
-	key: {
-		textAlign: "center",
-		fontSize: 12,
-		fontWeight: "100",
-	},
-	cardContainer: {
-		width: Dimensions.get("window").width * (90 / 100),
-		height: 126,
-		borderRadius: 10,
-		borderLeftWidth: 5,
-		marginLeft: 10,
-		marginRight: 10,
-		marginTop: 10,
-		padding: 10,
-		backgroundColor: "#FFFFFF",
-		shadowColor: SHADOW_COLOR,
-		//iOS
-		shadowOffset: { width: 0, height: 1 },
-		shadowOpacity: 0.2,
-		//Android
-		elevation: 12,
-	},
-	cardContainerHeader: {
-		height: 50,
-		marginVertical: 3,
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	cardContainerContent: {
-		height: 50,
-		marginVertical: 3,
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	blueBorder: {
-		borderColor: BLUE,
-	},
+  iconContainer: {
+    width: 75,
+    height: 45,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    width: Dimensions.get('window').width * (90 / 100) - (75 + 25),
+    height: 45,
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+  value: {
+    textAlign: 'center',
+    fontSize: 19,
+    fontWeight: 'bold',
+  },
+  key: {
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: '100',
+  },
+  cardContainer: {
+    width: Dimensions.get('window').width * (90 / 100),
+    height: 126,
+    borderRadius: 10,
+    borderLeftWidth: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+    shadowColor: SHADOW_COLOR,
+    //iOS
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    //Android
+    elevation: 12,
+  },
+  cardContainerHeader: {
+    height: 50,
+    marginVertical: 3,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardContainerContent: {
+    height: 50,
+    marginVertical: 3,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  blueBorder: {
+    borderColor: BLUE,
+  },
 });
