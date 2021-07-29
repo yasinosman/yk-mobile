@@ -1,15 +1,18 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "private": true,
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@egjs/hammerjs": "^2.0.17",
     "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/drawer": "^5.12.5",
     "@react-navigation/stack": "^5.14.5",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
@@ -24,7 +27,12 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.1",
+    "prettier": "2.3.2"
   },
-  "private": true
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
 }

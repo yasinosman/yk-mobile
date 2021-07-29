@@ -1,16 +1,16 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 /**
  *
  * @param  {...any} styles
  */
 function createStyleSheet({ ...styles }) {
-	const stylesheet = StyleSheet.create({
-		style: {
-			...styles,
-		},
-	});
-	return stylesheet.style;
+  const stylesheet = StyleSheet.create({
+    style: {
+      ...styles,
+    },
+  });
+  return stylesheet.style;
 }
 
 export { createStyleSheet };
