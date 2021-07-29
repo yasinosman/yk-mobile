@@ -1,0 +1,20 @@
+[
+	{
+		"title": "ADIOS",
+		"cardNo": "6421 45** **** 5123",
+		"current_dept_num": "52,46 TL",
+		"current_dept": "Güncel Borç",
+		"available_lim_num": "5344,45 TL",
+		"available_lim": "Kullanılabilir Limit",
+		"id": 2
+	},
+	{
+		"title": "WORD",
+		"cardNo": "6412 12** **** 5234",
+		"current_dept_num": "5208,66 TL",
+		"current_dept": "Güncel Borç",
+		"available_lim_num": "3100,50 TL",
+		"available_lim": "Kullanılabilir Limit",
+		"id": 3
+	}
+]

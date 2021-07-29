@@ -1,0 +1,20 @@
+[
+	{
+		"title": "Vadesiz TL Hesabı",
+		"accountNo": "43265782",
+		"avaBalanceNum": "55 TL",
+		"avaBalance": "Kullanılabilir Bakiye",
+		"currentBalanceNum": "2642,50 TL",
+		"currentBalance": "Güncel Bakiye",
+		"id": 1
+	},
+	{
+		"title": "Vadesiz TL Hesabı",
+		"accountNo": "12265782",
+		"avaBalanceNum": "216 TL",
+		"avaBalance": "Kullanılabilir Bakiye",
+		"currentBalanceNum": "3126,75 TL",
+		"currentBalance": "Güncel Bakiye",
+		"id": 2
+	}
+]
