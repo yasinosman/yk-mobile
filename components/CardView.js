@@ -35,7 +35,7 @@ const CardView = ({
           </View>
           <View style={[styles.titleContainer, titleContainerStyles]}>
             <Text style={{ fontSize: 18 }}>{title}</Text>
-            <Text style={{ fontSize: 12 }}>{subTitle}</Text>
+            <Text style={{ fontSize: 12, opacity: 0.5 }}>{subTitle}</Text>
           </View>
         </View>
         <View style={[styles.cardContainerContent, contentContainerStyles]}>

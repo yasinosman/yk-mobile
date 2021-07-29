@@ -1,22 +1,22 @@
 [
-	{
-		"id": 1,
-		"offer": "Yeni getireceğiniz paranıza özel %13,50 faiz oranı avantajı"
-	},
-	{
-		"id": 2,
-		"offer": "Aracım+ ile belirli iş yerlerinde iç-dış yıkama sadece 16.99 TL"
-	},
-	{
-		"id": 3,
-		"offer": "Küçük faizli kredi fırsatı"
-	},
-	{
-		"id": 4,
-		"offer": "Lorem ipsum dolor sit amet"
-	},
-	{
-		"id": 5,
-		"offer": "lorem ipsum dolor sit amet (amed değil diyarbakır)"
-	}
+  {
+    "id": 1,
+    "offer": "Yeni getireceğiniz paranıza özel %13,50 faiz oranı avantajı"
+  },
+  {
+    "id": 2,
+    "offer": "Aracım+ ile belirli iş yerlerinde iç-dış yıkama sadece 16.99 TL"
+  },
+  {
+    "id": 3,
+    "offer": "Küçük faizli kredi fırsatı"
+  },
+  {
+    "id": 4,
+    "offer": "Lorem ipsum dolor sit amet"
+  },
+  {
+    "id": 5,
+    "offer": "lorem ipsum dolor sit amet (amed değil diyarbakır)"
+  }
 ]

@@ -37,6 +37,16 @@ const actions = [
     id: 5,
     image: <Icon name="car" size={30} type="font-awesome" color={BLUE}></Icon>,
   },
+  {
+    title: 'WorldPay',
+    id: 4,
+    image: (
+      <Image
+        source={require('../assets/img/world-pay.png')}
+        style={{ width: 55, height: 55, marginBottom: -5 }}
+      />
+    ),
+  },
 ];
 
 export default actions;

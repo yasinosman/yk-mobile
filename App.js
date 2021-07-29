@@ -8,6 +8,7 @@ import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { BLUE } from './common/colors';
 
 const Drawer = createDrawerNavigator();
 
@@ -22,7 +23,7 @@ export default function App() {
             screenOptions={{
               headerShown: true,
               headerStyle: {
-                backgroundColor: '#f4511e',
+                backgroundColor: BLUE,
               },
               headerTintColor: '#fff',
               headerTitleStyle: {
