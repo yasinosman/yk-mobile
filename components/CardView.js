@@ -11,7 +11,7 @@ import { BLUE, GRAY, RED, SHADOW_COLOR } from "../common/colors";
  */
 const CardView = ({
 	onPress = () => null,
-	icon = <Icon name="money" size={45} color={BLUE} type="font-awesome" />,
+	icon = <Image source={require("../assets/img/tl-img.png")} style={{ width: 60, height: 60 }} />,
 	title = "title",
 	subTitle = "subtitle",
 	key1 = "key1",
@@ -33,7 +33,7 @@ const CardView = ({
 					<View style={[styles.iconContainer, iconContainerStyles]}>{icon}</View>
 					<View style={[styles.titleContainer, titleContainerStyles]}>
 						<Text style={{ fontSize: 18 }}>{title}</Text>
-						<Text style={{ fontSize: 12 }}>{subTitle}</Text>
+						<Text style={{ fontSize: 12, opacity: 0.5 }}>{subTitle}</Text>
 					</View>
 				</View>
 				<View style={[styles.cardContainerContent, contentContainerStyles]}>

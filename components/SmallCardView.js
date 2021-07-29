@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	smallCardContainer: {
-		width: Dimensions.get("window").width * (26.5 / 100),
+		width: Dimensions.get("window").width * (26 / 100),
 		height: 88,
 		marginHorizontal: Dimensions.get("window").width * (2.5 / 100),
 		marginTop: 10,
@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
 		textAlign: "justify",
 		flexShrink: 1,
 		fontSize: 13,
-		fontWeight: "500",
+		fontWeight: "300",
 	},
 });

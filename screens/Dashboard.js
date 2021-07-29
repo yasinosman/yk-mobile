@@ -22,7 +22,12 @@ const Dashboard = () => {
 							<CardView
 								key={account.id}
 								onPress={() => alert(account.title)}
-								icon={<Icon name="money" size={45} color={BLUE} type="font-awesome" />}
+								icon={
+									<Image
+										source={require("../assets/img/tl-img.png")}
+										style={{ width: 70, height: 70, marginTop: 10 }}
+									/>
+								}
 								title={account.title}
 								subTitle={account.accountNo}
 								key1={account.avaBalance}
@@ -79,6 +84,24 @@ const Dashboard = () => {
 					})}
 				</ScrollView>
 			</View>
+			{/** Teklifler */}
+			<View style={styles.container}>
+				<Text style={styles.title}>Teklifler</Text>
+				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
+					{actions.map((action) => {
+						const { id, image, title } = action;
+						return (
+							<SmallCardView
+								key={id}
+								onPress={() => console.log(id)}
+								id={id}
+								image={image}
+								title={title}
+							/>
+						);
+					})}
+				</ScrollView>
+			</View>
 		</View>
 	);
 };
@@ -106,7 +129,6 @@ const styles = StyleSheet.create({
 	},
 	smallContainer: {
 		height: 108,
-		marginTop: 10,
 		marginBottom: 10,
 	},
 	redBorder: {
