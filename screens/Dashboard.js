@@ -9,6 +9,8 @@ import CardView from "../components/CardView";
 import accounts from "../mock/accounts.json";
 import cards from "../mock/cards.json";
 import actions from "../mock/actions";
+import offers from "../mock/offers.json";
+import InfoCard from "../components/InfoCard";
 
 const Dashboard = () => {
 	return (
@@ -67,6 +69,7 @@ const Dashboard = () => {
 					})}
 				</ScrollView>
 			</View>
+
 			{/* Dİğer işlemler */}
 			<View style={styles.smallContainer}>
 				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -84,24 +87,20 @@ const Dashboard = () => {
 					})}
 				</ScrollView>
 			</View>
+
 			{/** Teklifler */}
-			<View style={styles.container}>
+			<View style={[styles.container, { height: 200 }]}>
 				<Text style={styles.title}>Teklifler</Text>
 				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
-					{actions.map((action) => {
-						const { id, image, title } = action;
-						return (
-							<SmallCardView
-								key={id}
-								onPress={() => console.log(id)}
-								id={id}
-								image={image}
-								title={title}
-							/>
-						);
-					})}
+					{offers.map((offer) => (
+						<InfoCard key={offer.id} text={offer.offer} />
+					))}
 				</ScrollView>
 			</View>
+			{/* <View backgroundColor="#F5F7FA" marginTop={15}>
+				<Text>Son başarılı </Text>
+				<Text>Son başarılı </Text>
+			</View> */}
 		</View>
 	);
 };
@@ -110,6 +109,7 @@ export default Dashboard;
 
 const styles = StyleSheet.create({
 	wrapper: {
+		height: Dimensions.get("window").height,
 		flex: 1,
 		alignItems: "center",
 		padding: 10,
@@ -129,7 +129,8 @@ const styles = StyleSheet.create({
 	},
 	smallContainer: {
 		height: 108,
-		marginBottom: 10,
+		width: Dimensions.get("window").width,
+		marginBottom: 0,
 	},
 	redBorder: {
 		borderColor: RED,
