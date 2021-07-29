@@ -1,8 +1,8 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import { Text } from 'react-native';
 
 const Login = () => {
-	return <Text>Hello World!!é</Text>;
+  return <Text>Login Page!!!</Text>;
 };
 
 export default Login;
