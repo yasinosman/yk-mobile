@@ -39,8 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     shadowColor: SHADOW_COLOR,
     //iOS
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
+    shadowRadius: 13,
     //Android
     elevation: 5,
   },

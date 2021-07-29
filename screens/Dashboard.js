@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { Icon, Image } from 'react-native-elements';
-import { BLUE, RED } from '../common/colors';
+import { BLUE, ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
 import CardView from '../components/CardView';
 import InfoCard from '../components/InfoCard';
@@ -64,7 +64,7 @@ const Dashboard = () => {
                   value1={card.current_dept_num}
                   key2={card.available_lim}
                   value2={card.available_lim_num}
-                  containerStyles={styles.redBorder}
+                  containerStyles={styles.orangeBorder}
                 />
               );
             })}
@@ -131,5 +131,8 @@ const styles = StyleSheet.create({
   },
   redBorder: {
     borderColor: RED,
+  },
+  orangeBorder: {
+    borderColor: ORANGE,
   },
 });
