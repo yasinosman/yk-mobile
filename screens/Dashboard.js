@@ -16,6 +16,7 @@ const Dashboard = () => {
       {/* Hesaplarım */}
       <View style={styles.container}>
         <Text style={styles.title}>Hesaplarım</Text>
+        {/* test */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {accounts.map(account => {
             return (
