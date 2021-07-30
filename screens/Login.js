@@ -11,111 +11,119 @@ import {
 } from 'react-native';
 import stories from '../mock/stories.json';
 import InfoCard from '../components/InfoCard';
+import { TouchableWithoutFeedback } from 'react-native';
+import { Keyboard } from 'react-native';
 
 const Login = () => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
 
   return (
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
-      behavior={Platform.OS === 'ios' ? 'padding' : null}
-      style={styles.container}
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
     >
-      <View
-        style={{
-          flex: 0.75,
-          justifyContent: 'center',
-          alignItems: 'center',
-          paddingTop: 10,
-        }}
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        style={styles.container}
       >
-        {/* Yapı Kredi logosu */}
-        <Image
-          source={require('../assets/img/yk-logo.png')}
-          style={{ width: 200, height: 50, marginTop: 20, marginBottom: 50 }}
-        ></Image>
-      </View>
+        <View
+          style={{
+            flex: 0.75,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: 10,
+          }}
+        >
+          {/* Yapı Kredi logosu */}
+          <Image
+            source={require('../assets/img/yk-logo.png')}
+            style={{ width: 200, height: 50, marginTop: 20, marginBottom: 50 }}
+          ></Image>
+        </View>
 
-      <View
-        style={{
-          flex: 2.25,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar
-          rounded
-          source={require('../assets/img/rasit-ozcan.jpeg')}
-          size={100}
-          containerStyle={{ marginBottom: 10 }}
-        />
-        {/* Welcome text */}
-        <Text style={{ color: 'white', fontSize: 20, marginBottom: 20 }}>
-          Yapı Kredi Mobil'e Hoş Geldiniz!
-        </Text>
-        {/* Input fields */}
-        <View style={styles.inputContainer}>
-          <Input
-            placeholder="T.C. Kimlik No"
-            autoFocus
-            type="number"
-            value={tc}
-            onChangeText={text => setTc(text)}
-            containerStyle={{
-              borderRadius: 10,
-            }}
-            inputStyle={{ borderBottomWidth: 0 }}
-            underlineColorAndroid="transparent"
-            keyboardType="numeric"
+        <View
+          style={{
+            flex: 2.25,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar
+            rounded
+            source={require('../assets/img/rasit-ozcan.jpeg')}
+            size={100}
+            containerStyle={{ marginBottom: 10 }}
           />
-          <Input
-            placeholder="Şifre"
-            type="password"
-            secureTextEntry
-            value={password}
-            onChangeText={text => setPassword(text)}
-            containerStyle={{
-              borderRadius: 10,
-            }}
-            inputStyle={{ borderBottomWidth: 0 }}
-            underlineColorAndroid="transparent"
-            keyboardType="numeric"
+          {/* Welcome text */}
+          <Text style={{ color: 'white', fontSize: 20, marginBottom: 20 }}>
+            Yapı Kredi Mobil'e Hoş Geldiniz!
+          </Text>
+          {/* Input fields */}
+          <View style={styles.inputContainer}>
+            <Input
+              placeholder="T.C. Kimlik No"
+              autoFocus
+              type="number"
+              value={tc}
+              onChangeText={text => setTc(text)}
+              containerStyle={{
+                borderRadius: 10,
+              }}
+              inputStyle={{ borderBottomWidth: 0 }}
+              underlineColorAndroid="transparent"
+              keyboardType="numeric"
+            />
+            <Input
+              placeholder="Şifre"
+              type="password"
+              secureTextEntry
+              value={password}
+              onChangeText={text => setPassword(text)}
+              containerStyle={{
+                borderRadius: 10,
+              }}
+              inputStyle={{ borderBottomWidth: 0 }}
+              underlineColorAndroid="transparent"
+              keyboardType="numeric"
+            />
+          </View>
+
+          {/* Login button */}
+          <Button
+            title="Giriş"
+            containerStyle={styles.button}
+            buttonStyle={{ borderRadius: 22 }}
           />
         </View>
 
-        {/* Login button */}
-        <Button
-          title="Giriş"
-          containerStyle={styles.button}
-          buttonStyle={{ borderRadius: 22 }}
-        />
-      </View>
-
-      <View style={styles.storiesContainer}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {stories.map(story => (
-            <InfoCard
-              containerStyles={{
-                width: 160,
-                height: 130,
-              }}
-              contentStyles={{
-                paddingLeft: 5,
-                width: 80,
-                height: 130,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              imageStyles={{ width: 50, height: 50 }}
-              key={story.id}
-              text={story.text}
-              button={null}
-            />
-          ))}
-        </ScrollView>
-      </View>
-    </KeyboardAvoidingView>
+        <View style={styles.storiesContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {stories.map(story => (
+              <InfoCard
+                containerStyles={{
+                  width: 160,
+                  height: 130,
+                }}
+                contentStyles={{
+                  paddingLeft: 5,
+                  width: 80,
+                  height: 130,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                imageStyles={{ width: 50, height: 50 }}
+                key={story.id}
+                text={story.text}
+                button={null}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
