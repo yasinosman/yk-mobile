@@ -25,7 +25,7 @@ export default function App() {
         <NavigationContainer>
           <Drawer.Navigator
             drawerType="slide"
-            initialRouteName="Dashboard"
+            initialRouteName="Login"
             screenOptions={{
               headerShown: true,
               headerStyle: {
@@ -39,6 +39,11 @@ export default function App() {
           >
             {/* Dashboard a ayri header gecilebilir
             https://reactnavigation.org/docs/headers#replacing-the-title-with-a-custom-component */}
+            <Drawer.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false, title: 'Login' }}
+            />
             <Drawer.Screen
               name="Dashboard"
               component={Dashboard}
@@ -83,11 +88,6 @@ export default function App() {
               name="Other Operations"
               component={OtherOperations}
               options={{ title: 'Diğer İşlemler' }}
-            />
-            <Drawer.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false, title: 'Login' }}
             />
           </Drawer.Navigator>
         </NavigationContainer>

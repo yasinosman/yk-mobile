@@ -6,7 +6,7 @@ import { SHADOW_COLOR } from '../common/colors';
 
 /**
  *
- * @param {{text: string, image: React.FC}} param0
+ * @param {{text: string, image: React.FC, button: React.FC, containerStyles: any, contentStyles: any, textStyles: any, imageStyles: any}} param0
  * @returns {React.FC} info card
  */
 const InfoCard = ({
@@ -14,22 +14,29 @@ const InfoCard = ({
   image = (
     <Image
       source={require('../assets/img/interest.png')}
-      style={{ width: 86, height: 104 }}
+      style={{ width: 75, height: 100 }}
     />
   ),
+  button = (
+    <Button
+      buttonStyle={{ borderRadius: 10, marginTop: 5 }}
+      title="Şimdi Yap"
+    />
+  ),
+  containerStyles = {},
+  contentStyles = {},
+  textStyles = {},
+  imageStyles = {},
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.left}>
-        <View style={styles.textContainer}>
-          <Text style={{ fontSize: 14 }}>{text}</Text>
+    <View style={[styles.container, containerStyles]}>
+      <View>
+        <View style={[styles.textContainer, contentStyles]}>
+          <Text style={[{ fontSize: 14 }, textStyles]}>{text}</Text>
         </View>
-        <Button
-          buttonStyle={{ borderRadius: 10, marginTop: 5 }}
-          title="Şimdi Yap"
-        />
+        {button}
       </View>
-      <View style={styles.right}>{image}</View>
+      <View>{image}</View>
     </View>
   );
 };
@@ -55,14 +62,10 @@ const styles = StyleSheet.create({
     //Android
     elevation: 12,
   },
-  left: {
-    width: 130,
-  },
   textContainer: {
     paddingLeft: 5,
     width: 120,
     height: 80,
     lineHeight: 120,
   },
-  right: {},
 });
