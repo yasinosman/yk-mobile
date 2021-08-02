@@ -11,6 +11,7 @@ import accounts from '../mock/accounts.json';
 import cards from '../mock/cards.json';
 import actions from '../mock/actions';
 import offers from '../mock/offers.json';
+import MenuTitle from '../components/MenuTitle';
 
 const Dashboard = () => {
   return (
@@ -18,7 +19,7 @@ const Dashboard = () => {
       <View style={styles.wrapper}>
         {/* Hesaplarım */}
         <View style={[styles.container, { marginTop: 0 }]}>
-          <Text style={styles.title}>Hesaplarım</Text>
+          <MenuTitle text="Hesaplarım" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {accounts.map(account => {
               return (
@@ -45,7 +46,7 @@ const Dashboard = () => {
 
         {/* Kartlarım */}
         <View style={styles.container}>
-          <Text style={styles.title}>Kartlarım</Text>
+          <MenuTitle text="Kartlarım" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {cards.map(card => {
               return (
@@ -90,7 +91,7 @@ const Dashboard = () => {
 
         {/** Teklifler */}
         <View style={[styles.container, { height: 200 }]}>
-          <Text style={styles.title}>Teklifler</Text>
+          <MenuTitle text="Teklifler" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {offers.map(offer => (
               <InfoCard key={offer.id} text={offer.offer} />
