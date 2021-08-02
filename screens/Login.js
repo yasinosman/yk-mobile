@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import stories from '../mock/stories.json';
 import InfoCard from '../components/InfoCard';
+import { BLUE } from '../common/colors';
 
 const Login = () => {
   const [tc, setTc] = React.useState('');
@@ -32,7 +33,7 @@ const Login = () => {
       >
         {/* Yapı Kredi logosu */}
         <Image
-          source={require('../assets/img/yk-logo.png')}
+          source={require('../assets/img/yk-logo-3.png')}
           style={{ width: 200, height: 50, marginTop: 20, marginBottom: 50 }}
         ></Image>
       </View>
@@ -88,7 +89,7 @@ const Login = () => {
         <Button
           title="Giriş"
           containerStyle={styles.button}
-          buttonStyle={{ borderRadius: 22 }}
+          buttonStyle={{ borderRadius: 22, backgroundColor: 'rgb(0,114,188)' }}
         />
       </View>
 
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     height: Dimensions.get('window').height,
-    backgroundColor: 'rgb(34, 169, 241)',
+    backgroundColor: BLUE,
   },
   inputContainer: {
     width: Dimensions.get('window').width * (90 / 100),
