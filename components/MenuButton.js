@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { DEVICE_WIDTH } from '../common/dimensions';
-import { BLUE, ORANGE, RED, ICON_BLUE } from '../common/colors';
+import { ICON_BLUE } from '../common/colors';
 
 /**
  *

@@ -4,7 +4,6 @@ import { Icon, Image } from 'react-native-elements';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import MenuContainer from '../components/MenuContainer';
 import { BLUE } from '../common/colors';
-import Tag from '../components/Tag';
 
 const OtherOperations = () => {
   return (

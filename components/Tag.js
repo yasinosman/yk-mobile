@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { RED, BLUE } from '../common/colors';
+import { RED } from '../common/colors';
 
 const Tag = ({ title, containerStyles = {}, textStyles = {} }) => {
   return (

@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Dimensions } from 'react-native';
-import { Icon, Image } from 'react-native-elements';
-import { BLUE, ORANGE, RED } from '../common/colors';
+import { Image } from 'react-native-elements';
+import { ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
 import CardView from '../components/CardView';
 import InfoCard from '../components/InfoCard';

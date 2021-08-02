@@ -4,7 +4,6 @@ import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { Divider } from 'react-native-elements';
 import MenuTitle from './MenuTitle';
 import MenuButton from './MenuButton';
-import { Text } from 'react-native';
 
 /**
  *
@@ -39,9 +38,6 @@ const MenuContainer = ({ title, buttons }) => {
 };
 
 export default MenuContainer;
-
-const CONTAINER_WIDTH = DEVICE_WIDTH * (90 / 100);
-const CONTAINER_HEIGHT = 45;
 
 const styles = StyleSheet.create({
   container: {

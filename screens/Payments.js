@@ -140,49 +140,6 @@ const Payments = () => {
           },
         ]}
       />
-      {/* <MenuTitle text="Kart Bilgileri" textStyles={styles.title} />
-      <View style={styles.container}>
-        <MenuButton title="Kredi Kartlarım" />
-        <Divider
-          orientation="horizontal"
-          subHeaderStyle={{ color: 'blue' }}
-          insetType="middle"
-        />
-        <MenuButton title="Banka Kartlarım" />
-        <Divider
-          orientation="horizontal"
-          subHeaderStyle={{ color: 'blue' }}
-          insetType="middle"
-        />
-        <MenuButton title="Ön Ödemeli Kartlarım" />
-      </View>
-      <MenuTitle text="Başvurular" textStyles={styles.title} />
-      <View style={styles.container}>
-        <MenuButton title="Kredi Kartı Başvurusu" />
-        <Divider
-          orientation="horizontal"
-          subHeaderStyle={{ color: 'blue' }}
-          insetType="middle"
-        />
-        <MenuButton title="Kredi Kartı Başvurusu" />
-        <Divider
-          orientation="horizontal"
-          subHeaderStyle={{ color: 'blue' }}
-          insetType="middle"
-        />
-        <MenuButton title="Kredi Kartı Başvurusu" />
-        <Divider
-          orientation="horizontal"
-          subHeaderStyle={{ color: 'blue' }}
-          insetType="middle"
-        />
-        <MenuButton title="Kredi Kartı Başvurusu" />
-        <Divider
-          orientation="horizontal"
-          subHeaderStyle={{ color: 'blue' }}
-          insetType="middle"
-        />
-      </View> */}
     </ScrollView>
   );
 };

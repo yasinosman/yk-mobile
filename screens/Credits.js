@@ -1,9 +1,7 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import MenuContainer from '../components/MenuContainer';
-import Tag from '../components/Tag';
 
 const Credits = () => {
   return (
