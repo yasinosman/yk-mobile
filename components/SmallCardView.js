@@ -8,13 +8,17 @@ const SmallCardView = ({
   onPress = () => null,
   image = <Icon name="car" size={30} type="font-awesome" color={BLUE}></Icon>,
   title = 'title',
+  containerStyles = {},
+  contentStyles = {},
+  titleContainerStyles = {},
+  titleTextStyles = {},
 }) => {
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
-      <View style={styles.smallCardContainer}>
-        <View style={styles.smallCardContent}>{image}</View>
-        <View style={styles.smallCardTitle}>
-          <Text style={styles.title}>{title}</Text>
+      <View style={[styles.smallCardContainer, containerStyles]}>
+        <View style={[styles.smallCardContent, contentStyles]}>{image}</View>
+        <View style={[styles.smallCardTitle, titleContainerStyles]}>
+          <Text style={[styles.title, titleTextStyles]}>{title}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -61,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    textAlign: 'justify',
+    textAlign: 'center',
     flexShrink: 1,
     fontSize: 13,
     fontWeight: '500',
