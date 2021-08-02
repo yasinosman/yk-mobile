@@ -47,16 +47,6 @@ const Login = () => {
             <Profile style={styles.profileBut} />
           </View>
         </View>
-        {/* <View
-          style={{
-            flex: 0.75,
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingTop: 10,
-          }}
-        >
-         
-        </View> */}
 
         <View
           style={{
