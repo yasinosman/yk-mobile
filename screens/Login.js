@@ -14,6 +14,8 @@ import InfoCard from '../components/InfoCard';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
+import { Language } from '../components/Language';
+import { Profile } from '../components/Profile';
 
 const Login = () => {
   const [tc, setTc] = React.useState('');
@@ -30,7 +32,22 @@ const Login = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={styles.container}
       >
-        <View
+        <View style={styles.viewContainer}>
+          <View style={styles.side}>
+            <Language title="TR" style={styles.lanStyle} />
+            <Image
+              source={require('../assets/img/yk-logo-3.png')}
+              style={{
+                width: 200,
+                height: 50,
+                marginTop: 40,
+                marginBottom: 50,
+              }}
+            ></Image>
+            <Profile style={styles.profileBut} />
+          </View>
+        </View>
+        {/* <View
           style={{
             flex: 0.75,
             justifyContent: 'center',
@@ -38,12 +55,8 @@ const Login = () => {
             paddingTop: 10,
           }}
         >
-          {/* Yapı Kredi logosu */}
-          <Image
-            source={require('../assets/img/yk-logo-3.png')}
-            style={{ width: 200, height: 50, marginTop: 20, marginBottom: 50 }}
-          ></Image>
-        </View>
+         
+        </View> */}
 
         <View
           style={{
@@ -163,5 +176,41 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  viewContainer: {
+    width: '100%',
+  },
+  profileBut: {
+    marginTop: 50,
+    marginRight: 20,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
+  },
+  side: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  lanStyle: {
+    marginTop: 50,
+    marginLeft: 20,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderWidth: 2,
+    borderColor: 'white',
+    borderRadius: 100,
+    color: 'red',
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
