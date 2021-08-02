@@ -16,6 +16,8 @@ import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
 import { Language } from '../components/Language';
 import { Profile } from '../components/Profile';
+import { Switch } from 'react-native';
+import { Formik, useFormik } from 'formik';
 
 const Login = () => {
   const [tc, setTc] = React.useState('');
@@ -32,103 +34,100 @@ const Login = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={styles.container}
       >
-        <View style={styles.viewContainer}>
-          <View style={styles.side}>
-            <Language title="TR" style={styles.lanStyle} />
-            <Image
-              source={require('../assets/img/yk-logo-3.png')}
-              style={{
-                width: 200,
-                height: 50,
-                marginTop: 40,
-                marginBottom: 50,
-              }}
-            ></Image>
-            <Profile style={styles.profileBut} />
-          </View>
+        <View style={styles.languageAndLogo}>
+          <Language title="TR" style={styles.languageStyle} />
+          <Image
+            source={require('../assets/img/yk-logo-3.png')}
+            style={{
+              width: 200,
+              height: 50,
+              marginTop: 40,
+              marginBottom: 50,
+              marginRight: 80,
+            }}
+          ></Image>
         </View>
 
-        <View
-          style={{
-            flex: 2.25,
-            justifyContent: 'center',
-            alignItems: 'center',
+        <Formik
+          initialValues={{ tckimlik: '', sifre: '' }}
+          onSubmit={values => {
+            console.log(values);
           }}
         >
-          <Avatar
-            rounded
-            source={require('../assets/img/rasit-ozcan.jpeg')}
-            size={100}
-            containerStyle={{ marginBottom: 10 }}
-          />
-          {/* Welcome text */}
-          <Text style={{ color: 'white', fontSize: 20, marginBottom: 20 }}>
-            Yapı Kredi Mobil'e Hoş Geldiniz!
-          </Text>
-          {/* Input fields */}
-          <View style={styles.inputContainer}>
-            <Input
-              placeholder="T.C. Kimlik No"
-              autoFocus
-              type="number"
-              value={tc}
-              onChangeText={text => setTc(text)}
-              containerStyle={{
-                borderRadius: 10,
-              }}
-              inputStyle={{ borderBottomWidth: 0 }}
-              underlineColorAndroid="transparent"
-              keyboardType="numeric"
-            />
-            <Input
-              placeholder="Şifre"
-              type="password"
-              secureTextEntry
-              value={password}
-              onChangeText={text => setPassword(text)}
-              containerStyle={{
-                borderRadius: 10,
-              }}
-              inputStyle={{ borderBottomWidth: 0 }}
-              underlineColorAndroid="transparent"
-              keyboardType="numeric"
-            />
-          </View>
-
-          {/* Login button */}
-          <Button
-            title="Giriş"
-            containerStyle={styles.button}
-            buttonStyle={{
-              borderRadius: 22,
-              backgroundColor: 'rgb(0,114,188)',
-            }}
-          />
-        </View>
-
-        <View style={styles.storiesContainer}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {stories.map(story => (
-              <InfoCard
-                containerStyles={{
-                  width: 160,
-                  height: 130,
+          {props => (
+            <View>
+              <View style={styles.loginFrame}>
+                {/* Welcome text */}
+                <View style={styles.userBusinessView}>
+                  <View style={styles.userView}>
+                    <Image
+                      style={styles.userImage}
+                      source={require('../assets/user-32px.png')}
+                    ></Image>
+                    <Text style={styles.userText}>Bireysel</Text>
+                  </View>
+                  <View style={styles.businessView}>
+                    <Image
+                      style={styles.businessImage}
+                      source={require('../assets/buniness-32px.png')}
+                    ></Image>
+                    <Text style={styles.businessText}>Kurumsal</Text>
+                  </View>
+                </View>
+                {/* Input fields */}
+                <Image source={require('../assets/user-32px.png')}></Image>
+                <View style={styles.inputContainer}>
+                  <Input
+                    placeholder="T.C. Kimlik No veya Kullanıcı Kodu"
+                    autoFocus
+                    type="number"
+                    containerStyle={{
+                      borderRadius: 10,
+                    }}
+                    inputStyle={{ borderBottomWidth: 0 }}
+                    maxLength={11}
+                    underlineColorAndroid="transparent"
+                    onChangeText={props.handleChange('tckimlik')}
+                    value={props.values.tckimlik}
+                  />
+                  <Input
+                    placeholder="Şifre"
+                    type="password"
+                    secureTextEntry
+                    containerStyle={{
+                      borderRadius: 10,
+                    }}
+                    inputStyle={{ borderBottomWidth: 0 }}
+                    maxLength={6}
+                    underlineColorAndroid="transparent"
+                    keyboardType="numeric"
+                    onChangeText={props.handleChange('sifre')}
+                    value={props.values.sifre}
+                  />
+                </View>
+              </View>
+              <View style={styles.viewRememberMe}>
+                <Text style={styles.textRememberMe}>Beni Hatırla</Text>
+                <Switch
+                  style={styles.switchRememberMe}
+                  ios_backgroundColor="#65CCFF"
+                />
+              </View>
+              <Button
+                onPress={props.handleSubmit}
+                title="Giriş"
+                containerStyle={styles.button}
+                buttonStyle={{
+                  borderRadius: 22,
+                  backgroundColor: 'rgb(0,114,188)',
                 }}
-                contentStyles={{
-                  paddingLeft: 5,
-                  width: 80,
-                  height: 130,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-                imageStyles={{ width: 50, height: 50 }}
-                key={story.id}
-                text={story.text}
-                button={null}
               />
-            ))}
-          </ScrollView>
-        </View>
+            </View>
+          )}
+        </Formik>
+
+        <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
+        <View style={styles.emptyView}></View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -137,8 +136,46 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  languageAndLogo: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+
+  loginFrame: {
+    marginTop: Dimensions.get('window').width * (1 / 7),
+    borderRadius: 10,
+    backgroundColor: '#4CBEF9',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  userBusinessView: {
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
+  button: {
+    marginTop: 15,
+    width: Dimensions.get('window').width * (90 / 100),
+    height: 44,
+  },
+  switchRememberMe: {
+    marginLeft: 5,
+  },
+  viewRememberMe: {
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: '95%',
+  },
+  textRememberMe: {
+    color: 'white',
+  },
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
@@ -152,55 +189,59 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(76, 190, 249)',
     backgroundColor: 'white',
   },
-  button: {
-    width: Dimensions.get('window').width * (90 / 100),
-    height: 44,
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  storiesContainer: {
-    marginTop: 20,
-    width: Dimensions.get('window').width,
-    marginBottom: 0,
-    height: 200,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  viewContainer: {
-    width: '100%',
-  },
-  profileBut: {
-    marginTop: 50,
-    marginRight: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 100,
-  },
-  side: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  lanStyle: {
+
+  languageStyle: {
     marginTop: 50,
     marginLeft: 20,
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
-    borderWidth: 2,
-    borderColor: 'white',
-    borderRadius: 100,
-    color: 'red',
   },
   paragraph: {
-    margin: 24,
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  userImage: {
+    width: 30,
+    height: 30,
+  },
+  businessImage: {
+    width: 30,
+    height: 30,
+  },
+  userView: {
+    marginRight: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  userText: {
+    color: 'white',
+    marginTop: 5,
+    fontSize: 20,
+    textDecorationLine: 'underline',
+  },
+  businessText: {
+    color: 'white',
+    marginTop: 5,
+    fontSize: 20,
+    opacity: 0.5,
+  },
+  businessView: {
+    marginLeft: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  forgotPassword: {
+    marginTop: 30,
+    color: 'white',
+    width: '95%',
+    textAlign: 'right',
+    flex: 6,
+  },
+  emptyView: {
+    flex: 3,
   },
 });

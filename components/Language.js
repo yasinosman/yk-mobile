@@ -26,9 +26,11 @@ const styles = size =>
       borderColor: 'white',
       borderWidth: 2,
       color: 'white',
+      borderRadius: 100,
     },
     text: {
       fontSize: size,
+      color: 'white',
     },
     colors: {
       color: 'white',
