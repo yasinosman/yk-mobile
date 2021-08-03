@@ -1,9 +1,9 @@
 import React from 'react';
+import './firebase/index';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'react-native-elements';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
@@ -15,35 +15,10 @@ import Investments from './screens/Investments';
 import MoneyTransfers from './screens/MoneyTransfers';
 import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
-import firebase from 'firebase/app';
-// Optionally import the services that you want to use
-import 'firebase/auth';
-//import "firebase/database";
-import 'firebase/firestore';
-//import "firebase/functions";
-//import "firebase/storage";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  React.useEffect(() => {
-    // Initialize Firebase
-    const firebaseConfig = {
-      apiKey: 'AIzaSyABvJ7I6yCf-b8FidWxsJuw01OR5TkQ9KM',
-      authDomain: 'yk-mobile-7ce20.firebaseapp.com',
-      projectId: 'yk-mobile-7ce20',
-      storageBucket: 'yk-mobile-7ce20.appspot.com',
-      messagingSenderId: '757983497368',
-      appId: '1:757983497368:web:5dd504012c79ca855494ed',
-    };
-
-    try {
-      firebase.initializeApp(firebaseConfig);
-      console.log('Firebase connection initialized');
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
   return (
     <SafeAreaProvider>
       <ThemeProvider>
