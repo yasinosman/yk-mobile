@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { BLUE, GRAY, RED, SHADOW_COLOR } from '../common/colors';
+import { BLUE, SHADOW_COLOR } from '../common/colors';
 
 /**
  *

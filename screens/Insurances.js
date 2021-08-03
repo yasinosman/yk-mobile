@@ -1,14 +1,55 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
+import { BLUE } from '../common/colors';
+import { DEVICE_WIDTH } from '../common/dimensions';
+import MenuContainer from '../components/MenuContainer';
+import Tag from '../components/Tag';
 
 const Insurances = () => {
   return (
-    <View>
-      <Text>Insurances page</Text>
-    </View>
+    <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
+      <MenuContainer
+        title="Başvurular"
+        buttons={[
+          {
+            title: 'Zorunlu Deprem Sigortası (DASK)',
+          },
+          {
+            title: 'Kasko Sigortası',
+          },
+          {
+            title: 'Tamamlayıcı Sağlık Sigortası',
+            tag: (
+              <Tag
+                title="Check-up Hediyeli"
+                containerStyles={{ backgroundColor: BLUE }}
+              />
+            ),
+          },
+          {
+            title: 'Dijital Koruma Sigortası',
+          },
+        ]}
+      />
+      <MenuContainer
+        title="Poliçe İşlemleri"
+        buttons={[
+          {
+            title: 'Sigorta Tekliflerim',
+          },
+          {
+            title: 'Sigorta Poliçelerim',
+          },
+        ]}
+      />
+    </ScrollView>
   );
 };
 
 export default Insurances;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  wrapper: {
+    width: DEVICE_WIDTH,
+  },
+});

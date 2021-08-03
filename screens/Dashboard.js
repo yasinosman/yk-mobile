@@ -1,9 +1,9 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Dimensions } from 'react-native';
-import { Icon, Image } from 'react-native-elements';
-import { BLUE, ORANGE, RED } from '../common/colors';
+import { Image } from 'react-native-elements';
+import { ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
 import CardView from '../components/CardView';
 import InfoCard from '../components/InfoCard';
@@ -11,6 +11,7 @@ import accounts from '../mock/accounts.json';
 import cards from '../mock/cards.json';
 import actions from '../mock/actions';
 import offers from '../mock/offers.json';
+import MenuTitle from '../components/MenuTitle';
 
 const Dashboard = () => {
   return (
@@ -18,7 +19,7 @@ const Dashboard = () => {
       <View style={styles.wrapper}>
         {/* Hesaplarım */}
         <View style={[styles.container, { marginTop: 0 }]}>
-          <Text style={styles.title}>Hesaplarım</Text>
+          <MenuTitle text="Hesaplarım" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {accounts.map(account => {
               return (
@@ -45,7 +46,7 @@ const Dashboard = () => {
 
         {/* Kartlarım */}
         <View style={styles.container}>
-          <Text style={styles.title}>Kartlarım</Text>
+          <MenuTitle text="Kartlarım" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {cards.map(card => {
               return (
@@ -90,7 +91,7 @@ const Dashboard = () => {
 
         {/** Teklifler */}
         <View style={[styles.container, { height: 200 }]}>
-          <Text style={styles.title}>Teklifler</Text>
+          <MenuTitle text="Teklifler" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {offers.map(offer => (
               <InfoCard key={offer.id} text={offer.offer} />
