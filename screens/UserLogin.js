@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Input, Button, Avatar } from 'react-native-elements';
+import { Image, Input, Button, Avatar, Divider } from 'react-native-elements';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -18,8 +18,14 @@ import { Language } from '../components/Language';
 import { Profile } from '../components/Profile';
 import { Switch } from 'react-native';
 import { Formik, useFormik } from 'formik';
+import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableHighlight } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -34,6 +40,11 @@ const Login = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={styles.container}
       >
+        <LinearGradient
+          // Background Linear Gradient
+          colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
+          style={styles.background}
+        />
         <View style={styles.languageAndLogo}>
           <Language title="TR" style={styles.languageStyle} />
           <Image
@@ -67,11 +78,15 @@ const Login = () => {
                     <Text style={styles.userText}>Bireysel</Text>
                   </View>
                   <View style={styles.businessView}>
-                    <Image
-                      style={styles.businessImage}
-                      source={require('../assets/buniness-32px.png')}
-                    ></Image>
-                    <Text style={styles.businessText}>Kurumsal</Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('BusinessLogin')}
+                    >
+                      <Image
+                        style={styles.businessImage}
+                        source={require('../assets/buniness-32px.png')}
+                      ></Image>
+                      <Text style={styles.businessText}>Kurumsal</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
                 {/* Input fields */}
@@ -89,6 +104,12 @@ const Login = () => {
                     underlineColorAndroid="transparent"
                     onChangeText={props.handleChange('tckimlik')}
                     value={props.values.tckimlik}
+                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                  />
+                  <Divider
+                    orientation="horizontal"
+                    subHeaderStyle={{ color: 'black' }}
+                    insetType="middle"
                   />
                   <Input
                     placeholder="Şifre"
@@ -96,13 +117,20 @@ const Login = () => {
                     secureTextEntry
                     containerStyle={{
                       borderRadius: 10,
+                      justifyContent: 'center',
                     }}
-                    inputStyle={{ borderBottomWidth: 0 }}
+                    inputStyle={{
+                      borderBottomWidth: 0,
+                    }}
                     maxLength={6}
                     underlineColorAndroid="transparent"
                     keyboardType="numeric"
                     onChangeText={props.handleChange('sifre')}
                     value={props.values.sifre}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      justifyContent: 'center',
+                    }}
                   />
                 </View>
               </View>
@@ -185,7 +213,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: Dimensions.get('window').width * (90 / 100),
     borderWidth: 1,
-    borderRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
     borderColor: 'rgb(76, 190, 249)',
     backgroundColor: 'white',
   },
@@ -243,5 +272,12 @@ const styles = StyleSheet.create({
   },
   emptyView: {
     flex: 3,
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: Dimensions.get('window').height,
   },
 });
