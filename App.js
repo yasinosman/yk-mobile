@@ -9,6 +9,7 @@ import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
 import UserLogin from './screens/UserLogin';
 import BusinessLogin from './screens/BusinessLogin';
+import BusinessFirstLogin from './screens/BusinessFirstLogin';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
 import Credits from './screens/Credits';
@@ -33,7 +34,7 @@ export default function App() {
             }}
           >
             <Stack.Screen name="UserLogin" component={UserLogin} />
-            <Stack.Screen name="BusinessLogin" component={BusinessLogin} />
+            <Stack.Screen name="BusinessLogin" component={BusinessFirstLogin} />
           </Stack.Navigator>
           {/* <Drawer.Navigator
             drawerType="slide"
