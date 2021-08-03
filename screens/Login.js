@@ -16,10 +16,16 @@ import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
 import { Language } from '../components/Language';
 import { Profile } from '../components/Profile';
+import { useTheme } from 'react-native-elements';
+import { makeStyles } from 'react-native-elements';
+import { useLocale } from '../context/Localization';
 
-const Login = () => {
+const Login = props => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const { theme } = useTheme();
+  const styles = useStyles(props);
+  const { language, toggleLanguage, i18n } = useLocale();
 
   return (
     <TouchableWithoutFeedback
@@ -27,14 +33,18 @@ const Login = () => {
         Keyboard.dismiss();
       }}
     >
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
-        behavior={Platform.OS === 'ios' ? 'padding' : null}
+      <View
+        // keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
+        // behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={styles.container}
       >
         <View style={styles.viewContainer}>
           <View style={styles.side}>
-            <Language title="TR" style={styles.lanStyle} />
+            <Language
+              title={language}
+              style={styles.lanStyle}
+              onPress={toggleLanguage}
+            />
             <Image
               source={require('../assets/img/yk-logo-3.png')}
               style={{
@@ -63,7 +73,7 @@ const Login = () => {
           />
           {/* Welcome text */}
           <Text style={{ color: 'white', fontSize: 20, marginBottom: 20 }}>
-            Yapı Kredi Mobil'e Hoş Geldiniz!
+            {i18n.welcomeText}
           </Text>
           {/* Input fields */}
           <View style={styles.inputContainer}>
@@ -129,21 +139,22 @@ const Login = () => {
             ))}
           </ScrollView>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
 
 export default Login;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles((theme, props) => ({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
     height: Dimensions.get('window').height,
-    backgroundColor: BLUE,
+    backgroundColor: theme.bg,
+    // backgroundColor: BLUE,
   },
   inputContainer: {
     width: Dimensions.get('window').width * (90 / 100),
@@ -203,4 +214,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-});
+}));
