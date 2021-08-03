@@ -44,7 +44,7 @@ export default function App() {
                 backgroundColor: BLUE,
               },
               headerTintColor: '#fff',
-              headerTitleStyle: {
+              headerTitleStyle: {ss
                 fontWeight: 'bold',
               },
             }}
