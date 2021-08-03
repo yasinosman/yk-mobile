@@ -24,10 +24,13 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useState } from 'react';
 
 const Login = ({ navigation }) => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <TouchableWithoutFeedback
@@ -50,13 +53,12 @@ const Login = ({ navigation }) => {
           <Image
             source={require('../assets/img/yk-logo-3.png')}
             style={{
-              width: 200,
+              width: 170,
               height: 50,
-              marginTop: 40,
-              marginBottom: 50,
-              marginRight: 80,
+              marginTop: Dimensions.get('window').height * (1 / 20) + 7,
             }}
           ></Image>
+          <Text style={styles.kurumsalText}>| kurumsal</Text>
         </View>
 
         <Formik
@@ -99,7 +101,6 @@ const Login = ({ navigation }) => {
                   <Input
                     id="firmaKod"
                     placeholder="Firma Kodu"
-                    autoFocus
                     type="number"
                     containerStyle={{
                       borderRadius: 10,
@@ -142,7 +143,6 @@ const Login = ({ navigation }) => {
                   />
                   <Input
                     placeholder="Şifre"
-                    autoFocus
                     secureTextEntry
                     type="password"
                     containerStyle={{
@@ -160,6 +160,13 @@ const Login = ({ navigation }) => {
               <View style={styles.viewRememberMe}>
                 <Text style={styles.textRememberMe}>Beni Hatırla</Text>
                 <Switch
+                  ios_backgroundColor="rgb(80,180,255)"
+                  trackColor={{
+                    false: 'rgb(50,250,255)',
+                    true: 'rgb(101,214,255)',
+                  }}
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
                   style={styles.switchRememberMe}
                   ios_backgroundColor="#65CCFF"
                 />
@@ -191,11 +198,11 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 20,
   },
 
   loginFrame: {
-    marginTop: Dimensions.get('window').width * (1 / 7),
+    marginTop: Dimensions.get('window').width * (1 / 4),
     borderRadius: 10,
     backgroundColor: '#4CBEF9',
     justifyContent: 'center',
@@ -243,7 +250,7 @@ const styles = StyleSheet.create({
   },
 
   languageStyle: {
-    marginTop: 50,
+    marginTop: 10,
     marginLeft: 20,
     width: 40,
     height: 40,
@@ -260,10 +267,12 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     opacity: 0.5,
+    marginLeft: 20,
   },
   businessImage: {
     width: 30,
     height: 30,
+    marginLeft: 25,
   },
   userView: {
     marginRight: 50,
@@ -303,5 +312,11 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     height: Dimensions.get('window').height,
+  },
+  kurumsalText: {
+    color: 'white',
+    marginTop: Dimensions.get('window').height * (1 / 20) + 20,
+    marginRight: 70,
+    fontSize: 17,
   },
 });

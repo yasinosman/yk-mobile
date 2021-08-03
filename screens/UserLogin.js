@@ -24,10 +24,13 @@ import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useState } from 'react';
 
 const Login = ({ navigation }) => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <TouchableWithoutFeedback
@@ -52,7 +55,7 @@ const Login = ({ navigation }) => {
             style={{
               width: 200,
               height: 50,
-              marginTop: 40,
+              marginTop: 60,
               marginBottom: 50,
               marginRight: 80,
             }}
@@ -94,7 +97,6 @@ const Login = ({ navigation }) => {
                 <View style={styles.inputContainer}>
                   <Input
                     placeholder="T.C. Kimlik No veya Kullanıcı Kodu"
-                    autoFocus
                     type="number"
                     containerStyle={{
                       borderRadius: 10,
@@ -137,8 +139,14 @@ const Login = ({ navigation }) => {
               <View style={styles.viewRememberMe}>
                 <Text style={styles.textRememberMe}>Beni Hatırla</Text>
                 <Switch
+                  ios_backgroundColor="rgb(80,180,255)"
+                  trackColor={{
+                    false: 'rgb(50,250,255)',
+                    true: 'rgb(101,214,255)',
+                  }}
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
                   style={styles.switchRememberMe}
-                  ios_backgroundColor="#65CCFF"
                 />
               </View>
               <Button
@@ -220,7 +228,7 @@ const styles = StyleSheet.create({
   },
 
   languageStyle: {
-    marginTop: 50,
+    marginTop: 20,
     marginLeft: 20,
     width: 40,
     height: 40,
@@ -240,6 +248,7 @@ const styles = StyleSheet.create({
   businessImage: {
     width: 30,
     height: 30,
+    marginLeft: 25,
   },
   userView: {
     marginRight: 50,

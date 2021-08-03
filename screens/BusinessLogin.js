@@ -45,7 +45,7 @@ const Login = () => {
           <Image
             source={require('../assets/img/yk-logo-3.png')}
             style={{
-              width: 150,
+              width: 170,
               height: 50,
               marginLeft: 20,
               marginTop: 40,
