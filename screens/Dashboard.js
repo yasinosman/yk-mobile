@@ -7,13 +7,29 @@ import { ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
 import CardView from '../components/CardView';
 import InfoCard from '../components/InfoCard';
-import accounts from '../mock/accounts.json';
-import cards from '../mock/cards.json';
 import actions from '../mock/actions';
 import offers from '../mock/offers.json';
 import MenuTitle from '../components/MenuTitle';
+import { getCards } from '../services/cards';
+import { getAccounts } from '../services/accounts';
 
 const Dashboard = () => {
+  const [cards, setCards] = React.useState([]);
+  const [accounts, setAccounts] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchAllData() {
+      try {
+        setCards(await getCards());
+        setAccounts(await getAccounts());
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchAllData();
+  }, []);
+
   return (
     <ScrollView>
       <View style={styles.wrapper}>
@@ -25,19 +41,23 @@ const Dashboard = () => {
               return (
                 <CardView
                   key={account.id}
-                  onPress={() => alert(account.title)}
+                  onPress={() => alert(account.name)}
                   icon={
                     <Image
-                      source={require('../assets/img/tl-img.png')}
-                      style={{ width: 60, height: 60, marginTop: 5 }}
+                      source={{ uri: account.image_url }}
+                      style={{ width: 60, height: 45 }}
                     />
                   }
-                  title={account.title}
-                  subTitle={account.accountNo}
-                  key1={account.avaBalance}
-                  value1={account.avaBalanceNum}
-                  key2={account.currentBalance}
-                  value2={account.currentBalanceNum}
+                  title={account.name}
+                  subTitle={account.number}
+                  key1={'Kullanılabilir Limit'}
+                  value1={`${account.available_balance} ${
+                    CURRENCY_DICTIONARY[account.currency]
+                  }`}
+                  key2={'Güncel Bakiye'}
+                  value2={`${account.current_balance} ${
+                    CURRENCY_DICTIONARY[account.currency]
+                  }`}
                 />
               );
             })}
@@ -52,19 +72,23 @@ const Dashboard = () => {
               return (
                 <CardView
                   key={card.id}
-                  onPress={() => alert(card.title)}
+                  onPress={() => alert(card.name)}
                   icon={
                     <Image
                       source={require('../assets/img/Card.png')}
                       style={{ width: 60, height: 40 }}
                     />
                   }
-                  title={card.title}
-                  subTitle={card.cardNo}
-                  key1={card.current_dept}
-                  value1={card.current_dept_num}
-                  key2={card.available_lim}
-                  value2={card.available_lim_num}
+                  title={card.name}
+                  subTitle={card.number}
+                  key1={'Güncel Borç'}
+                  value1={`${card.current_dept} ${
+                    CURRENCY_DICTIONARY[card.currency]
+                  }`}
+                  key2={'Kullanılabilir Limit'}
+                  value2={`${card.available_limit} ${
+                    CURRENCY_DICTIONARY[card.currency]
+                  }`}
                   containerStyles={styles.orangeBorder}
                 />
               );
@@ -101,6 +125,12 @@ const Dashboard = () => {
       </View>
     </ScrollView>
   );
+};
+
+const CURRENCY_DICTIONARY = {
+  eur: '€',
+  try: '₺',
+  usd: '$',
 };
 
 export default Dashboard;

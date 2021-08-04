@@ -27,30 +27,29 @@ const CardView = ({
   valueStyles = {},
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={[styles.cardContainer, styles.blueBorder, containerStyles]}>
-        <View style={[styles.cardContainerHeader, headerContainerStyles]}>
-          <View style={[styles.iconContainer, iconContainerStyles]}>
-            {icon}
-          </View>
-          <View style={[styles.titleContainer, titleContainerStyles]}>
-            <Text style={{ fontSize: 18 }}>{title}</Text>
-            <Text style={{ fontSize: 12, opacity: 0.5 }}>{subTitle}</Text>
-          </View>
+    <TouchableOpacity
+      style={[styles.cardContainer, styles.blueBorder, containerStyles]}
+      onPress={onPress}
+    >
+      <View style={[styles.cardContainerHeader, headerContainerStyles]}>
+        <View style={[styles.iconContainer, iconContainerStyles]}>{icon}</View>
+        <View style={[styles.titleContainer, titleContainerStyles]}>
+          <Text style={{ fontSize: 18 }}>{title}</Text>
+          <Text style={{ fontSize: 12, opacity: 0.5 }}>{subTitle}</Text>
         </View>
-        <View style={[styles.cardContainerContent, contentContainerStyles]}>
-          <View
-            style={{
-              width: Dimensions.get('window').width * (40 / 100),
-            }}
-          >
-            <Text style={[styles.value, valueStyles]}>{value1}</Text>
-            <Text style={[styles.key, keyStyles]}>{key1}</Text>
-          </View>
-          <View style={{ width: Dimensions.get('window').width * (40 / 100) }}>
-            <Text style={[styles.value, valueStyles]}>{value2}</Text>
-            <Text style={[styles.key, keyStyles]}>{key2}</Text>
-          </View>
+      </View>
+      <View style={[styles.cardContainerContent, contentContainerStyles]}>
+        <View
+          style={{
+            width: Dimensions.get('window').width * (40 / 100),
+          }}
+        >
+          <Text style={[styles.value, valueStyles]}>{value1}</Text>
+          <Text style={[styles.key, keyStyles]}>{key1}</Text>
+        </View>
+        <View style={{ width: Dimensions.get('window').width * (40 / 100) }}>
+          <Text style={[styles.value, valueStyles]}>{value2}</Text>
+          <Text style={[styles.key, keyStyles]}>{key2}</Text>
         </View>
       </View>
     </TouchableOpacity>

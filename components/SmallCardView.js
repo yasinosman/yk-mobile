@@ -14,12 +14,14 @@ const SmallCardView = ({
   titleTextStyles = {},
 }) => {
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
-      <View style={[styles.smallCardContainer, containerStyles]}>
-        <View style={[styles.smallCardContent, contentStyles]}>{image}</View>
-        <View style={[styles.smallCardTitle, titleContainerStyles]}>
-          <Text style={[styles.title, titleTextStyles]}>{title}</Text>
-        </View>
+    <TouchableOpacity
+      style={[styles.smallCardContainer, containerStyles]}
+      activeOpacity={0.9}
+      onPress={onPress}
+    >
+      <View style={[styles.smallCardContent, contentStyles]}>{image}</View>
+      <View style={[styles.smallCardTitle, titleContainerStyles]}>
+        <Text style={[styles.title, titleTextStyles]}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
