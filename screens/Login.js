@@ -8,16 +8,29 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import stories from '../mock/stories.json';
 import InfoCard from '../components/InfoCard';
-import { TouchableWithoutFeedback } from 'react-native';
-import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
+import { login } from '../services/authentication';
+import StyledText from '../components/StyledText';
 
 const Login = () => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  const handleLogin = async () => {
+    try {
+      await login({ nationalIdentity: tc, password: password });
+
+      setTc('');
+      setPassword('');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -59,9 +72,11 @@ const Login = () => {
             containerStyle={{ marginBottom: 10 }}
           />
           {/* Welcome text */}
-          <Text style={{ color: 'white', fontSize: 20, marginBottom: 20 }}>
+          <StyledText
+            style={{ color: 'white', fontSize: 20, marginBottom: 20 }}
+          >
             Yapı Kredi Mobil'e Hoş Geldiniz!
-          </Text>
+          </StyledText>
           {/* Input fields */}
           <View style={styles.inputContainer}>
             <Input
@@ -100,6 +115,10 @@ const Login = () => {
               borderRadius: 22,
               backgroundColor: 'rgb(0,114,188)',
             }}
+            titleStyle={{
+              fontFamily: 'Ubuntu',
+            }}
+            onPress={handleLogin}
           />
         </View>
 

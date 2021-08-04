@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { BLUE, GRAY, SHADOW_COLOR } from '../common/colors';
+import StyledText from './StyledText';
 
 const SmallCardView = ({
   onPress = () => null,
@@ -21,7 +22,7 @@ const SmallCardView = ({
     >
       <View style={[styles.smallCardContent, contentStyles]}>{image}</View>
       <View style={[styles.smallCardTitle, titleContainerStyles]}>
-        <Text style={[styles.title, titleTextStyles]}>{title}</Text>
+        <StyledText style={[styles.title, titleTextStyles]}>{title}</StyledText>
       </View>
     </TouchableOpacity>
   );
@@ -70,6 +71,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexShrink: 1,
     fontSize: 13,
-    fontWeight: '500',
   },
 });

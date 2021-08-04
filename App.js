@@ -3,7 +3,7 @@ import './firebase/index';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'react-native-elements';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
 import Login from './screens/Login';
@@ -15,82 +15,163 @@ import Investments from './screens/Investments';
 import MoneyTransfers from './screens/MoneyTransfers';
 import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
+import useCurrentUser from './hooks/useCurrenUser';
+import Navbar from './components/Navbar';
+import { useFonts } from 'expo-font';
+import { Text } from 'react-native';
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  const user = useCurrentUser();
+
+  const [fontsLoaded, error] = useFonts({
+    Ubuntu: require('./assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require('./assets/fonts/Ubuntu-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <Text>Loading</Text>;
+  }
+
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <NavigationContainer>
-          <Drawer.Navigator
-            drawerType="slide"
-            initialRouteName="Login"
-            screenOptions={{
-              headerShown: true,
-              headerStyle: {
-                backgroundColor: BLUE,
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              },
-            }}
-          >
-            {/* Dashboard a ayri header gecilebilir
-            https://reactnavigation.org/docs/headers#replacing-the-title-with-a-custom-component */}
-            <Drawer.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false, title: 'Login' }}
-            />
-            <Drawer.Screen
-              name="Dashboard"
-              component={Dashboard}
-              options={{ title: 'Anasayfa' }}
-            />
-            <Drawer.Screen
-              name="Accounts"
-              component={Accounts}
-              options={{ title: 'Hesaplarım' }}
-            />
-            <Drawer.Screen
-              name="Cards"
-              component={Cards}
-              options={{ title: 'Kartlarım' }}
-            />
-            <Drawer.Screen
-              name="Money Transfers"
-              component={MoneyTransfers}
-              options={{ title: 'Para Transferleri' }}
-            />
-            <Drawer.Screen
-              name="Investments"
-              component={Investments}
-              options={{ title: 'Yatırımlar' }}
-            />
-            <Drawer.Screen
-              name="Payments"
-              component={Payments}
-              options={{ title: 'Ödemeler' }}
-            />
-            <Drawer.Screen
-              name="Credits"
-              component={Credits}
-              options={{ title: 'Krediler' }}
-            />
-            <Drawer.Screen
-              name="Insurances"
-              component={Insurances}
-              options={{ title: 'Sigortalar' }}
-            />
-            <Drawer.Screen
-              name="Other Operations"
-              component={OtherOperations}
-              options={{ title: 'Diğer İşlemler' }}
-            />
-          </Drawer.Navigator>
-        </NavigationContainer>
+        {!user && <Login />}
+
+        {user && (
+          <NavigationContainer>
+            <Drawer.Navigator
+              drawerType="slide"
+              initialRouteName="Dashboard"
+              screenOptions={{
+                headerShown: true,
+                headerStyle: {
+                  backgroundColor: BLUE,
+                },
+                headerTintColor: '#fff',
+              }}
+            >
+              <Drawer.Screen
+                name="Anasayfa"
+                component={Dashboard}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Accounts"
+                component={Accounts}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Cards"
+                component={Cards}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Money Transfers"
+                component={MoneyTransfers}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Investments"
+                component={Investments}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Payments"
+                component={Payments}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Credits"
+                component={Credits}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Insurances"
+                component={Insurances}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Other Operations"
+                component={OtherOperations}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        )}
       </ThemeProvider>
     </SafeAreaProvider>
   );

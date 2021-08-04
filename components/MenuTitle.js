@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+import StyledText from './StyledText';
 
 const MenuTitle = ({ text, textStyles = {} }) => {
-  return <Text style={[styles.title, textStyles]}>{text}</Text>;
+  return <StyledText style={[styles.title, textStyles]}>{text}</StyledText>;
 };
 
 export default MenuTitle;
@@ -10,7 +11,7 @@ export default MenuTitle;
 const styles = StyleSheet.create({
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
     paddingHorizontal: 20,
+    fontFamily: 'UbuntuBold',
   },
 });

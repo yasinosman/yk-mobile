@@ -12,6 +12,8 @@ import offers from '../mock/offers.json';
 import MenuTitle from '../components/MenuTitle';
 import { getCards } from '../services/cards';
 import { getAccounts } from '../services/accounts';
+import { CURRENCY_DICTIONARY } from '../hooks/useCurrency';
+import CurrencyText from '../components/CurrencyText';
 
 const Dashboard = () => {
   const [cards, setCards] = React.useState([]);
@@ -31,7 +33,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.wrapper}>
         {/* Hesaplarım */}
         <View style={[styles.container, { marginTop: 0 }]}>
@@ -50,14 +52,26 @@ const Dashboard = () => {
                   }
                   title={account.name}
                   subTitle={account.number}
-                  key1={'Kullanılabilir Limit'}
-                  value1={`${account.available_balance} ${
-                    CURRENCY_DICTIONARY[account.currency]
-                  }`}
+                  key1={'Kullanılabilir Bakiye'}
+                  value1Component={
+                    <CurrencyText
+                      textStyles={styles.currencyText}
+                      initialAmount={account.available_balance}
+                      initialCurrency={account.currency}
+                      targetCurrency="try"
+                      calculationTimeout={4000}
+                    />
+                  }
                   key2={'Güncel Bakiye'}
-                  value2={`${account.current_balance} ${
-                    CURRENCY_DICTIONARY[account.currency]
-                  }`}
+                  value2Component={
+                    <CurrencyText
+                      textStyles={styles.currencyText}
+                      initialAmount={account.current_balance}
+                      initialCurrency={account.currency}
+                      targetCurrency="try"
+                      calculationTimeout={4000}
+                    />
+                  }
                 />
               );
             })}
@@ -127,26 +141,19 @@ const Dashboard = () => {
   );
 };
 
-const CURRENCY_DICTIONARY = {
-  eur: '€',
-  try: '₺',
-  usd: '$',
-};
-
 export default Dashboard;
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: 'center',
-    padding: 10,
     backgroundColor: '#FFFFFF',
     paddingTop: Dimensions.get('window').height * (5 / 100),
     paddingTop: 10,
+    paddingBottom: 25,
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
     paddingHorizontal: 20,
   },
   container: {
@@ -166,4 +173,5 @@ const styles = StyleSheet.create({
   orangeBorder: {
     borderColor: ORANGE,
   },
+  currencyText: { textAlign: 'center', fontSize: 19, fontFamily: 'UbuntuBold' },
 });

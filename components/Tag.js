@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RED } from '../common/colors';
+import StyledText from './StyledText';
 
 const Tag = ({ title, containerStyles = {}, textStyles = {} }) => {
   return (
     <View style={[styles.container, containerStyles]}>
-      <Text style={[styles.text, textStyles]}>{title}</Text>
+      <StyledText style={[styles.text, textStyles]}>{title}</StyledText>
     </View>
   );
 };

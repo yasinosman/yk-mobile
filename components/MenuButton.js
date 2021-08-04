@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import { ICON_BLUE } from '../common/colors';
+import StyledText from './StyledText';
 
 /**
  *
@@ -32,11 +33,11 @@ const MenuButton = ({
           !startingIcon && { width: CONTAINER_WIDTH * (88 / 100) },
         ]}
       >
-        <Text>
+        <StyledText>
           {title}
           {'  '}
           {tag}
-        </Text>
+        </StyledText>
       </View>
       <View style={styles.iconContainer}>{trailingIcon}</View>
     </TouchableOpacity>
