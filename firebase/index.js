@@ -8,7 +8,7 @@ import 'firebase/auth';
 //import "firebase/database";
 import 'firebase/firestore';
 //import "firebase/functions";
-import 'firebase/storage';
+// import 'firebase/storage';
 
 (function () {
   // Initialize Firebase
@@ -31,6 +31,6 @@ import 'firebase/storage';
 
 const db = firebase.firestore();
 const auth = firebase.auth();
-const storage = firebase.storage();
+// const storage = firebase.storage();
 
-export { db, auth, storage };
+export { db, auth };
