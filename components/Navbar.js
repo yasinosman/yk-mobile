@@ -4,8 +4,9 @@ import { Image, Icon, SearchBar } from 'react-native-elements';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { ICON_BLUE } from '../common/colors';
 import StyledText from './StyledText';
+import { logout } from '../services/authentication';
 
-const NavigationDrawerStructure = props => {
+const NavbarMenuButton = props => {
   return (
     <TouchableOpacity onPress={props.navigation.openDrawer}>
       <Image
@@ -19,10 +20,18 @@ const NavigationDrawerStructure = props => {
 };
 
 const Navbar = props => {
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View {...props} style={styles.container}>
       <View style={styles.menuButtonContainer}>
-        <NavigationDrawerStructure navigation={props.navigation} />
+        <NavbarMenuButton navigation={props.navigation} />
       </View>
       <View style={styles.contentContainer}>
         {props.route.name === 'Anasayfa' && (
@@ -40,23 +49,27 @@ const Navbar = props => {
       <View style={styles.iconContainer}>
         {props.route.name === 'Anasayfa' && (
           <React.Fragment>
-            <Icon
-              containerStyle={{ marginHorizontal: DEVICE_WIDTH * (2 / 100) }}
-              name="envelope"
-              type="font-awesome"
-              size={DEVICE_WIDTH * (6 / 100)}
-              color={ICON_BLUE}
-            />
-            <Icon
-              containerStyle={{
-                marginHorizontal: DEVICE_WIDTH * (2 / 100),
-                marginRight: DEVICE_WIDTH * (3 / 100),
-              }}
-              name="power-off"
-              type="font-awesome"
-              size={DEVICE_WIDTH * (6 / 100)}
-              color={ICON_BLUE}
-            />
+            <TouchableOpacity>
+              <Icon
+                containerStyle={{ marginHorizontal: DEVICE_WIDTH * (2 / 100) }}
+                name="envelope"
+                type="font-awesome"
+                size={DEVICE_WIDTH * (6 / 100)}
+                color={ICON_BLUE}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleLogout}>
+              <Icon
+                containerStyle={{
+                  marginHorizontal: DEVICE_WIDTH * (2 / 100),
+                  marginRight: DEVICE_WIDTH * (3 / 100),
+                }}
+                name="power-off"
+                type="font-awesome"
+                size={DEVICE_WIDTH * (6 / 100)}
+                color={ICON_BLUE}
+              />
+            </TouchableOpacity>
           </React.Fragment>
         )}
       </View>

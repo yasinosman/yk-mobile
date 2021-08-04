@@ -30,4 +30,8 @@ function login({ nationalIdentity, password }) {
   });
 }
 
-export { login };
+function logout() {
+  return auth.signOut();
+}
+
+export { login, logout };
