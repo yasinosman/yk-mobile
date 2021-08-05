@@ -17,7 +17,7 @@ import { BLUE } from '../common/colors';
 import { Language } from '../components/Language';
 import { Profile } from '../components/Profile';
 import { Switch } from 'react-native';
-import { Formik, useFormik } from 'formik';
+import { Formik, useFormik, yupToFormErrors } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableHighlight } from 'react-native';
 import { TouchableOpacity } from 'react-native';
@@ -25,6 +25,13 @@ import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
+import * as yup from 'yup';
+import { Splash } from './Service';
+
+const testValidationSchema = yup.object().shape({
+  tckimlik: yup.string().matches(/^\d$/, 'TC kimlik no 11 haneli olmalıdır '),
+  sifre: yup.string().matches(/^\d$/, 'Şifre 6 haneli olmalıdır'),
+});
 
 const Login = ({ navigation }) => {
   const [tc, setTc] = React.useState('');
@@ -65,10 +72,20 @@ const Login = ({ navigation }) => {
         <Formik
           initialValues={{ tckimlik: '', sifre: '' }}
           onSubmit={values => {
-            console.log(values);
+            alert('Tc kimlik ve password kontrol ediniz.');
           }}
+          validateOnMount={true}
+          validationSchema={testValidationSchema}
         >
-          {props => (
+          {({
+            handleChange,
+            handleSubmit,
+            handleBlur,
+            touched,
+            errors,
+            values,
+            isValid,
+          }) => (
             <View>
               <View style={styles.loginFrame}>
                 {/* Welcome text */}
@@ -104,10 +121,16 @@ const Login = ({ navigation }) => {
                     inputStyle={{ borderBottomWidth: 0 }}
                     maxLength={11}
                     underlineColorAndroid="transparent"
-                    onChangeText={props.handleChange('tckimlik')}
-                    value={props.values.tckimlik}
+                    onChangeText={handleChange('tckimlik')}
+                    onBlur={handleBlur('tckimlik')}
+                    value={values.tckimlik}
                     inputContainerStyle={{ borderBottomWidth: 0 }}
                   />
+                  {errors.tckimlik && touched.tckimlik && (
+                    <Text style={styles.tckimlikErrorStyle}>
+                      {errors.tckimlik}
+                    </Text>
+                  )}
                   <Divider
                     orientation="horizontal"
                     subHeaderStyle={{ color: 'black' }}
@@ -127,13 +150,19 @@ const Login = ({ navigation }) => {
                     maxLength={6}
                     underlineColorAndroid="transparent"
                     keyboardType="numeric"
-                    onChangeText={props.handleChange('sifre')}
-                    value={props.values.sifre}
+                    onChangeText={handleChange('sifre')}
+                    onBlur={handleBlur('sifre')}
+                    value={values.sifre}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                       justifyContent: 'center',
                     }}
                   />
+                  {errors.sifre && touched.sifre && (
+                    <Text style={styles.tckimlikErrorStyle}>
+                      {errors.sifre}
+                    </Text>
+                  )}
                 </View>
               </View>
               <View style={styles.viewRememberMe}>
@@ -150,7 +179,7 @@ const Login = ({ navigation }) => {
                 />
               </View>
               <Button
-                onPress={props.handleSubmit}
+                onPress={handleSubmit}
                 title="Giriş"
                 containerStyle={styles.button}
                 buttonStyle={{
@@ -288,5 +317,12 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     height: Dimensions.get('window').height,
+  },
+  tckimlikErrorStyle: {
+    fontSize: 14,
+    color: 'red',
+    fontWeight: 'bold',
+    marginBottom: 5,
+    textAlign: 'center',
   },
 });
