@@ -26,6 +26,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 
+const buttonClickedHandler = () => {
+  console.log('Changed language');
+};
+
 const Login = ({ navigation }) => {
   const [tc, setTc] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -49,7 +53,12 @@ const Login = ({ navigation }) => {
           style={styles.background}
         />
         <View style={styles.languageAndLogo}>
-          <Language title="TR" style={styles.languageStyle} />
+          <TouchableOpacity
+            style={styles.languageButton}
+            onPress={buttonClickedHandler}
+          >
+            <Text style={styles.languageText}>TR</Text>
+          </TouchableOpacity>
           <Image
             source={require('../assets/img/yk-logo-3.png')}
             style={{
@@ -250,14 +259,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 
-  languageStyle: {
-    marginTop: 30,
-    marginLeft: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   paragraph: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -319,5 +320,21 @@ const styles = StyleSheet.create({
     marginTop: Dimensions.get('window').height * (1 / 20) + 20,
     marginRight: 70,
     fontSize: 17,
+  },
+  languageButton: {
+    borderRadius: 10,
+    width: 35,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 100,
+    marginTop: 35,
+    marginLeft: 16,
+  },
+  languageText: {
+    fontSize: 14,
+    color: 'white',
   },
 });

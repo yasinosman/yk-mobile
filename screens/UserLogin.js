@@ -20,6 +20,10 @@ import { TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import * as yup from 'yup';
 
+const buttonClickedHandler = () => {
+  console.log('Changed language');
+};
+
 const testValidationSchema = yup.object().shape({
   tckimlik: yup
     .string()
@@ -50,7 +54,12 @@ const Login = ({ navigation }) => {
           style={styles.background}
         />
         <View style={styles.languageAndLogo}>
-          <Language title="TR" style={styles.languageStyle} />
+          <TouchableOpacity
+            style={styles.languageButton}
+            onPress={buttonClickedHandler}
+          >
+            <Text style={styles.languageText}>TR</Text>
+          </TouchableOpacity>
           <Image
             source={require('../assets/img/yk-logo-3.png')}
             style={{
@@ -321,5 +330,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     textAlign: 'center',
+  },
+  languageButton: {
+    borderRadius: 10,
+    width: 35,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 100,
+    marginBottom: 35,
+  },
+  languageText: {
+    fontSize: 14,
+    color: 'white',
   },
 });
