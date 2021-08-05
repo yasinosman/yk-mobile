@@ -1,39 +1,29 @@
 import React from 'react';
-import { Image, Input, Button, Avatar, Divider } from 'react-native-elements';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, Input, Button, Divider } from 'react-native-elements';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
-import { Language } from '../components/Language';
 import { Switch } from 'react-native';
-import { Formik, useFormik, yupToFormErrors } from 'formik';
+import { Formik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { useState } from 'react';
-import * as yup from 'yup';
+import { object, string } from 'yup';
+import { login } from '../services/authentication';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
 };
 
-const testValidationSchema = yup.object().shape({
-  tckimlik: yup
-    .string()
-    .matches(/^\d{11}$/, 'TC kimlik no 11 haneli olmalıdır '),
-  sifre: yup.string().matches(/^\d{6}$/, 'Şifre 6 haneli olmalıdır'),
+const testValidationSchema = object().shape({
+  tckimlik: string().matches(/^\d{11}$/, 'TC kimlik no 11 haneli olmalıdır '),
+  sifre: string().matches(/^\d{6}$/, 'Şifre 6 haneli olmalıdır'),
 });
 
 const Login = ({ navigation }) => {
-  const [tc, setTc] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -43,16 +33,10 @@ const Login = ({ navigation }) => {
         Keyboard.dismiss();
       }}
     >
-      <View
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
-        behavior={Platform.OS === 'ios' ? 'padding' : null}
-        style={styles.container}
+      <LinearGradient
+        style={[styles.container, styles.background]}
+        colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
       >
-        <LinearGradient
-          // Background Linear Gradient
-          colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
-          style={styles.background}
-        />
         <View style={styles.languageAndLogo}>
           <TouchableOpacity
             style={styles.languageButton}
@@ -76,8 +60,21 @@ const Login = ({ navigation }) => {
           initialValues={{ tckimlik: '', sifre: '' }}
           onSubmit={values => {
             // login(values.tc, values.password).catch(error => {alert("Login hatası")})
-            alert('Giriş yapıldı');
-            console.log(values.sifre);
+            setLoading(true);
+            login({
+              nationalIdentity: values.tckimlik,
+              password: values.sifre,
+            })
+              .then(() => {
+                setLoading(false);
+              })
+              .catch(error => {
+                alert(
+                  'Lütfen giriş bilgilerinizi kontrol edip tekrar deneyin.'
+                );
+
+                setLoading(false);
+              });
           }}
           validateOnMount={true}
           validationSchema={testValidationSchema}
@@ -123,6 +120,7 @@ const Login = ({ navigation }) => {
                     containerStyle={{
                       borderRadius: 10,
                     }}
+                    keyboardType="numeric"
                     inputStyle={{ borderBottomWidth: 0 }}
                     maxLength={11}
                     underlineColorAndroid="transparent"
@@ -130,6 +128,7 @@ const Login = ({ navigation }) => {
                     onBlur={handleBlur('tckimlik')}
                     value={values.tckimlik}
                     inputContainerStyle={{ borderBottomWidth: 0 }}
+                    disabled={loading}
                   />
                   {errors.tckimlik && touched.tckimlik && (
                     <Text style={styles.tckimlikErrorStyle}>
@@ -162,6 +161,7 @@ const Login = ({ navigation }) => {
                       borderBottomWidth: 0,
                       justifyContent: 'center',
                     }}
+                    disabled={loading}
                   />
                   {errors.sifre && touched.sifre && (
                     <Text style={styles.tckimlikErrorStyle}>
@@ -185,21 +185,20 @@ const Login = ({ navigation }) => {
               </View>
               <Button
                 onPress={handleSubmit}
-                title="Giriş"
+                title={loading ? 'Lütfen Bekleyin' : 'Giriş'}
                 containerStyle={styles.button}
                 buttonStyle={{
                   borderRadius: 22,
                   backgroundColor: 'rgb(0,114,188)',
                 }}
-                disabled={errors.sifre || errors.tckimlik}
+                disabled={loading}
               />
             </View>
           )}
         </Formik>
 
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
-        <View style={styles.emptyView}></View>
-      </View>
+      </LinearGradient>
     </TouchableWithoutFeedback>
   );
 };
@@ -212,7 +211,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: 10,
     height: 160,
   },
   languageStyle: {
@@ -224,7 +222,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   loginFrame: {
-    marginTop: Dimensions.get('window').width * (1 / 7),
     borderRadius: 10,
     backgroundColor: '#4CBEF9',
     justifyContent: 'center',
@@ -239,8 +236,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 15,
-    width: Dimensions.get('window').width * (90 / 100),
-    height: 44,
+    width: DEVICE_WIDTH * (90 / 100),
+    height: 40,
+    borderRadius: 22,
   },
   switchRememberMe: {
     marginLeft: 5,
@@ -259,11 +257,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    height: Dimensions.get('window').height,
     backgroundColor: BLUE,
+    paddingTop: DEVICE_HEIGHT * (2 / 100),
+    paddingBottom: 30,
+    flex: 1,
   },
   inputContainer: {
-    width: Dimensions.get('window').width * (90 / 100),
+    width: DEVICE_WIDTH * (90 / 100),
     borderWidth: 1,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -314,15 +314,8 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     flex: 6,
   },
-  emptyView: {
-    flex: 3,
-  },
   background: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: Dimensions.get('window').height,
+    height: DEVICE_HEIGHT,
   },
   tckimlikErrorStyle: {
     fontSize: 14,

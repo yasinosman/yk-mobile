@@ -7,8 +7,16 @@ import { BLUE } from '../common/colors';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import MenuButton from './MenuButton';
 import StyledText from './StyledText';
+import { logout } from '../services/authentication';
 
 const NavigationDrawer = props => {
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      alert('Çıkış yapılırken bir hata oluştu.');
+    }
+  };
   return (
     <DrawerContentScrollView showsVerticalScrollIndicator={false} {...props}>
       <View style={styles.wrapper}>
@@ -242,7 +250,7 @@ const NavigationDrawer = props => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.exitButton}>
+          <TouchableOpacity style={styles.exitButton} onPress={handleLogout}>
             <View
               style={{
                 width: '20%',

@@ -1,30 +1,15 @@
 import React from 'react';
-import { Image, Input, Button, Avatar, Divider } from 'react-native-elements';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import stories from '../mock/stories.json';
-import InfoCard from '../components/InfoCard';
+import { Image, Input, Button, Divider } from 'react-native-elements';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
-import { Language } from '../components/Language';
-import { Profile } from '../components/Profile';
 import { Switch } from 'react-native';
-import { Formik, useFormik } from 'formik';
+import { Formik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableHighlight } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
+import { DEVICE_HEIGHT } from '../common/dimensions';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
@@ -42,11 +27,7 @@ const Login = ({ navigation }) => {
         Keyboard.dismiss();
       }}
     >
-      <View
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
-        behavior={Platform.OS === 'ios' ? 'padding' : null}
-        style={styles.container}
-      >
+      <View style={styles.container}>
         <LinearGradient
           // Background Linear Gradient
           colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
@@ -120,6 +101,8 @@ const Login = ({ navigation }) => {
                     onChangeText={props.handleChange('firmaKod')}
                     value={props.values.tckimlik}
                     inputContainerStyle={{ borderBottomWidth: 0 }}
+                    secureTextEntry
+                    keyboardType="numeric"
                   />
                   <Divider
                     orientation="horizontal"
@@ -137,13 +120,14 @@ const Login = ({ navigation }) => {
                     }}
                     maxLength={6}
                     underlineColorAndroid="transparent"
-                    keyboardType="numeric"
                     onChangeText={props.handleChange('kullanıcıKod')}
                     value={props.values.sifre}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                       justifyContent: 'center',
                     }}
+                    secureTextEntry
+                    keyboardType="numeric"
                   />
                   <Divider
                     orientation="horizontal"
@@ -152,7 +136,6 @@ const Login = ({ navigation }) => {
                   />
                   <Input
                     placeholder="Şifre"
-                    secureTextEntry
                     type="password"
                     containerStyle={{
                       borderRadius: 10,
@@ -163,6 +146,8 @@ const Login = ({ navigation }) => {
                     onChangeText={props.handleChange('sifre')}
                     value={props.values.tckimlik}
                     inputContainerStyle={{ borderBottomWidth: 0 }}
+                    secureTextEntry
+                    keyboardType="numeric"
                   />
                 </View>
               </View>
@@ -212,7 +197,7 @@ const styles = StyleSheet.create({
   },
 
   loginFrame: {
-    marginTop: Dimensions.get('window').width * (1 / 4),
+    marginTop: Dimensions.get('window').width * (1 / 25),
     borderRadius: 10,
     backgroundColor: '#4CBEF9',
     justifyContent: 'center',
@@ -228,7 +213,8 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 15,
     width: Dimensions.get('window').width * (90 / 100),
-    height: 44,
+    height: 40,
+    borderRadius: 22,
   },
   switchRememberMe: {
     marginLeft: 5,
@@ -249,6 +235,9 @@ const styles = StyleSheet.create({
     padding: 10,
     height: Dimensions.get('window').height,
     backgroundColor: BLUE,
+    paddingTop: DEVICE_HEIGHT * (2 / 100),
+    paddingBottom: 30,
+    flex: 1,
   },
   inputContainer: {
     width: Dimensions.get('window').width * (90 / 100),
