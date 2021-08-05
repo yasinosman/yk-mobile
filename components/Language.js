@@ -25,12 +25,10 @@ const styles = size =>
       justifyContent: 'center',
       borderColor: 'white',
       borderWidth: 2,
-      color: 'white',
+
+      borderRadius: 100,
     },
     text: {
       fontSize: size,
-    },
-    colors: {
-      color: 'white',
     },
   });

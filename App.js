@@ -1,12 +1,15 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'react-native-elements';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
-import Login from './screens/Login';
+import UserLogin from './screens/UserLogin';
+import BusinessLogin from './screens/BusinessLogin';
+import BusinessFirstLogin from './screens/BusinessFirstLogin';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
 import Credits from './screens/Credits';
@@ -15,34 +18,45 @@ import Investments from './screens/Investments';
 import MoneyTransfers from './screens/MoneyTransfers';
 import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
-
+import LogoScreen from './screens/LogoScreen';
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
         <NavigationContainer>
-          <Drawer.Navigator
+          <Stack.Navigator
+            initialRouteName="UserLogin"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name="LogoScreen" component={LogoScreen} />
+            <Stack.Screen name="UserLogin" component={UserLogin} />
+            <Stack.Screen name="BusinessLogin" component={BusinessFirstLogin} />
+          </Stack.Navigator>
+          {/* <Drawer.Navigator
             drawerType="slide"
-            initialRouteName="Login"
+            initialRouteName="UserLogin"
             screenOptions={{
               headerShown: true,
               headerStyle: {
                 backgroundColor: BLUE,
               },
               headerTintColor: '#fff',
-              headerTitleStyle: {
+              headerTitleStyle: {ss
                 fontWeight: 'bold',
               },
             }}
-          >
-            {/* Dashboard a ayri header gecilebilir
+          > */}
+          {/* Dashboard a ayri header gecilebilir
             https://reactnavigation.org/docs/headers#replacing-the-title-with-a-custom-component */}
-            <Drawer.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false, title: 'Login' }}
+          {/* <Drawer.Screen
+              name="UserLogin"
+              component={UserLogin}
+              options={{ headerShown: false, title: 'UserLogin' }}
             />
             <Drawer.Screen
               name="Dashboard"
@@ -89,7 +103,7 @@ export default function App() {
               component={OtherOperations}
               options={{ title: 'Diğer İşlemler' }}
             />
-          </Drawer.Navigator>
+          </Drawer.Navigator> */}
         </NavigationContainer>
       </ThemeProvider>
     </SafeAreaProvider>
