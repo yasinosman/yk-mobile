@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, Button } from 'react-native-elements';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Dimensions } from 'react-native';
+import StyledText from './StyledText';
 import { SHADOW_COLOR } from '../common/colors';
 
 /**
@@ -21,6 +22,9 @@ const InfoCard = ({
     <Button
       buttonStyle={{ borderRadius: 10, marginTop: 5 }}
       title="Şimdi Yap"
+      titleStyle={{
+        fontFamily: 'Ubuntu',
+      }}
     />
   ),
   containerStyles = {},
@@ -32,7 +36,7 @@ const InfoCard = ({
     <View style={[styles.container, containerStyles]}>
       <View>
         <View style={[styles.textContainer, contentStyles]}>
-          <Text style={[{ fontSize: 14 }, textStyles]}>{text}</Text>
+          <StyledText style={[{ fontSize: 14 }, textStyles]}>{text}</StyledText>
         </View>
         {button}
       </View>

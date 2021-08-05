@@ -39,7 +39,8 @@ export const Araclarım = ({
       </View>
       <TouchableOpacity onPress={onPress}>
         <View
-          style={[styles.cardContainer, styles.blueBorder, containerStyles]}>
+          style={[styles.cardContainer, styles.blueBorder, containerStyles]}
+        >
           <View style={[styles.cardContainerHeader, headerContainerStyles]}>
             <View style={[styles.iconContainer, iconContainerStyles]}>
               {icon}
@@ -83,28 +84,29 @@ export const Araclarım = ({
             <Text style={styles.butText}>Güvenli Araç Alım Satım</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.but1}>
-            <Text style={styles.butText}>Araç Muayene Randevusu
-            </Text>
+            <Text style={styles.butText}>Araç Muayene Randevusu</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.aracım_1}>Aracım+ servisleri Otokoç Otomotiv işbirliği ile sunulmaktadır.</Text>
+      <Text style={styles.aracım_1}>
+        Aracım+ servisleri Otokoç Otomotiv işbirliği ile sunulmaktadır.
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   aracislemleri: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
   },
-  aracım_1:{
-    marginLeft:20,
-    marginTop:450,
+  aracım_1: {
+    marginLeft: 20,
+    marginTop: 450,
   },
   araclarim: {
     marginTop: '20%',
@@ -116,17 +118,17 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   column2: {
-    flex:1,
-    marginTop:56,
-    paddingTop:80,
+    flex: 1,
+    marginTop: 56,
+    paddingTop: 80,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  column3:{
-    flex:1,
-    marginTop:56,
-    
-    paddingTop:80,
+  column3: {
+    flex: 1,
+    marginTop: 56,
+
+    paddingTop: 80,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 15,
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   but1: {
     marginTop: 5,
@@ -149,10 +151,9 @@ const styles = StyleSheet.create({
     marginTop: '15%',
     fontWeight: 'bold',
     fontSize: 20,
-    marginBottom:20,
-    width:400,
+    marginBottom: 20,
+    width: 400,
     marginLeft: 10,
-    
   },
   iconContainer: {
     width: 75,

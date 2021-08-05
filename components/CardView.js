@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Dimensions } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { BLUE, SHADOW_COLOR } from '../common/colors';
+import StyledText from './StyledText';
 
 /**
  *
- * @param {{onPress: Function, icon: React.FC, title: string, subTitle: string, key1: string, value1: string, key2: string, value2: string, containerStyles: any, headerContainerStyles: any, contentContainerStyles: any, iconContainerStyles: any, titleContainerStyles: any, keyStyles: any, valueStyles: any }} param0
+ * @param {{onPress: Function, icon: React.FC, title: string, subTitle: string, key1: string, value1: string, value1Component: React.FC, key2: string, value2: string, valu2Component: React.FC, containerStyles: any, headerContainerStyles: any, contentContainerStyles: any, iconContainerStyles: any, titleContainerStyles: any, keyStyles: any, valueStyles: any }} param0
  * @returns {React.FC} A default card view
  */
 const CardView = ({
@@ -15,9 +16,11 @@ const CardView = ({
   title = 'title',
   subTitle = 'subtitle',
   key1 = 'key1',
-  value1 = 'value1',
+  value1 = null,
+  value1Component = null,
   key2 = 'key2',
-  value2 = 'value2',
+  value2 = null,
+  value2Component = null,
   containerStyles = {},
   headerContainerStyles = {},
   contentContainerStyles = {},
@@ -27,30 +30,43 @@ const CardView = ({
   valueStyles = {},
 }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={[styles.cardContainer, styles.blueBorder, containerStyles]}>
-        <View style={[styles.cardContainerHeader, headerContainerStyles]}>
-          <View style={[styles.iconContainer, iconContainerStyles]}>
-            {icon}
-          </View>
-          <View style={[styles.titleContainer, titleContainerStyles]}>
-            <Text style={{ fontSize: 18 }}>{title}</Text>
-            <Text style={{ fontSize: 12, opacity: 0.5 }}>{subTitle}</Text>
-          </View>
+    <TouchableOpacity
+      style={[styles.cardContainer, styles.blueBorder, containerStyles]}
+      onPress={onPress}
+    >
+      <View style={[styles.cardContainerHeader, headerContainerStyles]}>
+        <View style={[styles.iconContainer, iconContainerStyles]}>{icon}</View>
+        <View style={[styles.titleContainer, titleContainerStyles]}>
+          <StyledText style={{ fontSize: 18 }}>{title}</StyledText>
+          <StyledText style={{ fontSize: 12, opacity: 0.5 }}>
+            {subTitle}
+          </StyledText>
         </View>
-        <View style={[styles.cardContainerContent, contentContainerStyles]}>
-          <View
-            style={{
-              width: Dimensions.get('window').width * (40 / 100),
-            }}
-          >
-            <Text style={[styles.value, valueStyles]}>{value1}</Text>
-            <Text style={[styles.key, keyStyles]}>{key1}</Text>
-          </View>
-          <View style={{ width: Dimensions.get('window').width * (40 / 100) }}>
-            <Text style={[styles.value, valueStyles]}>{value2}</Text>
-            <Text style={[styles.key, keyStyles]}>{key2}</Text>
-          </View>
+      </View>
+      <View style={[styles.cardContainerContent, contentContainerStyles]}>
+        <View
+          style={{
+            width: Dimensions.get('window').width * (40 / 100),
+          }}
+        >
+          {value1 !== null ? (
+            <StyledText style={[styles.value, valueStyles]}>
+              {value1}
+            </StyledText>
+          ) : (
+            value1Component
+          )}
+          <StyledText style={[styles.key, keyStyles]}>{key1}</StyledText>
+        </View>
+        <View style={{ width: Dimensions.get('window').width * (40 / 100) }}>
+          {value2 !== null ? (
+            <StyledText style={[styles.value, valueStyles]}>
+              {value2}
+            </StyledText>
+          ) : (
+            value2Component
+          )}
+          <StyledText style={[styles.key, keyStyles]}>{key2}</StyledText>
         </View>
       </View>
     </TouchableOpacity>
@@ -76,12 +92,11 @@ const styles = StyleSheet.create({
   value: {
     textAlign: 'center',
     fontSize: 19,
-    fontWeight: 'bold',
+    fontFamily: 'UbuntuBold',
   },
   key: {
     textAlign: 'center',
     fontSize: 12,
-    fontWeight: '100',
   },
   cardContainer: {
     width: Dimensions.get('window').width * (90 / 100),
