@@ -18,7 +18,7 @@ import Investments from './screens/Investments';
 import MoneyTransfers from './screens/MoneyTransfers';
 import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
-
+import LogoScreen from './screens/LogoScreen';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -33,6 +33,7 @@ export default function App() {
               headerShown: false,
             }}
           >
+            <Stack.Screen name="LogoScreen" component={LogoScreen} />
             <Stack.Screen name="UserLogin" component={UserLogin} />
             <Stack.Screen name="BusinessLogin" component={BusinessFirstLogin} />
           </Stack.Navigator>

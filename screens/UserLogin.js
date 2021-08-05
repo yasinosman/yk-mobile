@@ -9,28 +9,22 @@ import {
   Text,
   View,
 } from 'react-native';
-import stories from '../mock/stories.json';
-import InfoCard from '../components/InfoCard';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
 import { Language } from '../components/Language';
-import { Profile } from '../components/Profile';
 import { Switch } from 'react-native';
 import { Formik, useFormik, yupToFormErrors } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableHighlight } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 import * as yup from 'yup';
-import { Splash } from './Service';
 
 const testValidationSchema = yup.object().shape({
-  tckimlik: yup.string().matches(/^\d$/, 'TC kimlik no 11 haneli olmalıdır '),
-  sifre: yup.string().matches(/^\d$/, 'Şifre 6 haneli olmalıdır'),
+  tckimlik: yup
+    .string()
+    .matches(/^\d{11}$/, 'TC kimlik no 11 haneli olmalıdır '),
+  sifre: yup.string().matches(/^\d{6}$/, 'Şifre 6 haneli olmalıdır'),
 });
 
 const Login = ({ navigation }) => {
@@ -45,7 +39,7 @@ const Login = ({ navigation }) => {
         Keyboard.dismiss();
       }}
     >
-      <KeyboardAvoidingView
+      <View
         keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={styles.container}
@@ -62,7 +56,7 @@ const Login = ({ navigation }) => {
             style={{
               width: 200,
               height: 50,
-              marginTop: 60,
+              marginTop: 70,
               marginBottom: 50,
               marginRight: 80,
             }}
@@ -72,7 +66,9 @@ const Login = ({ navigation }) => {
         <Formik
           initialValues={{ tckimlik: '', sifre: '' }}
           onSubmit={values => {
-            alert('Tc kimlik ve password kontrol ediniz.');
+            // login(values.tc, values.password).catch(error => {alert("Login hatası")})
+            alert('Giriş yapıldı');
+            console.log(values.sifre);
           }}
           validateOnMount={true}
           validationSchema={testValidationSchema}
@@ -186,6 +182,7 @@ const Login = ({ navigation }) => {
                   borderRadius: 22,
                   backgroundColor: 'rgb(0,114,188)',
                 }}
+                disabled={errors.sifre || errors.tckimlik}
               />
             </View>
           )}
@@ -193,7 +190,7 @@ const Login = ({ navigation }) => {
 
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
         <View style={styles.emptyView}></View>
-      </KeyboardAvoidingView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -204,10 +201,19 @@ const styles = StyleSheet.create({
   languageAndLogo: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     marginTop: 10,
+    height: 160,
   },
-
+  languageStyle: {
+    marginLeft: 20,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 40,
+  },
   loginFrame: {
     marginTop: Dimensions.get('window').width * (1 / 7),
     borderRadius: 10,
@@ -254,15 +260,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderColor: 'rgb(76, 190, 249)',
     backgroundColor: 'white',
-  },
-
-  languageStyle: {
-    marginTop: 20,
-    marginLeft: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   paragraph: {
     fontSize: 18,

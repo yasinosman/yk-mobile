@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
         Keyboard.dismiss();
       }}
     >
-      <KeyboardAvoidingView
+      <View
         keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
         behavior={Platform.OS === 'ios' ? 'padding' : null}
         style={styles.container}
@@ -186,7 +186,7 @@ const Login = ({ navigation }) => {
 
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
         <View style={styles.emptyView}></View>
-      </KeyboardAvoidingView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
+    height: 100,
   },
 
   loginFrame: {
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
   },
 
   languageStyle: {
-    marginTop: 10,
+    marginTop: 30,
     marginLeft: 20,
     width: 40,
     height: 40,
