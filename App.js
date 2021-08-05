@@ -2,11 +2,14 @@ import React from 'react';
 import './firebase/index';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'react-native-elements';
+import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
-import Login from './screens/Login';
+import UserLogin from './screens/UserLogin';
+// import BusinessLogin from './screens/BusinessLogin';
+import BusinessFirstLogin from './screens/BusinessFirstLogin';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
 import Credits from './screens/Credits';
@@ -18,10 +21,11 @@ import Payments from './screens/Payments';
 import useCurrentUser from './hooks/useCurrenUser';
 import Navbar from './components/Navbar';
 import { useFonts } from 'expo-font';
-import { Text } from 'react-native';
 import NavigationDrawer from './components/NavigationDrawer';
+import LogoScreen from './screens/LogoScreen';
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   const user = useCurrentUser();
@@ -33,13 +37,28 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <Text>Loading</Text>;
+    return <LogoScreen />;
   }
 
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        {!user && <Login />}
+        {!user && (
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="UserLogin"
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="UserLogin" component={UserLogin} />
+              <Stack.Screen
+                name="BusinessLogin"
+                component={BusinessFirstLogin}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        )}
 
         {user && (
           <NavigationContainer>
