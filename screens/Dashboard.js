@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { Dimensions } from 'react-native';
 import { Image } from 'react-native-elements';
 import { ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
@@ -14,6 +13,7 @@ import { getCards } from '../services/cards';
 import { getAccounts } from '../services/accounts';
 import { CURRENCY_DICTIONARY } from '../hooks/useCurrency';
 import CurrencyText from '../components/CurrencyText';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 
 const Dashboard = () => {
   const [cards, setCards] = React.useState([]);
@@ -148,9 +148,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    paddingTop: Dimensions.get('window').height * (5 / 100),
-    paddingTop: 10,
-    paddingBottom: 25,
+    paddingTop: DEVICE_HEIGHT * (2 / 100),
+    paddingBottom: 30,
   },
   title: {
     fontSize: 20,
@@ -158,13 +157,13 @@ const styles = StyleSheet.create({
   },
   container: {
     height: 179,
-    width: Dimensions.get('window').width,
+    width: DEVICE_WIDTH,
     marginTop: 0,
     marginBottom: 5,
   },
   smallContainer: {
     height: 108,
-    width: Dimensions.get('window').width,
+    width: DEVICE_WIDTH,
     marginBottom: 10,
   },
   redBorder: {

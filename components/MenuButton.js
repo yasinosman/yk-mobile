@@ -7,7 +7,7 @@ import StyledText from './StyledText';
 
 /**
  *
- * @param {{title: string, startingIcon: React.FC, trailingIcon: Rect.FC, tag:  React.FC, onPress: Function}} param0
+ * @param {{title: string, startingIcon: React.FC, trailingIcon: React.FC, tag: React.FC, onPress: Function, containerStyles: any, iconContainerStyles: any, textContainerStyles:any, textStyles:any}} param0
  * @returns
  */
 const MenuButton = ({
@@ -23,23 +23,37 @@ const MenuButton = ({
   ),
   tag = null,
   onPress = () => null,
+  containerStyles = {},
+  iconContainerStyles = {},
+  textContainerStyles = {},
+  textStyles = {},
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      {startingIcon && <View style={styles.iconContainer}>{startingIcon}</View>}
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, containerStyles]}
+    >
+      {startingIcon && (
+        <View style={[styles.iconContainer, iconContainerStyles]}>
+          {startingIcon}
+        </View>
+      )}
       <View
         style={[
           styles.textContainer,
           !startingIcon && { width: CONTAINER_WIDTH * (88 / 100) },
+          textContainerStyles,
         ]}
       >
-        <StyledText>
+        <StyledText style={textStyles}>
           {title}
           {'  '}
           {tag}
         </StyledText>
       </View>
-      <View style={styles.iconContainer}>{trailingIcon}</View>
+      <View style={[styles.iconContainer, iconContainerStyles]}>
+        {trailingIcon}
+      </View>
     </TouchableOpacity>
   );
 };
@@ -60,14 +74,14 @@ const styles = StyleSheet.create({
     paddingLeft: DEVICE_WIDTH * (2 / 100),
   },
   iconContainer: {
-    width: CONTAINER_WIDTH * (10 / 100),
+    width: '10%',
     height: CONTAINER_HEIGHT,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
   },
   textContainer: {
-    width: CONTAINER_WIDTH * (78 / 100),
+    width: '78%',
     lineHeight: 45,
     height: CONTAINER_HEIGHT,
     justifyContent: 'center',

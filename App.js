@@ -19,6 +19,7 @@ import useCurrentUser from './hooks/useCurrenUser';
 import Navbar from './components/Navbar';
 import { useFonts } from 'expo-font';
 import { Text } from 'react-native';
+import NavigationDrawer from './components/NavigationDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +29,7 @@ export default function App() {
   const [fontsLoaded, error] = useFonts({
     Ubuntu: require('./assets/fonts/Ubuntu-Regular.ttf'),
     UbuntuBold: require('./assets/fonts/Ubuntu-Bold.ttf'),
+    UbuntuLight: require('./assets/fonts/Ubuntu-Light.ttf'),
   });
 
   if (!fontsLoaded) {
@@ -51,6 +53,7 @@ export default function App() {
                 },
                 headerTintColor: '#fff',
               }}
+              drawerContent={props => <NavigationDrawer {...props} />}
             >
               <Drawer.Screen
                 name="Anasayfa"
@@ -66,7 +69,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Accounts"
+                name="Hesaplarım"
                 component={Accounts}
                 options={{
                   header: props => (
@@ -79,7 +82,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Cards"
+                name="Kartlarım"
                 component={Cards}
                 options={{
                   header: props => (
@@ -92,7 +95,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Money Transfers"
+                name="Para Transferleri"
                 component={MoneyTransfers}
                 options={{
                   header: props => (
@@ -105,7 +108,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Investments"
+                name="Yatırımlar"
                 component={Investments}
                 options={{
                   header: props => (
@@ -118,7 +121,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Payments"
+                name="Ödemeler"
                 component={Payments}
                 options={{
                   header: props => (
@@ -131,7 +134,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Credits"
+                name="Krediler"
                 component={Credits}
                 options={{
                   header: props => (
@@ -144,7 +147,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Insurances"
+                name="Sigortalar"
                 component={Insurances}
                 options={{
                   header: props => (
@@ -157,7 +160,7 @@ export default function App() {
                 }}
               />
               <Drawer.Screen
-                name="Other Operations"
+                name="Diğer İşlemler"
                 component={OtherOperations}
                 options={{
                   header: props => (
