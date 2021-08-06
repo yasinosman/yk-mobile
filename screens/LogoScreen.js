@@ -3,6 +3,7 @@ import { Image, Input, Button, Avatar, Divider } from 'react-native-elements';
 import { StyleSheet, Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { DEVICE_HEIGHT } from '../common/dimensions';
 
 const LogoScreen = ({ navigation }) => {
   return (
@@ -40,6 +41,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: Dimensions.get('window').height,
+    flex: 1,
+    height: DEVICE_HEIGHT,
+    paddingTop: DEVICE_HEIGHT * (200 / 100),
+    paddingBottom: 30,
   },
 });

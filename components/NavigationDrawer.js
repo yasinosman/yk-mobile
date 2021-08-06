@@ -293,6 +293,10 @@ export default NavigationDrawer;
 const styles = StyleSheet.create({
   wrapper: {
     height: DEVICE_HEIGHT,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 0,
+    padding: 0,
   },
   profileContainer: {
     height: DEVICE_HEIGHT * (20 / 100),
@@ -326,7 +330,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: 'white',
   },
   menuButton: {
     backgroundColor: 'white',

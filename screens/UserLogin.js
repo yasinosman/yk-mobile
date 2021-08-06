@@ -120,7 +120,7 @@ const Login = ({ navigation }) => {
                     containerStyle={{
                       borderRadius: 10,
                     }}
-                    keyboardType="numeric"
+                    // keyboardType="numeric"
                     inputStyle={{ borderBottomWidth: 0 }}
                     maxLength={11}
                     underlineColorAndroid="transparent"
