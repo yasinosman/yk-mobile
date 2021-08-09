@@ -9,19 +9,19 @@ import StyledText from './StyledText';
 import { StatusBarHeight } from '../utils';
 import { logout } from '../services/authentication';
 
-const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
-
-React.useEffect(() => {
-  const lastRoute = props.state?.history[props.state?.history?.length - 1];
-  if (lastRoute && lastRoute.key) {
-    const currentRoute = props.state.routes.find(r => r.key == lastRoute.key);
-    if (currentRoute && currentRoute.name) {
-      setCurrentRoute(currentRoute.name);
-    }
-  }
-}, [props.state]);
-
 const NavigationDrawer = props => {
+  const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
+
+  React.useEffect(() => {
+    const lastRoute = props.state?.history[props.state?.history?.length - 1];
+    if (lastRoute && lastRoute.key) {
+      const currentRoute = props.state.routes.find(r => r.key == lastRoute.key);
+      if (currentRoute && currentRoute.name) {
+        setCurrentRoute(currentRoute.name);
+      }
+    }
+  }, [props.state]);
+
   const handleLogout = async () => {
     try {
       await logout();
