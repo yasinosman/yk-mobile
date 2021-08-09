@@ -1,12 +1,12 @@
-import { DrawerContentScrollView } from '@react-navigation/drawer';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Image, Avatar } from 'react-native-elements';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Image } from 'react-native-elements';
 import { BLUE } from '../common/colors';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import MenuButton from './MenuButton';
 import StyledText from './StyledText';
+import { StatusBarHeight } from '../utils';
 
 const NavigationDrawer = props => {
   const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
@@ -29,7 +29,13 @@ const NavigationDrawer = props => {
     }
   };
   return (
-    <DrawerContentScrollView showsVerticalScrollIndicator={false} {...props}>
+    <DrawerContentScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        marginTop: StatusBarHeight,
+      }}
+      {...props}
+    >
       <View style={styles.wrapper}>
         <View style={styles.profileContainer}>
           <Image
@@ -329,12 +335,17 @@ const NavigationDrawer = props => {
 
 export default NavigationDrawer;
 
+const NAVBAR_HEIGHT = DEVICE_HEIGHT - StatusBarHeight;
+
 const styles = StyleSheet.create({
   wrapper: {
-    height: DEVICE_HEIGHT,
+    marginTop: NAVBAR_HEIGHT * (5 / 100),
+    marginBottom: NAVBAR_HEIGHT * (6 / 100),
+    height: NAVBAR_HEIGHT * (85 / 100),
+    justifyContent: 'space-around',
   },
   profileContainer: {
-    height: DEVICE_HEIGHT * (20 / 100),
+    height: '15%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -342,14 +353,12 @@ const styles = StyleSheet.create({
   profilePicture: {
     width: DEVICE_HEIGHT * (12 / 100),
     height: DEVICE_HEIGHT * (12 / 100),
-    marginHorizontal: DEVICE_WIDTH * (2 / 100),
   },
   greetingContainer: {
     backgroundColor: 'white',
     width: '50%',
-    marginHorizontal: DEVICE_WIDTH * (2 / 100),
-    height: DEVICE_HEIGHT * (10 / 100),
-    paddingTop: DEVICE_HEIGHT * (2 / 100),
+    marginLeft: DEVICE_WIDTH * (5 / 100),
+    justifyContent: 'center',
   },
   greetingText: {
     fontSize: 18,
@@ -361,7 +370,7 @@ const styles = StyleSheet.create({
     color: BLUE,
   },
   buttonContainer: {
-    height: DEVICE_HEIGHT * (70 / 100),
+    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -369,24 +378,23 @@ const styles = StyleSheet.create({
   },
   menuButton: {
     backgroundColor: 'white',
-    height: DEVICE_HEIGHT * (7.5 / 100),
-    width: '100%',
-    //borderBottomWidth: 0.3,
+    height: '10%',
+    width: '95%',
     marginVertical: DEVICE_HEIGHT * (0.1 / 100),
     borderColor: 'transparent',
     borderLeftWidth: 5,
   },
   activeMenuButton: {
     borderColor: BLUE,
-    backgroundColor: 'rgb(240,240,250)',
+    backgroundColor: 'rgba(5,136,218, 0.1)',
   },
   exitContainer: {
     width: '100%',
-    height: DEVICE_HEIGHT * (10 / 100),
+    height: '10%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgb(245,247,250)',
+    // backgroundColor: 'rgb(245,247,250)',
   },
 
   settingsButton: {

@@ -23,6 +23,7 @@ import Navbar from './components/Navbar';
 import { useFonts } from 'expo-font';
 import NavigationDrawer from './components/NavigationDrawer';
 import LogoScreen from './screens/LogoScreen';
+import { DEVICE_HEIGHT } from './common/dimensions';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -71,6 +72,10 @@ export default function App() {
                   backgroundColor: BLUE,
                 },
                 headerTintColor: '#fff',
+              }}
+              drawerStyle={{
+                width: '84%',
+                height: DEVICE_HEIGHT,
               }}
               drawerContent={props => <NavigationDrawer {...props} />}
             >
