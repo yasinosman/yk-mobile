@@ -57,4 +57,4 @@ const StatusBarHeight = Platform.select({
   default: 0,
 });
 
-export { createStyleSheet, fetchData, StatusBarHeight };
+export { createStyleSheet, fetchData, StatusBarHeight, isIPhoneX };
