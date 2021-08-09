@@ -33,8 +33,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    // <ScrollView showsVerticalScrollIndicator={false}>
-    <React.Fragment>
+    <ScrollView showsVerticalScrollIndicator={false} scrollEnabled={false}>
       <View style={styles.wrapper}>
         {/* Hesaplarım */}
         <View style={[styles.container, { marginTop: 0 }]}>
