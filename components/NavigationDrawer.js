@@ -9,6 +9,25 @@ import MenuButton from './MenuButton';
 import StyledText from './StyledText';
 
 const NavigationDrawer = props => {
+  const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
+
+  React.useEffect(() => {
+    const lastRoute = props.state?.history[props.state?.history?.length - 1];
+    if (lastRoute && lastRoute.key) {
+      const currentRoute = props.state.routes.find(r => r.key == lastRoute.key);
+      if (currentRoute && currentRoute.name) {
+        setCurrentRoute(currentRoute.name);
+      }
+    }
+  }, [props.state]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      alert('Çıkış yapılırken bir hata oluştu.');
+    }
+  };
   return (
     <DrawerContentScrollView showsVerticalScrollIndicator={false} {...props}>
       <View style={styles.wrapper}>
@@ -39,7 +58,10 @@ const NavigationDrawer = props => {
             trailingIcon={null}
             title="Anasayfa"
             iconContainerStyles={styles.imageContainer}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Anasayfa' && styles.activeMenuButton,
+            ]}
             textStyles={styles.text}
             textContainerStyles={styles.textContainerStyles}
             onPress={() => {
@@ -59,7 +81,10 @@ const NavigationDrawer = props => {
             trailingIcon={null}
             title="Hesaplarım"
             iconContainerStyles={styles.imageContainer}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Hesaplarım' && styles.activeMenuButton,
+            ]}
             textStyles={styles.text}
             textContainerStyles={styles.textContainerStyles}
             onPress={() => {
@@ -81,7 +106,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Kartlarım' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Kartlarım');
             }}
@@ -101,7 +129,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Para Transferleri' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Para Transferleri');
             }}
@@ -121,7 +152,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Yatırımlar' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Yatırımlar');
             }}
@@ -141,7 +175,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Ödemeler' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Ödemeler');
             }}
@@ -158,7 +195,10 @@ const NavigationDrawer = props => {
             }
             trailingIcon={null}
             title="Krediler"
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Krediler' && styles.activeMenuButton,
+            ]}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
             iconContainerStyles={styles.imageContainer}
@@ -181,7 +221,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Sigortalar' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Sigortalar');
             }}
@@ -199,7 +242,11 @@ const NavigationDrawer = props => {
             trailingIcon={null}
             title="Diğer İşlemler"
             iconContainerStyles={styles.imageContainer}
-            containerStyles={[styles.menuButton, { borderBottomWidth: 0 }]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Diğer İşlemler' && styles.activeMenuButton,
+              { borderBottomWidth: 0 },
+            ]}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
             onPress={() => {
