@@ -137,8 +137,7 @@ const Dashboard = () => {
           </ScrollView>
         </View>
       </View>
-    </React.Fragment>
-    // </ScrollView>
+    </ScrollView>
   );
 };
 
