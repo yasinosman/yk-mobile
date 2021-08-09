@@ -29,6 +29,7 @@ const NavigationDrawer = props => {
       alert('Çıkış yapılırken bir hata oluştu.');
     }
   };
+
   return (
     <DrawerContentScrollView
       showsVerticalScrollIndicator={false}
