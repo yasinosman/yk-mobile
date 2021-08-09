@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
     paddingTop: DEVICE_HEIGHT * (1 / 100),
-    paddingBottom: 30,
+    paddingBottom: 100,
   },
   title: {
     fontSize: 20,

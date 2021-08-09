@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
     shadowColor: SHADOW_COLOR,
     //iOS
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 13.0,
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
     //Android
     elevation: 12,
   },

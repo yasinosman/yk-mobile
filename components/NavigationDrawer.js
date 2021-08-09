@@ -361,14 +361,14 @@ const styles = StyleSheet.create({
     color: BLUE,
   },
   buttonContainer: {
-    height: '65%',
+    height: '60%',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
   },
   menuButton: {
     backgroundColor: 'white',
-    height: '10%',
+    height: '10.5%',
     width: '95%',
     marginVertical: DEVICE_HEIGHT * (0.1 / 100),
     borderColor: 'transparent',
