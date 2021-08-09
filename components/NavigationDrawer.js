@@ -21,6 +21,9 @@ const NavigationDrawer = props => {
     }
   }, [props.state]);
 
+import { logout } from '../services/authentication';
+
+const NavigationDrawer = props => {
   const handleLogout = async () => {
     try {
       await logout();
@@ -295,7 +298,7 @@ const NavigationDrawer = props => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.exitButton}>
+          <TouchableOpacity style={styles.exitButton} onPress={handleLogout}>
             <View
               style={{
                 width: '20%',
@@ -374,7 +377,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: 'white',
   },
   menuButton: {
     backgroundColor: 'white',

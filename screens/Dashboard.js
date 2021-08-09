@@ -137,7 +137,8 @@ const Dashboard = () => {
           </ScrollView>
         </View>
       </View>
-    </ScrollView>
+    </React.Fragment>
+    // </ScrollView>
   );
 };
 
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    paddingTop: DEVICE_HEIGHT * (2 / 100),
+    paddingTop: DEVICE_HEIGHT * (1 / 100),
     paddingBottom: 30,
   },
   title: {

@@ -1,21 +1,16 @@
 import React from 'react';
-import { Image, Input, Button, Avatar, Divider } from 'react-native-elements';
+import { Image, Input, Button, Divider } from 'react-native-elements';
 import {
   KeyboardAvoidingView,
   Platform,
   Dimensions,
-  ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import stories from '../mock/stories.json';
-import InfoCard from '../components/InfoCard';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Keyboard } from 'react-native';
-import { BLUE } from '../common/colors';
 import { Language } from '../components/Language';
-import { Profile } from '../components/Profile';
 import { Switch } from 'react-native';
 import { Formik, useFormik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -140,7 +135,7 @@ const Login = () => {
                 </View>
               </View>
               <View style={styles.viewRememberMe}>
-                <Text style={styles.textRememberMe}>Beni Hatırla</Text>
+                <Text style={styles.textRememberMe}>Beni Hatırla!</Text>
                 <Switch
                   style={styles.switchRememberMe}
                   ios_backgroundColor="#65CCFF"
@@ -193,7 +188,8 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 15,
     width: Dimensions.get('window').width * (90 / 100),
-    height: Dimensions.get('window').height * (1 / 10),
+    height: 40,
+    borderRadius: 22,
   },
   switchRememberMe: {
     marginLeft: Dimensions.get('window').height * (1 / 100),
