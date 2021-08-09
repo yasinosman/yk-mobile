@@ -26,7 +26,6 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -34,28 +33,29 @@ const Login = ({ navigation }) => {
       }}
     >
       <LinearGradient
-        style={[styles.container, styles.background]}
+        style={styles.container}
         colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
       >
         <View style={styles.languageAndLogo}>
-          <TouchableOpacity
-            style={styles.languageButton}
-            onPress={buttonClickedHandler}
-          >
-            <Text style={styles.languageText}>TR</Text>
-          </TouchableOpacity>
-          <Image
-            source={require('../assets/img/yk-logo-3.png')}
-            style={{
-              width: 200,
-              height: 50,
-              marginTop: 70,
-              marginBottom: 50,
-              marginRight: 80,
-            }}
-          ></Image>
+          <View style={styles.languageView}>
+            <TouchableOpacity
+              style={styles.languageButton}
+              onPress={buttonClickedHandler}
+            >
+              <Text style={styles.languageText}>TR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.logoView}>
+            <Image
+              source={require('../assets/img/yk-logo-3.png')}
+              style={{
+                width: 150,
+                height: 50,
+              }}
+            ></Image>
+            <Text style={styles.kurumsalText}>| kurumsal</Text>
+          </View>
         </View>
-
         <Formik
           initialValues={{ tckimlik: '', sifre: '' }}
           onSubmit={values => {
@@ -72,7 +72,6 @@ const Login = ({ navigation }) => {
                 alert(
                   'Lütfen giriş bilgilerinizi kontrol edip tekrar deneyin.'
                 );
-
                 setLoading(false);
               });
           }}
@@ -88,37 +87,39 @@ const Login = ({ navigation }) => {
             values,
             isValid,
           }) => (
-            <View>
+            <View style={styles.loginWithoutButton}>
               <View style={styles.loginFrame}>
-                {/* Welcome text */}
-                <View style={styles.userBusinessView}>
+                <View style={styles.userAndBusinessView}>
                   <View style={styles.userView}>
-                    <Image
-                      style={styles.userImage}
-                      source={require('../assets/user-32px.png')}
-                    ></Image>
-                    <Text style={styles.userText}>Bireysel</Text>
-                  </View>
-                  <View style={styles.businessView}>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate('BusinessLogin')}
+                      style={styles.businessButton}
+                      onPress={() => navigation.navigate('UserLogin')}
                     >
                       <Image
-                        style={styles.businessImage}
-                        source={require('../assets/buniness-32px.png')}
+                        style={styles.userImage}
+                        source={require('../assets/user-32px.png')}
                       ></Image>
-                      <Text style={styles.businessText}>Kurumsal</Text>
+                      <Text style={styles.userText}>Bireysel</Text>
                     </TouchableOpacity>
                   </View>
+                  <View style={styles.businessView}>
+                    <Image
+                      style={styles.businessImage}
+                      source={require('../assets/business-32px.png')}
+                    ></Image>
+                    <Text style={styles.businessText}>Kurumsal</Text>
+                  </View>
                 </View>
-                {/* Input fields */}
+                {/* Input Containers */}
                 <Image source={require('../assets/user-32px.png')}></Image>
                 <View style={styles.inputContainer}>
                   <Input
-                    placeholder="T.C. Kimlik No veya Kullanıcı Kodu"
+                    placeholder="Firma Kodu"
                     type="number"
                     containerStyle={{
                       borderRadius: 10,
+                      flex: 0.8,
+                      alignItems: 'stretch',
                     }}
                     // keyboardType="numeric"
                     inputStyle={{ borderBottomWidth: 0 }}
@@ -127,7 +128,10 @@ const Login = ({ navigation }) => {
                     onChangeText={handleChange('tckimlik')}
                     onBlur={handleBlur('tckimlik')}
                     value={values.tckimlik}
-                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      justifyContent: 'center',
+                    }}
                     disabled={loading}
                   />
                   {errors.tckimlik && touched.tckimlik && (
@@ -141,12 +145,12 @@ const Login = ({ navigation }) => {
                     insetType="middle"
                   />
                   <Input
-                    placeholder="Şifre"
+                    placeholder="Kullanıcı Kodu"
                     type="password"
                     secureTextEntry
                     containerStyle={{
                       borderRadius: 10,
-                      justifyContent: 'center',
+                      flex: 0.8,
                     }}
                     inputStyle={{
                       borderBottomWidth: 0,
@@ -160,6 +164,7 @@ const Login = ({ navigation }) => {
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                       justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                     disabled={loading}
                   />
@@ -168,25 +173,48 @@ const Login = ({ navigation }) => {
                       {errors.sifre}
                     </Text>
                   )}
+                  <Divider
+                    orientation="horizontal"
+                    subHeaderStyle={{ color: 'black' }}
+                    insetType="middle"
+                  />
+                  <Input
+                    placeholder="Şifre"
+                    type="password"
+                    containerStyle={{
+                      borderRadius: 10,
+                      flex: 0.8,
+                    }}
+                    inputStyle={{ borderBottomWidth: 0 }}
+                    maxLength={11}
+                    underlineColorAndroid="transparent"
+                    onChangeText={handleChange('sifre')}
+                    value={values.tckimlik}
+                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    secureTextEntry
+                    keyboardType="numeric"
+                  />
                 </View>
               </View>
-              <View style={styles.viewRememberMe}>
-                <Text style={styles.textRememberMe}>Beni Hatırla</Text>
-                <Switch
-                  ios_backgroundColor="rgb(80,180,255)"
-                  trackColor={{
-                    false: 'rgb(50,250,255)',
-                    true: 'rgb(101,214,255)',
-                  }}
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                  style={styles.switchRememberMe}
-                />
+              <View>
+                <View style={styles.viewRememberMe}>
+                  <Text style={styles.textRememberMe}>Beni Hatırla</Text>
+                  <Switch
+                    ios_backgroundColor="rgb(80,180,255)"
+                    trackColor={{
+                      false: 'rgb(50,250,255)',
+                      true: 'rgb(101,214,255)',
+                    }}
+                    onValueChange={toggleSwitch}
+                    value={isEnabled}
+                    style={styles.switchRememberMe}
+                  />
+                </View>
               </View>
               <Button
                 onPress={handleSubmit}
                 title={loading ? 'Lütfen Bekleyin' : 'Giriş'}
-                containerStyle={styles.button}
+                containerStyle={styles.submitButton}
                 buttonStyle={{
                   borderRadius: 22,
                   backgroundColor: 'rgb(0,114,188)',
@@ -196,7 +224,6 @@ const Login = ({ navigation }) => {
             </View>
           )}
         </Formik>
-
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
       </LinearGradient>
     </TouchableWithoutFeedback>
@@ -207,137 +234,139 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: BLUE,
-    paddingTop: DEVICE_HEIGHT * (2 / 100),
-    paddingBottom: 30,
     flex: 1,
+    alignItems: 'center',
   },
   languageAndLogo: {
-    width: '100%',
+    flex: 0.75,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: 160,
   },
-  languageStyle: {
-    marginLeft: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
+  languageView: {
+    flex: 1,
+    marginTop: DEVICE_HEIGHT * (1 / 20),
+    marginLeft: DEVICE_WIDTH * (1 / 20),
+  },
+  languageButton: {
+    borderWidth: 2,
+    borderRadius: 100,
+    width: 25,
+    height: 25,
     alignItems: 'center',
-    marginBottom: 40,
+    justifyContent: 'center',
+    borderColor: 'white',
+    marginTop: 14,
+  },
+  languageText: {
+    fontSize: 13,
+    color: 'white',
+  },
+  logoView: {
+    flex: 5.5,
+    flexDirection: 'row',
+    marginTop: DEVICE_HEIGHT * (1 / 17),
   },
   loginFrame: {
     borderRadius: 10,
     backgroundColor: '#4CBEF9',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
+    width: '85%',
   },
-
-  userBusinessView: {
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  button: {
-    marginTop: 15,
-    width: DEVICE_WIDTH * (90 / 100),
-    height: 40,
-    borderRadius: 22,
-  },
-  switchRememberMe: {
-    marginLeft: 5,
-  },
-  viewRememberMe: {
-    marginTop: 10,
-    flexDirection: 'row',
+  loginWithoutButton: {
+    flex: 1.4,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: '95%',
+    width: '100%',
   },
-  textRememberMe: {
-    color: 'white',
-  },
-
-  inputContainer: {
-    width: DEVICE_WIDTH * (90 / 100),
-    borderWidth: 1,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    borderColor: 'rgb(76, 190, 249)',
-    backgroundColor: 'white',
-  },
-  paragraph: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-
-  userImage: {
-    width: 30,
-    height: 30,
-  },
-  businessImage: {
-    width: 30,
-    height: 30,
-    marginLeft: 25,
+  userAndBusinessView: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flex: 1.3,
   },
   userView: {
-    marginRight: 50,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  userText: {
-    color: 'white',
-    marginTop: 5,
-    fontSize: 20,
-    textDecorationLine: 'underline',
+  userImage: {
+    width: 30,
+    height: 30,
+    opacity: 0.5,
   },
-  businessText: {
+  userText: {
     color: 'white',
     marginTop: 5,
     fontSize: 20,
     opacity: 0.5,
   },
   businessView: {
-    marginLeft: 50,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  businessImage: {
+    width: 30,
+    height: 30,
+  },
+  businessText: {
+    color: 'white',
+    marginTop: 5,
+    fontSize: 20,
+
+    textDecorationLine: 'underline',
+  },
+  businessButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  inputContainer: {
+    flex: 1.3,
+    borderWidth: 1,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderColor: 'rgb(76, 190, 249)',
+    backgroundColor: 'white',
+    width: '100%',
+  },
+  tckimlikErrorStyle: {
+    flex: 1,
+    fontSize: 14,
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  switchRememberMe: {
+    marginLeft: 10,
+  },
+  viewRememberMe: {
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: '85%',
+  },
+  textRememberMe: {
+    color: 'white',
+    opacity: 0.9,
   },
   forgotPassword: {
     marginTop: 30,
     color: 'white',
-    width: '95%',
+    width: '85%',
     textAlign: 'right',
-    flex: 6,
+    flex: 1,
+    opacity: 0.9,
   },
-  background: {
-    height: DEVICE_HEIGHT,
+  submitButton: {
+    marginTop: 15,
+    width: DEVICE_WIDTH * (85 / 100),
+    height: 40,
+    borderRadius: 22,
   },
-  tckimlikErrorStyle: {
-    fontSize: 14,
-    color: 'red',
-    fontWeight: 'bold',
-    marginBottom: 5,
-    textAlign: 'center',
-  },
-  languageButton: {
-    borderRadius: 10,
-    width: 35,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'white',
-    borderWidth: 2,
-    borderRadius: 100,
-    marginBottom: 35,
-  },
-  languageText: {
-    fontSize: 14,
+  kurumsalText: {
     color: 'white',
+    fontSize: 17,
+    marginTop: 12,
   },
 });

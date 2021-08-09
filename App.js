@@ -8,8 +8,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
 import UserLogin from './screens/UserLogin';
+import UserLoginFlex from './screens/UserLoginFlex';
 // import BusinessLogin from './screens/BusinessLogin';
 import BusinessFirstLogin from './screens/BusinessFirstLogin';
+import BusinessLoginFlex from './screens/BusinessLoginFlex';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
 import Credits from './screens/Credits';
@@ -51,10 +53,13 @@ export default function App() {
                 headerShown: false,
               }}
             >
-              <Stack.Screen name="UserLogin" component={UserLogin} />
+              <Stack.Screen name="UserLogin" component={UserLoginFlex} />
               <Stack.Screen
                 name="BusinessLogin"
-                component={BusinessFirstLogin}
+                component={BusinessLoginFlex}
+                options={{
+                  animationEnabled: false,
+                }}
               />
             </Stack.Navigator>
           </NavigationContainer>
