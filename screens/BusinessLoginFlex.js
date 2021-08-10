@@ -93,7 +93,7 @@ const Login = ({ navigation }) => {
                   <View style={styles.userView}>
                     <TouchableOpacity
                       style={styles.businessButton}
-                      onPress={() => navigation.navigate('UserLogin')}
+                      onPress={() => navigation.navigate('UserLoginFlex')}
                     >
                       <Image
                         style={styles.userImage}
@@ -225,6 +225,83 @@ const Login = ({ navigation }) => {
           )}
         </Formik>
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
+        <View
+          style={{
+            width: '92%',
+            flex: 0.0000001,
+            borderBottomColor: 'white',
+            borderBottomWidth: 1,
+            marginBottom: 15,
+            opacity: 0.5,
+          }}
+        ></View>
+        <View style={styles.navigationBar}>
+          <Divider
+            orientation="horizontal"
+            subHeaderStyle={{ color: 'black' }}
+            insetType="middle"
+          />
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('PİYASALAR')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>PİYASALAR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('ATM/ŞUBE')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>ATM/ŞUBE</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('İLETİŞİM')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>İLETİŞİM</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('ARAÇLAR')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>ARAÇLAR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('DAHA FAZLASI')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>DAHA FAZLASI</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
@@ -238,7 +315,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   languageAndLogo: {
-    flex: 0.75,
+    flex: 1.3,
     flexDirection: 'row',
   },
   languageView: {
@@ -274,7 +351,7 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   loginWithoutButton: {
-    flex: 1.4,
+    flex: 2.1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -322,7 +399,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    flex: 1.3,
+    flex: 1.4,
     borderWidth: 1,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -368,5 +445,27 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 17,
     marginTop: 12,
+  },
+  navigationBar: {
+    flex: 0.2,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 32,
+  },
+  piyasalarImage: {
+    width: 20,
+    height: 20,
+  },
+  piyasalarView: {
+    flex: 1,
+  },
+  piyasalarButton: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  navBarText: {
+    fontSize: 9,
+    marginTop: 5,
+    color: 'white',
   },
 });

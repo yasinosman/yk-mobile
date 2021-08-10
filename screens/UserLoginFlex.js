@@ -13,6 +13,8 @@ import { useState } from 'react';
 import { object, string } from 'yup';
 import { login } from '../services/authentication';
 
+import Piyasalar from './Piyasalar';
+
 const buttonClickedHandler = () => {
   console.log('Changed language');
 };
@@ -99,7 +101,7 @@ const Login = ({ navigation }) => {
                   <View style={styles.businessView}>
                     <TouchableOpacity
                       style={styles.businessButton}
-                      onPress={() => navigation.navigate('BusinessLogin')}
+                      onPress={() => navigation.navigate('BusinessLoginFlex')}
                     >
                       <Image
                         style={styles.businessImage}
@@ -202,7 +204,80 @@ const Login = ({ navigation }) => {
             </View>
           )}
         </Formik>
+
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
+        <View
+          style={{
+            width: '92%',
+            flex: 0.0000001,
+            borderBottomColor: 'white',
+            borderBottomWidth: 1,
+            marginBottom: 15,
+            opacity: 0.5,
+          }}
+        ></View>
+        <View style={styles.navigationBar}>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('PİYASALAR')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>PİYASALAR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('ATM/ŞUBE')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>ATM/ŞUBE</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('ŞİFRE İŞLEMLER')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>ŞİFRE İŞLEMLER</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('KAMPANYALAR')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>KAMPANYALAR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('DAHA FAZLASI')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>DAHA FAZLASI</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
@@ -215,8 +290,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+
   languageAndLogo: {
-    flex: 0.75,
+    flex: 1.2,
     flexDirection: 'row',
   },
   languageView: {
@@ -251,7 +327,7 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   loginWithoutButton: {
-    flex: 1.1,
+    flex: 1.7,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -297,7 +373,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    flex: 1,
+    flex: 0.9,
     borderWidth: 1,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -336,5 +412,27 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH * (85 / 100),
     height: 40,
     borderRadius: 22,
+  },
+  navigationBar: {
+    flex: 0.2,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 28,
+  },
+  piyasalarImage: {
+    width: 20,
+    height: 20,
+  },
+  piyasalarView: {
+    flex: 1,
+  },
+  piyasalarButton: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  navBarText: {
+    fontSize: 9,
+    marginTop: 5,
+    color: 'white',
   },
 });

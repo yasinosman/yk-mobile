@@ -5,12 +5,10 @@ import { ThemeProvider } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
-import UserLogin from './screens/UserLogin';
 import UserLoginFlex from './screens/UserLoginFlex';
-// import BusinessLogin from './screens/BusinessLogin';
-import BusinessFirstLogin from './screens/BusinessFirstLogin';
 import BusinessLoginFlex from './screens/BusinessLoginFlex';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
@@ -25,6 +23,14 @@ import Navbar from './components/Navbar';
 import { useFonts } from 'expo-font';
 import NavigationDrawer from './components/NavigationDrawer';
 import LogoScreen from './screens/LogoScreen';
+import Piyasalar from './screens/Piyasalar';
+import LoginHome from './screens/LoginHome';
+import ATM from './screens/ATM';
+import SifreM from './screens/SifreM';
+import Kampanyalar from './screens/Kampanyalar';
+import DahaF from './screens/DahaF';
+import İletisim from './screens/İletisim';
+import Araclar from './screens/Araclar';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -48,15 +54,64 @@ export default function App() {
         {!user && (
           <NavigationContainer>
             <Stack.Navigator
-              initialRouteName="UserLogin"
+              initialRouteName="UserLoginFlex"
               screenOptions={{
                 headerShown: false,
               }}
             >
-              <Stack.Screen name="UserLogin" component={UserLoginFlex} />
+              <Stack.Screen name="UserLoginFlex" component={UserLoginFlex} />
               <Stack.Screen
-                name="BusinessLogin"
+                name="BusinessLoginFlex"
                 component={BusinessLoginFlex}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="PİYASALAR"
+                component={Piyasalar}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="ATM/ŞUBE"
+                component={ATM}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="ŞİFRE İŞLEMLER"
+                component={SifreM}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="KAMPANYALAR"
+                component={Kampanyalar}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="DAHA FAZLASI"
+                component={DahaF}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="İLETİŞİM"
+                component={İletisim}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="ARAÇLAR"
+                component={Araclar}
                 options={{
                   animationEnabled: false,
                 }}
