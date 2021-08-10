@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Image } from 'react-native-elements';
+import { View } from 'react-native';
+import { Image, makeStyles } from 'react-native-elements';
 import { ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
 import CardView from '../components/CardView';
@@ -14,8 +14,11 @@ import { getAccounts } from '../services/accounts';
 import { CURRENCY_DICTIONARY } from '../hooks/useCurrency';
 import CurrencyText from '../components/CurrencyText';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
+import { useTheme } from '../context/Theme';
+import { StyleSheet } from 'react-native';
 
-const Dashboard = () => {
+const Dashboard = props => {
+  const { theme } = useTheme();
   const [cards, setCards] = React.useState([]);
   const [accounts, setAccounts] = React.useState([]);
 
@@ -31,6 +34,43 @@ const Dashboard = () => {
 
     fetchAllData();
   }, []);
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      flex: 1,
+      alignItems: 'center',
+      paddingTop: DEVICE_HEIGHT * (1 / 100),
+      paddingBottom: 100,
+      backgroundColor: theme.colors.bg,
+    },
+    title: {
+      fontSize: 20,
+      paddingHorizontal: 20,
+      color: 'blue',
+    },
+    container: {
+      height: 179,
+      width: DEVICE_WIDTH,
+      marginTop: 0,
+      marginBottom: 5,
+    },
+    smallContainer: {
+      height: 108,
+      width: DEVICE_WIDTH,
+      marginBottom: 10,
+    },
+    redBorder: {
+      borderColor: RED,
+    },
+    orangeBorder: {
+      borderColor: ORANGE,
+    },
+    currencyText: {
+      textAlign: 'center',
+      fontSize: 19,
+      fontFamily: 'UbuntuBold',
+    },
+  });
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} scrollEnabled={false}>
@@ -142,35 +182,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    paddingTop: DEVICE_HEIGHT * (1 / 100),
-    paddingBottom: 100,
-  },
-  title: {
-    fontSize: 20,
-    paddingHorizontal: 20,
-  },
-  container: {
-    height: 179,
-    width: DEVICE_WIDTH,
-    marginTop: 0,
-    marginBottom: 5,
-  },
-  smallContainer: {
-    height: 108,
-    width: DEVICE_WIDTH,
-    marginBottom: 10,
-  },
-  redBorder: {
-    borderColor: RED,
-  },
-  orangeBorder: {
-    borderColor: ORANGE,
-  },
-  currencyText: { textAlign: 'center', fontSize: 19, fontFamily: 'UbuntuBold' },
-});

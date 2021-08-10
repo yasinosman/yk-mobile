@@ -4,6 +4,7 @@ import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { Divider } from 'react-native-elements';
 import MenuTitle from './MenuTitle';
 import MenuButton from './MenuButton';
+import { useTheme } from '../context/Theme';
 
 /**
  *
@@ -11,6 +12,27 @@ import MenuButton from './MenuButton';
  * @returns
  */
 const MenuContainer = ({ title, buttons }) => {
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: DEVICE_WIDTH * (95 / 100),
+      marginHorizontal: DEVICE_WIDTH * (2 / 100),
+      marginVertical: DEVICE_HEIGHT * (1 / 100),
+      backgroundColor: theme.colors.bg,
+      //Shadows
+      //iOS
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.2,
+      //Android
+      elevation: 1,
+      borderRadius: 10,
+    },
+    title: {
+      marginTop: 10,
+    },
+  });
+
   return (
     <React.Fragment>
       <MenuTitle text={title} textStyles={styles.title} />
@@ -38,22 +60,3 @@ const MenuContainer = ({ title, buttons }) => {
 };
 
 export default MenuContainer;
-
-const styles = StyleSheet.create({
-  container: {
-    width: DEVICE_WIDTH * (95 / 100),
-    marginHorizontal: DEVICE_WIDTH * (2 / 100),
-    marginVertical: DEVICE_HEIGHT * (1 / 100),
-    backgroundColor: '#FFFFFF',
-    //Shadows
-    //iOS
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    //Android
-    elevation: 3,
-    borderRadius: 10,
-  },
-  title: {
-    marginTop: 10,
-  },
-});

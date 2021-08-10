@@ -1,7 +1,7 @@
 import React from 'react';
 import './firebase/index';
+import ThemeProvider from './context/Theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ThemeProvider } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';

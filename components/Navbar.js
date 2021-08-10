@@ -5,6 +5,7 @@ import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { ICON_BLUE } from '../common/colors';
 import StyledText from './StyledText';
 import { logout } from '../services/authentication';
+import { useTheme } from '../context/Theme';
 
 const NavbarMenuButton = props => {
   return (
@@ -28,6 +29,66 @@ const Navbar = props => {
     }
   };
 
+  const { theme, toggleTheme } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      height: DEVICE_HEIGHT * (12 / 100),
+      width: DEVICE_WIDTH,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.colors.card,
+      paddingTop: 30,
+      borderBottomWidth: 1,
+      borderBottomColor: 'rgb(216,224,237)',
+    },
+    contentContainer: {
+      width: DEVICE_WIDTH * (65 / 100),
+      height: DEVICE_HEIGHT * (10 / 100),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    menuButtonContainer: {
+      width: (DEVICE_WIDTH * 10) / 100,
+      marginLeft: (DEVICE_WIDTH * 4) / 100,
+    },
+    searchBarContainer: {
+      width: DEVICE_WIDTH * (65 / 100),
+      height: DEVICE_HEIGHT * (5 / 100),
+      borderRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 0,
+    },
+    searchBarInputContainer: {
+      width: DEVICE_WIDTH * (65 / 100),
+      height: DEVICE_HEIGHT * (5 / 100),
+      backgroundColor: theme.colors.bg,
+      borderRadius: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    searchBarInput: {
+      width: DEVICE_WIDTH * (65 / 100),
+      height: DEVICE_HEIGHT * (5 / 100),
+      backgroundColor: theme.colors.bg,
+      borderRadius: 16,
+      fontSize: 13,
+      textAlign: 'center',
+    },
+    iconContainer: {
+      width: DEVICE_WIDTH * (20 / 100),
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: 17,
+      color: theme.colors.text,
+    },
+  });
+
   return (
     <View {...props} style={styles.container}>
       <View style={styles.menuButtonContainer}>
@@ -43,16 +104,16 @@ const Navbar = props => {
           />
         )}
         {props.route.name !== 'Anasayfa' && (
-          <StyledText style={{ fontSize: 17 }}>{props.route.name}</StyledText>
+          <StyledText style={styles.title}>{props.route.name}</StyledText>
         )}
       </View>
       <View style={styles.iconContainer}>
         {props.route.name === 'Anasayfa' && (
           <React.Fragment>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={toggleTheme}>
               <Icon
                 containerStyle={{ marginHorizontal: DEVICE_WIDTH * (2 / 100) }}
-                name="envelope"
+                name="adjust"
                 type="font-awesome"
                 size={DEVICE_WIDTH * (6 / 100)}
                 color={ICON_BLUE}
@@ -78,58 +139,3 @@ const Navbar = props => {
 };
 
 export default Navbar;
-
-const styles = StyleSheet.create({
-  container: {
-    height: DEVICE_HEIGHT * (12 / 100),
-    width: DEVICE_WIDTH,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    paddingTop: 30,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgb(216,224,237)',
-  },
-  contentContainer: {
-    width: DEVICE_WIDTH * (65 / 100),
-    height: DEVICE_HEIGHT * (10 / 100),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  menuButtonContainer: {
-    width: (DEVICE_WIDTH * 10) / 100,
-    marginLeft: (DEVICE_WIDTH * 4) / 100,
-  },
-  searchBarContainer: {
-    width: DEVICE_WIDTH * (65 / 100),
-    height: DEVICE_HEIGHT * (5 / 100),
-    backgroundColor: 'rgb(245,247,250)',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 0,
-  },
-  searchBarInputContainer: {
-    width: DEVICE_WIDTH * (65 / 100),
-    height: DEVICE_HEIGHT * (5 / 100),
-    backgroundColor: 'rgb(245,247,250)',
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  searchBarInput: {
-    width: DEVICE_WIDTH * (65 / 100),
-    height: DEVICE_HEIGHT * (5 / 100),
-    backgroundColor: 'rgb(245,247,250)',
-    borderRadius: 16,
-    fontSize: 13,
-    textAlign: 'center',
-  },
-  iconContainer: {
-    width: DEVICE_WIDTH * (20 / 100),
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

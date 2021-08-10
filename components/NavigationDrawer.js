@@ -8,6 +8,7 @@ import MenuButton from './MenuButton';
 import StyledText from './StyledText';
 import { isIPhoneX, StatusBarHeight } from '../utils';
 import { logout } from '../services/authentication';
+import { useTheme } from '../context/Theme';
 
 const NavigationDrawer = props => {
   const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
@@ -29,6 +30,110 @@ const NavigationDrawer = props => {
       alert('Çıkış yapılırken bir hata oluştu.');
     }
   };
+
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      marginTop: isIPhoneX() ? 10 : StatusBarHeight,
+      height: DEVICE_HEIGHT,
+      justifyContent: 'space-around',
+      backgroundColor: theme.colors.bg,
+      borderRightColor: theme.colors.text,
+      borderRightWidth: 0.2,
+    },
+    profileContainer: {
+      height: '15%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    profilePicture: {
+      width: DEVICE_HEIGHT * (12 / 100),
+      height: DEVICE_HEIGHT * (12 / 100),
+    },
+    greetingContainer: {
+      backgroundColor: theme.colors.bg,
+      width: '50%',
+      marginLeft: DEVICE_WIDTH * (5 / 100),
+      justifyContent: 'center',
+    },
+    greetingText: {
+      fontSize: 18,
+      fontFamily: 'UbuntuLight',
+      color: 'rgb(126,145,172)',
+    },
+    higlightedText: {
+      fontSize: 20,
+      color: BLUE,
+    },
+    buttonContainer: {
+      height: '60%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+    },
+    menuButton: {
+      backgroundColor: theme.colors.card,
+      height: '10.5%',
+      width: '95%',
+      marginVertical: DEVICE_HEIGHT * (0.1 / 100),
+      borderColor: 'transparent',
+      borderLeftWidth: 5,
+    },
+    activeMenuButton: {
+      borderColor: BLUE,
+      backgroundColor: theme.colors.highlight,
+    },
+    exitContainer: {
+      width: '100%',
+      height: '10%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      // backgroundColor: 'rgb(245,247,250)',
+    },
+
+    settingsButton: {
+      width: '47%',
+      height: '80%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: '1.5%',
+      padding: 0,
+    },
+    settingsText: {
+      fontSize: 21,
+      color: BLUE,
+      fontFamily: 'UbuntuLight',
+    },
+    exitButton: {
+      width: '47%',
+      height: '80%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: '1.5%',
+      padding: 0,
+    },
+    exitText: {
+      fontSize: 21,
+      color: 'rgb(255,87,56)',
+      fontFamily: 'UbuntuLight',
+    },
+    imageContainer: {
+      width: '20%',
+      height: '100%',
+    },
+    image: { width: 40, height: 40 },
+    textContainerStyles: {
+      width: '62%',
+    },
+    text: {
+      fontSize: 20,
+    },
+  });
 
   return (
     <View {...props} style={styles.wrapper}>
@@ -328,102 +433,3 @@ const NavigationDrawer = props => {
 };
 
 export default NavigationDrawer;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    marginTop: isIPhoneX() ? 10 : StatusBarHeight,
-    height: DEVICE_HEIGHT,
-    justifyContent: 'space-around',
-  },
-  profileContainer: {
-    height: '15%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profilePicture: {
-    width: DEVICE_HEIGHT * (12 / 100),
-    height: DEVICE_HEIGHT * (12 / 100),
-  },
-  greetingContainer: {
-    backgroundColor: 'white',
-    width: '50%',
-    marginLeft: DEVICE_WIDTH * (5 / 100),
-    justifyContent: 'center',
-  },
-  greetingText: {
-    fontSize: 18,
-    fontFamily: 'UbuntuLight',
-    color: 'rgb(126,145,172)',
-  },
-  higlightedText: {
-    fontSize: 20,
-    color: BLUE,
-  },
-  buttonContainer: {
-    height: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-  menuButton: {
-    backgroundColor: 'white',
-    height: '10.5%',
-    width: '95%',
-    marginVertical: DEVICE_HEIGHT * (0.1 / 100),
-    borderColor: 'transparent',
-    borderLeftWidth: 5,
-  },
-  activeMenuButton: {
-    borderColor: BLUE,
-    backgroundColor: 'rgba(5,136,218, 0.1)',
-  },
-  exitContainer: {
-    width: '100%',
-    height: '10%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'rgb(245,247,250)',
-  },
-
-  settingsButton: {
-    width: '47%',
-    height: '80%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: '1.5%',
-    padding: 0,
-  },
-  settingsText: {
-    fontSize: 21,
-    color: BLUE,
-    fontFamily: 'UbuntuLight',
-  },
-  exitButton: {
-    width: '47%',
-    height: '80%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: '1.5%',
-    padding: 0,
-  },
-  exitText: {
-    fontSize: 21,
-    color: 'rgb(255,87,56)',
-    fontFamily: 'UbuntuLight',
-  },
-  imageContainer: {
-    width: '20%',
-    height: '100%',
-  },
-  image: { width: 40, height: 40 },
-  textContainerStyles: {
-    width: '62%',
-  },
-  text: {
-    fontSize: 20,
-  },
-});
