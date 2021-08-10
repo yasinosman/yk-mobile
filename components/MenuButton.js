@@ -41,7 +41,7 @@ const MenuButton = ({
       justifyContent: 'center',
       alignItems: 'center',
       height: CONTAINER_HEIGHT,
-      borderRadius: 10,
+      borderRadius: 5,
       paddingLeft: DEVICE_WIDTH * (2 / 100),
       backgroundColor: theme.colors.card,
     },

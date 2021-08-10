@@ -43,7 +43,7 @@ const SmallCardView = ({
     smallCardTitle: {
       height: 30,
       lineHeight: 30,
-      backgroundColor: theme.colors.card,
+      backgroundColor: theme.colors.smallCTitle,
       justifyContent: 'center',
       alignItems: 'center',
       borderBottomEndRadius: 10,

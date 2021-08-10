@@ -7,6 +7,8 @@ const themes = {
     colors: {
       bg: 'white',
       card: 'white',
+      smallCTitle: 'rgb(245,247,250)',
+      seperator: 'rgb(216,224,237)',
       text: 'black',
       secondaryText: 'black',
       blue: 'rgb(5,136,218)',
@@ -22,6 +24,8 @@ const themes = {
       bg: 'black',
       card: 'rgb(40,40,41)',
       text: 'white',
+      seperator: 'rgb(100,100,104)',
+      smallCTitle: 'rgb(30,30,30)',
       secondaryText: 'rgb(200,200,208)',
       blue: 'rgb(5,136,218)',
       gray: '#EDF3F5',

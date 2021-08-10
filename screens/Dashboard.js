@@ -78,7 +78,13 @@ const Dashboard = props => {
         {/* Hesaplarım */}
         <View style={[styles.container, { marginTop: 0 }]}>
           <MenuTitle text="Hesaplarım" />
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={DEVICE_WIDTH - 18}
+            decelerationRate={0}
+            scrollEnabled
+          >
             {accounts.map(account => {
               return (
                 <CardView

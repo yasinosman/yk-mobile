@@ -20,13 +20,13 @@ const MenuContainer = ({ title, buttons }) => {
       marginHorizontal: DEVICE_WIDTH * (2 / 100),
       marginVertical: DEVICE_HEIGHT * (1 / 100),
       backgroundColor: theme.colors.bg,
+      borderRadius: 20,
       //Shadows
       //iOS
       shadowOffset: { width: 0, height: 1 },
       shadowOpacity: 0.2,
       //Android
       elevation: 1,
-      borderRadius: 10,
     },
     title: {
       marginTop: 10,

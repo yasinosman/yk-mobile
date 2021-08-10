@@ -6,7 +6,6 @@ import { BLUE, SHADOW_COLOR } from '../common/colors';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import { useTheme } from '../context/Theme';
 import StyledText from './StyledText';
-
 /**
  *
  * @param {{onPress: Function, icon: React.FC, title: string, subTitle: string, key1: string, value1: string, value1Component: React.FC, key2: string, value2: string, valu2Component: React.FC, containerStyles: any, headerContainerStyles: any, contentContainerStyles: any, iconContainerStyles: any, titleContainerStyles: any, keyStyles: any, valueStyles: any }} param0
@@ -95,6 +94,11 @@ const CardView = ({
     blueBorder: {
       borderColor: theme.colors.blue,
     },
+    seperator: {
+      height: '100%',
+      width: 1,
+      backgroundColor: theme.colors.seperator,
+    },
     title: { fontSize: 18, color: theme.colors.text },
     subTitle: { fontSize: 12, opacity: 0.5, color: theme.colors.secondaryText },
   });
@@ -126,6 +130,7 @@ const CardView = ({
           )}
           <StyledText style={[styles.key, keyStyles]}>{key1}</StyledText>
         </View>
+        <View style={styles.seperator}></View>
         <View style={{ width: DEVICE_WIDTH * (40 / 100) }}>
           {value2 !== null ? (
             <StyledText style={[styles.value, valueStyles]}>
