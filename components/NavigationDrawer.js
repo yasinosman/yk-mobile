@@ -43,7 +43,7 @@ const NavigationDrawer = props => {
       borderRightWidth: 0.2,
     },
     profileContainer: {
-      height: '15%',
+      height: '18%',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -68,16 +68,16 @@ const NavigationDrawer = props => {
       color: BLUE,
     },
     buttonContainer: {
-      height: '60%',
+      height: '70%',
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
     },
     menuButton: {
-      backgroundColor: theme.colors.card,
-      height: '10.5%',
-      width: '95%',
-      marginVertical: DEVICE_HEIGHT * (0.1 / 100),
+      backgroundColor: 'transparent',
+      height: '9%',
+      width: '98%',
+      marginVertical: DEVICE_HEIGHT * (0.5 / 100),
       borderColor: 'transparent',
       borderLeftWidth: 5,
     },
@@ -91,7 +91,10 @@ const NavigationDrawer = props => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      // backgroundColor: 'rgb(245,247,250)',
+      backgroundColor: theme.colors.card,
+      borderRightColor: theme.colors.text,
+      borderRightWidth: 0.2,
+      backgroundColor: theme.colors.card,
     },
 
     settingsButton: {
