@@ -83,7 +83,7 @@ const Dashboard = props => {
             horizontal
             showsHorizontalScrollIndicator={false}
             snapToInterval={DEVICE_WIDTH - 18}
-            decelerationRate={0}
+            decelerationRate={0.5}
             scrollEnabled
           >
             {accounts.map(account => {

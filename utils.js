@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, Platform, StatusBar } from 'react-native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import axios from 'axios';
 
 /**
@@ -68,3 +69,10 @@ export const StatusBarHeight = Platform.select({
   android: StatusBar.currentHeight,
   default: 0,
 });
+
+export function getCurrentRouteName(route) {
+  // If the focused route is not found, we need to assume it's the initial screen
+  // This can happen during if there hasn't been any navigation inside the screen
+  // In our case, it's "Feed" as that's the first screen inside the navigator
+  return getFocusedRouteNameFromRoute(route) ?? 'Anasayfa';
+}

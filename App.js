@@ -24,6 +24,7 @@ import { useFonts } from 'expo-font';
 import NavigationDrawer from './components/NavigationDrawer';
 import LogoScreen from './screens/LogoScreen';
 import { DEVICE_HEIGHT } from './common/dimensions';
+import { getCurrentRouteName } from './utils';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -134,15 +135,16 @@ export default function App() {
               <Drawer.Screen
                 name="Yatırımlar"
                 component={Investments}
-                options={{
+                options={({ route }) => ({
                   header: props => (
                     <Navbar
                       navigation={props.scene.descriptor.navigation}
                       route={props.scene.route}
+                      currentRouteName={getCurrentRouteName(route)}
                       {...props}
                     />
                   ),
-                }}
+                })}
               />
               <Drawer.Screen
                 name="Ödemeler"

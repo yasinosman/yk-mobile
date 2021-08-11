@@ -8,7 +8,7 @@ import { useTheme } from '../context/Theme';
 
 /**
  *
- * @param {{title: string, buttons: Array<{title: string, startingIcon: React.FC, trailingIcon: React.FC, tag: React.FC}>}} param0
+ * @param {{title: string, buttons: Array<{title: string, startingIcon: React.FC, trailingIcon: React.FC, tag: React.FC, onPress: () => void}>}} param0
  * @returns
  */
 const MenuContainer = ({ title, buttons }) => {
@@ -20,7 +20,7 @@ const MenuContainer = ({ title, buttons }) => {
       marginHorizontal: DEVICE_WIDTH * (2 / 100),
       marginVertical: DEVICE_HEIGHT * (1 / 100),
       backgroundColor: theme.colors.bg,
-      borderRadius: 20,
+      borderRadius: 10,
       //Shadows
       //iOS
       shadowOffset: { width: 0, height: 1 },
@@ -44,6 +44,21 @@ const MenuContainer = ({ title, buttons }) => {
               startingIcon={button.startingIcon}
               trailingIcon={button.trailingIcon}
               tag={button.tag}
+              containerStyles={[
+                index === 0 && {
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                },
+                index === buttons.length - 1 && {
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                },
+              ]}
+              onPress={
+                typeof button.onPress === 'function'
+                  ? button.onPress
+                  : () => null
+              }
             />
             {index !== buttons.length - 1 && (
               <Divider

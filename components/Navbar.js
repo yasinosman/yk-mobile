@@ -104,7 +104,9 @@ const Navbar = props => {
           />
         )}
         {props.route.name !== 'Anasayfa' && (
-          <StyledText style={styles.title}>{props.route.name}</StyledText>
+          <StyledText style={styles.title}>
+            {props.currentRouteName || props.route.name}
+          </StyledText>
         )}
       </View>
       <View style={styles.iconContainer}>
