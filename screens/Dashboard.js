@@ -16,6 +16,7 @@ import CurrencyText from '../components/CurrencyText';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { useTheme } from '../context/Theme';
 import { StyleSheet } from 'react-native';
+import AmountText from '../components/AmountText';
 
 const Dashboard = props => {
   const { theme } = useTheme();
@@ -100,22 +101,16 @@ const Dashboard = props => {
                   subTitle={account.number}
                   key1={'Kullanılabilir Bakiye'}
                   value1Component={
-                    <CurrencyText
-                      textStyles={styles.currencyText}
-                      initialAmount={account.available_balance}
-                      initialCurrency={account.currency}
-                      targetCurrency="try"
-                      calculationTimeout={4000}
+                    <AmountText
+                      amount={account.available_balance}
+                      currency={account.currency}
                     />
                   }
                   key2={'Güncel Bakiye'}
                   value2Component={
-                    <CurrencyText
-                      textStyles={styles.currencyText}
-                      initialAmount={account.current_balance}
-                      initialCurrency={account.currency}
-                      targetCurrency="try"
-                      calculationTimeout={4000}
+                    <AmountText
+                      amount={account.current_balance}
+                      currency={account.currency}
                     />
                   }
                 />
@@ -142,13 +137,19 @@ const Dashboard = props => {
                   title={card.name}
                   subTitle={card.number}
                   key1={'Güncel Borç'}
-                  value1={`${card.current_dept} ${
-                    CURRENCY_DICTIONARY[card.currency]
-                  }`}
+                  value1Component={
+                    <AmountText
+                      amount={card.current_dept}
+                      currency={card.currency}
+                    />
+                  }
                   key2={'Kullanılabilir Limit'}
-                  value2={`${card.available_limit} ${
-                    CURRENCY_DICTIONARY[card.currency]
-                  }`}
+                  value2Component={
+                    <AmountText
+                      amount={card.available_limit}
+                      currency={card.currency}
+                    />
+                  }
                   containerStyles={styles.orangeBorder}
                 />
               );

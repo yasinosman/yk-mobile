@@ -9,6 +9,7 @@ import StyledText from './StyledText';
 import { isIPhoneX, StatusBarHeight } from '../utils';
 import { logout } from '../services/authentication';
 import { useTheme } from '../context/Theme';
+import { Platform } from 'react-native';
 
 const NavigationDrawer = props => {
   const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
@@ -68,7 +69,7 @@ const NavigationDrawer = props => {
       color: BLUE,
     },
     buttonContainer: {
-      height: '70%',
+      height: Platform.OS === 'ios' ? '60%' : '70%',
       justifyContent: 'center',
       alignItems: 'center',
       width: '100%',
