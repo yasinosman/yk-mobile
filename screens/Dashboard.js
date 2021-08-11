@@ -11,8 +11,6 @@ import offers from '../mock/offers.json';
 import MenuTitle from '../components/MenuTitle';
 import { getCards } from '../services/cards';
 import { getAccounts } from '../services/accounts';
-import { CURRENCY_DICTIONARY } from '../hooks/useCurrency';
-import CurrencyText from '../components/CurrencyText';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { useTheme } from '../context/Theme';
 import { StyleSheet } from 'react-native';
@@ -150,7 +148,7 @@ const Dashboard = props => {
                       currency={card.currency}
                     />
                   }
-                  containerStyles={styles.orangeBorder}
+                  containerStyles={{ borderColor: 'black' }}
                 />
               );
             })}

@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions, Platform, StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import axios from 'axios';
+import { EXCHANGE_RATES } from './hooks/useCurrency';
 
 /**
  *
@@ -75,4 +76,27 @@ export function getCurrentRouteName(route) {
   // This can happen during if there hasn't been any navigation inside the screen
   // In our case, it's "Feed" as that's the first screen inside the navigator
   return getFocusedRouteNameFromRoute(route) ?? 'Anasayfa';
+}
+
+/**
+ *
+ * @param {"try" | "eur" | "usd"} initialCurrency
+ * @param {number} initialAmount
+ * @param {"try" | "eur" | "usd"} targetCurrency
+ */
+export function convertCurrency(
+  initialCurrency,
+  initialAmount,
+  targetCurrency
+) {
+  if (initialCurrency === targetCurrency) {
+    return initialAmount;
+  }
+  return (
+    Math.round(
+      (initialAmount * EXCHANGE_RATES[initialCurrency][targetCurrency] +
+        Number.EPSILON) *
+        100
+    ) / 100
+  );
 }
