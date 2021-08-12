@@ -31,6 +31,7 @@ import Kampanyalar from './screens/Kampanyalar';
 import DahaF from './screens/DahaF';
 import İletisim from './screens/İletisim';
 import Araclar from './screens/Araclar';
+import { DEVICE_HEIGHT } from './common/dimensions';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -131,6 +132,10 @@ export default function App() {
                   backgroundColor: BLUE,
                 },
                 headerTintColor: '#fff',
+              }}
+              drawerStyle={{
+                width: '84%',
+                height: DEVICE_HEIGHT,
               }}
               drawerContent={props => <NavigationDrawer {...props} />}
             >
