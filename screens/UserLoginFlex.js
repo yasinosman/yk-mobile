@@ -8,10 +8,12 @@ import { Switch } from 'react-native';
 import { Formik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { useState } from 'react';
 import { object, string } from 'yup';
 import { login } from '../services/authentication';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
+
+import Piyasalar from './Piyasalar';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
@@ -26,7 +28,6 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = React.useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -34,28 +35,28 @@ const Login = ({ navigation }) => {
       }}
     >
       <LinearGradient
-        style={[styles.container, styles.background]}
+        style={styles.container}
         colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
       >
         <View style={styles.languageAndLogo}>
-          <TouchableOpacity
-            style={styles.languageButton}
-            onPress={buttonClickedHandler}
-          >
-            <Text style={styles.languageText}>TR</Text>
-          </TouchableOpacity>
-          <Image
-            source={require('../assets/img/yk-logo-3.png')}
-            style={{
-              width: 200,
-              height: 50,
-              marginTop: 70,
-              marginBottom: 50,
-              marginRight: 80,
-            }}
-          ></Image>
+          <View style={styles.languageView}>
+            <TouchableOpacity
+              style={styles.languageButton}
+              onPress={buttonClickedHandler}
+            >
+              <Text style={styles.languageText}>TR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.logoView}>
+            <Image
+              source={require('../assets/img/yk-logo-3.png')}
+              style={{
+                width: 180,
+                height: 50,
+              }}
+            ></Image>
+          </View>
         </View>
-
         <Formik
           initialValues={{ tckimlik: '', sifre: '' }}
           onSubmit={values => {
@@ -72,7 +73,6 @@ const Login = ({ navigation }) => {
                 alert(
                   'Lütfen giriş bilgilerinizi kontrol edip tekrar deneyin.'
                 );
-
                 setLoading(false);
               });
           }}
@@ -88,10 +88,9 @@ const Login = ({ navigation }) => {
             values,
             isValid,
           }) => (
-            <View>
+            <View style={styles.loginWithoutButton}>
               <View style={styles.loginFrame}>
-                {/* Welcome text */}
-                <View style={styles.userBusinessView}>
+                <View style={styles.userAndBusinessView}>
                   <View style={styles.userView}>
                     <Image
                       style={styles.userImage}
@@ -101,7 +100,8 @@ const Login = ({ navigation }) => {
                   </View>
                   <View style={styles.businessView}>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate('BusinessLogin')}
+                      style={styles.businessButton}
+                      onPress={() => navigation.navigate('BusinessLoginFlex')}
                     >
                       <Image
                         style={styles.businessImage}
@@ -111,7 +111,7 @@ const Login = ({ navigation }) => {
                     </TouchableOpacity>
                   </View>
                 </View>
-                {/* Input fields */}
+                {/* Input Containers */}
                 <Image source={require('../assets/user-32px.png')}></Image>
                 <View style={styles.inputContainer}>
                   <Input
@@ -119,6 +119,8 @@ const Login = ({ navigation }) => {
                     type="number"
                     containerStyle={{
                       borderRadius: 10,
+                      flex: 0.8,
+                      alignItems: 'stretch',
                     }}
                     // keyboardType="numeric"
                     inputStyle={{ borderBottomWidth: 0 }}
@@ -127,7 +129,10 @@ const Login = ({ navigation }) => {
                     onChangeText={handleChange('tckimlik')}
                     onBlur={handleBlur('tckimlik')}
                     value={values.tckimlik}
-                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      justifyContent: 'center',
+                    }}
                     disabled={loading}
                   />
                   {errors.tckimlik && touched.tckimlik && (
@@ -146,7 +151,7 @@ const Login = ({ navigation }) => {
                     secureTextEntry
                     containerStyle={{
                       borderRadius: 10,
-                      justifyContent: 'center',
+                      flex: 0.8,
                     }}
                     inputStyle={{
                       borderBottomWidth: 0,
@@ -160,6 +165,7 @@ const Login = ({ navigation }) => {
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                       justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                     disabled={loading}
                   />
@@ -170,23 +176,25 @@ const Login = ({ navigation }) => {
                   )}
                 </View>
               </View>
-              <View style={styles.viewRememberMe}>
-                <Text style={styles.textRememberMe}>Beni Hatırla</Text>
-                <Switch
-                  ios_backgroundColor="rgb(80,180,255)"
-                  trackColor={{
-                    false: 'rgb(50,250,255)',
-                    true: 'rgb(101,214,255)',
-                  }}
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                  style={styles.switchRememberMe}
-                />
+              <View>
+                <View style={styles.viewRememberMe}>
+                  <Text style={styles.textRememberMe}>Beni Hatırla</Text>
+                  <Switch
+                    ios_backgroundColor="rgb(80,180,255)"
+                    trackColor={{
+                      false: 'rgb(50,250,255)',
+                      true: 'rgb(101,214,255)',
+                    }}
+                    onValueChange={toggleSwitch}
+                    value={isEnabled}
+                    style={styles.switchRememberMe}
+                  />
+                </View>
               </View>
               <Button
                 onPress={handleSubmit}
                 title={loading ? 'Lütfen Bekleyin' : 'Giriş'}
-                containerStyle={styles.button}
+                containerStyle={styles.submitButton}
                 buttonStyle={{
                   borderRadius: 22,
                   backgroundColor: 'rgb(0,114,188)',
@@ -198,6 +206,78 @@ const Login = ({ navigation }) => {
         </Formik>
 
         <Text style={styles.forgotPassword}>Şifre Al/Şifremi Unuttum</Text>
+        <View
+          style={{
+            width: '92%',
+            flex: 0.0000001,
+            borderBottomColor: 'white',
+            borderBottomWidth: 1,
+            marginBottom: 15,
+            opacity: 0.5,
+          }}
+        ></View>
+        <View style={styles.navigationBar}>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('PİYASALAR')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>PİYASALAR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('ATM/ŞUBE')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>ATM/ŞUBE</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('ŞİFRE İŞLEMLER')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>ŞİFRE İŞLEMLER</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('KAMPANYALAR')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>KAMPANYALAR</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.piyasalarView}>
+            <TouchableOpacity
+              style={styles.piyasalarButton}
+              onPress={() => navigation.navigate('DAHA FAZLASI')}
+            >
+              <Image
+                style={styles.piyasalarImage}
+                source={require('../assets/gift.png')}
+              />
+              <Text style={styles.navBarText}>DAHA FAZLASI</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </LinearGradient>
     </TouchableWithoutFeedback>
   );
@@ -207,89 +287,64 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    backgroundColor: BLUE,
-    paddingTop: DEVICE_HEIGHT * (2 / 100),
-    paddingBottom: 30,
     flex: 1,
+    alignItems: 'center',
   },
+
   languageAndLogo: {
-    width: '100%',
+    flex: 1.2,
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: 160,
   },
-  languageStyle: {
-    marginLeft: 20,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
+  languageView: {
+    flex: 1,
+    marginTop: DEVICE_HEIGHT * (1 / 20),
+    marginLeft: DEVICE_WIDTH * (1 / 20),
+  },
+  languageButton: {
+    borderWidth: 2,
+    borderRadius: 100,
+    width: 25,
+    height: 25,
     alignItems: 'center',
-    marginBottom: 40,
+    justifyContent: 'center',
+    borderColor: 'white',
+    marginTop: 14,
+  },
+  languageText: {
+    fontSize: 13,
+    color: 'white',
+  },
+  logoView: {
+    flex: 3.2,
+    marginTop: DEVICE_HEIGHT * (1 / 17),
   },
   loginFrame: {
     borderRadius: 10,
     backgroundColor: '#4CBEF9',
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
+    width: '85%',
   },
-
-  userBusinessView: {
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  button: {
-    marginTop: 15,
-    width: DEVICE_WIDTH * (90 / 100),
-    height: 40,
-    borderRadius: 22,
-  },
-  switchRememberMe: {
-    marginLeft: 5,
-  },
-  viewRememberMe: {
-    marginTop: 10,
-    flexDirection: 'row',
+  loginWithoutButton: {
+    flex: 1.7,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: '95%',
+    width: '100%',
   },
-  textRememberMe: {
-    color: 'white',
+  userAndBusinessView: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flex: 1.2,
   },
-
-  inputContainer: {
-    width: DEVICE_WIDTH * (90 / 100),
-    borderWidth: 1,
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    borderColor: 'rgb(76, 190, 249)',
-    backgroundColor: 'white',
+  userView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  paragraph: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-
   userImage: {
     width: 30,
     height: 30,
-  },
-  businessImage: {
-    width: 30,
-    height: 30,
-    marginLeft: 25,
-  },
-  userView: {
-    marginRight: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   userText: {
     color: 'white',
@@ -297,47 +352,87 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textDecorationLine: 'underline',
   },
+  businessView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  businessImage: {
+    width: 30,
+    height: 30,
+  },
   businessText: {
     color: 'white',
     marginTop: 5,
     fontSize: 20,
     opacity: 0.5,
   },
-  businessView: {
-    marginLeft: 50,
+  businessButton: {
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
+  },
+  inputContainer: {
+    flex: 0.9,
+    borderWidth: 1,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderColor: 'rgb(76, 190, 249)',
+    backgroundColor: 'white',
+    width: '100%',
+  },
+  tckimlikErrorStyle: {
+    flex: 1,
+    fontSize: 14,
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  switchRememberMe: {
+    marginLeft: 10,
+  },
+  viewRememberMe: {
+    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: '85%',
+  },
+  textRememberMe: {
+    color: 'white',
   },
   forgotPassword: {
     marginTop: 30,
     color: 'white',
-    width: '95%',
+    width: '85%',
     textAlign: 'right',
-    flex: 6,
+    flex: 1,
   },
-  background: {
-    height: DEVICE_HEIGHT,
+  submitButton: {
+    marginTop: 15,
+    width: DEVICE_WIDTH * (85 / 100),
+    height: 40,
+    borderRadius: 22,
   },
-  tckimlikErrorStyle: {
-    fontSize: 14,
-    color: 'red',
-    fontWeight: 'bold',
-    marginBottom: 5,
-    textAlign: 'center',
+  navigationBar: {
+    flex: 0.2,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 28,
   },
-  languageButton: {
-    borderRadius: 10,
-    width: 35,
-    height: 35,
+  piyasalarImage: {
+    width: 20,
+    height: 20,
+  },
+  piyasalarView: {
+    flex: 1,
+  },
+  piyasalarButton: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'white',
-    borderWidth: 2,
-    borderRadius: 100,
-    marginBottom: 35,
   },
-  languageText: {
-    fontSize: 14,
+  navBarText: {
+    fontSize: 9,
+    marginTop: 5,
     color: 'white',
   },
 });
