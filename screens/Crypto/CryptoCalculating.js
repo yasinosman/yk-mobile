@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FAB, Icon, Button } from 'react-native-elements';
+import { FAB, Icon, Button, Image } from 'react-native-elements';
 import StyledText from '../../components/StyledText';
 import { CURRENCY_DICTIONARY } from '../../hooks/useCurrency';
 import { convertCurrency, formatAmount } from '../../utils';
@@ -10,49 +10,130 @@ import { TextInput } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const CryptoCalculating = () => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-
   const { theme } = useTheme();
+
+  const initialState = {
+    sellingAmount: '1',
+    sellingCurrency: 'btc',
+    sellingCurrencyDropDownOpen: false,
+    buyingAmount: calculateBuyingAmount('btc', 1, 'usd'),
+    buyingCurrency: 'usd',
+    buyingCurrencyDropDownOpen: false,
+    currencies: [
+      {
+        label: `BTC`,
+        value: 'btc',
+        icon: () => (
+          <Icon
+            name="bitcoin"
+            type="font-awesome-5"
+            size={20}
+            color={theme.colors.icon}
+          />
+        ),
+      },
+      {
+        label: `ETH`,
+        value: 'eth',
+        icon: () => (
+          <Icon
+            name="ethereum"
+            type="font-awesome-5"
+            size={20}
+            color={theme.colors.icon}
+          />
+        ),
+      },
+      {
+        label: `TRY`,
+        value: 'try',
+        icon: () => (
+          <Icon
+            name="lira-sign"
+            type="font-awesome-5"
+            size={20}
+            color={theme.colors.icon}
+          />
+        ),
+      },
+      {
+        label: `USD`,
+        value: 'usd',
+        icon: () => (
+          <Icon
+            name="dollar-sign"
+            type="font-awesome-5"
+            size={20}
+            color={theme.colors.icon}
+          />
+        ),
+      },
+      {
+        label: `EUR`,
+        value: 'eur',
+        icon: () => (
+          <Icon
+            name="euro-sign"
+            type="font-awesome-5"
+            size={20}
+            color={theme.colors.icon}
+          />
+        ),
+      },
+    ],
+  };
+  /**<Icon
+      name="chevron-right"
+      type="font-awesome"
+      size={15}
+      color={ICON_BLUE}
+    /> */
+  const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const styles = StyleSheet.create({
     wrapper: {
+      width: DEVICE_WIDTH,
       height: DEVICE_HEIGHT,
       backgroundColor: theme.colors.bg,
-      alignItems: 'center',
-    },
-    container: {
-      width: '95%',
+      alignItems: 'flex-start',
       flexDirection: 'row',
       justifyContent: 'space-around',
+    },
+    container: {
+      width: DEVICE_WIDTH * (45 / 100),
+      height: DEVICE_HEIGHT * (30 / 100),
+      justifyContent: 'space-around',
       alignItems: 'center',
-      paddingVertical: (DEVICE_HEIGHT * 1) / 100,
     },
     title: {
       fontSize: 18,
       marginTop: (DEVICE_HEIGHT * 3) / 100,
       marginBottom: (DEVICE_HEIGHT * 1) / 100,
       marginLeft: DEVICE_WIDTH * (2 / 100),
+      zIndex: 0,
+      textAlign: 'center',
     },
     numericInput: {
       height: (DEVICE_HEIGHT * 6) / 100,
-      width: '55%',
-      textAlign: 'right',
+      width: '95%',
+      // textAlign: 'right',
       color: theme.colors.text,
       borderWidth: 0.4,
       borderColor: theme.colors.blue,
       borderRadius: 10,
-      paddingRight: 10,
+      paddingHorizontal: 10,
       fontFamily: 'Ubuntu',
       fontSize: 18,
+      backgroundColor: 'white',
+      color: 'black',
     },
     pickerInputContainer: {
-      width: '40%',
+      width: '95%',
     },
     buttonContainer: {
       flexDirection: 'row',
       marginRight: '20%',
       marginLeft: 'auto',
-      marginVertical: (DEVICE_HEIGHT * 3) / 100,
       zIndex: 1,
     },
     button: {
@@ -78,10 +159,10 @@ const CryptoCalculating = () => {
   return (
     <View style={styles.wrapper}>
       <View>
-        <StyledText style={styles.title}>
-          Satılacak Tutar ve Para Birimi
-        </StyledText>
         <View style={styles.container}>
+          <StyledText style={[styles.title, { color: theme.colors.red }]}>
+            Satılacak Tutar ve Para Birimi
+          </StyledText>
           <TextInput
             keyboardType="numeric"
             value={state.sellingAmount}
@@ -119,7 +200,7 @@ const CryptoCalculating = () => {
           </View>
         </View>
       </View>
-      <View style={styles.buttonContainer}>
+      {/* <View style={styles.buttonContainer}>
         <Button
           onPress={() => dispatch({ type: 'currenciesSwitched' })}
           buttonStyle={styles.button}
@@ -127,14 +208,12 @@ const CryptoCalculating = () => {
             <Icon name="sync" type="font-awesome-5" size={20} color="white" />
           }
         />
-      </View>
+      </View> */}
       <View>
-        <StyledText
-          style={[styles.title, { marginTop: (DEVICE_HEIGHT * 2) / 100 }]}
-        >
-          Alınacak Tutar ve Para Birimi
-        </StyledText>
         <View style={styles.container}>
+          <StyledText style={[styles.title, { color: theme.colors.green }]}>
+            Alınacak Tutar ve Para Birimi
+          </StyledText>
           <TextInput
             keyboardType="numeric"
             value={state.buyingAmount}
@@ -168,29 +247,6 @@ const CryptoCalculating = () => {
       </View>
     </View>
   );
-};
-
-const initialState = {
-  sellingAmount: '',
-  sellingCurrency: 'try',
-  sellingCurrencyDropDownOpen: false,
-  buyingAmount: '',
-  buyingCurrency: 'usd',
-  buyingCurrencyDropDownOpen: false,
-  currencies: [
-    {
-      label: `${CURRENCY_DICTIONARY.try} TL`,
-      value: 'try',
-    },
-    {
-      label: `${CURRENCY_DICTIONARY.usd} USD`,
-      value: 'usd',
-    },
-    {
-      label: `${CURRENCY_DICTIONARY.eur} EUR`,
-      value: 'eur',
-    },
-  ],
 };
 
 function calculateBuyingAmount(sellingCurrency, sellingAmount, buyingCurrency) {
