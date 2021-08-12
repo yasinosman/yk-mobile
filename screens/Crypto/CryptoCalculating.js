@@ -1,34 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { FAB, Icon } from 'react-native-elements';
+import { FAB, Icon, Button } from 'react-native-elements';
 import StyledText from '../../components/StyledText';
-import { Picker } from '@react-native-picker/picker';
 import { CURRENCY_DICTIONARY } from '../../hooks/useCurrency';
 import { convertCurrency, formatAmount } from '../../utils';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 import { useTheme } from '../../context/Theme';
 import { TextInput } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const CryptoCalculating = () => {
-  const [sellingAmount, setSellingAmount] = React.useState('1000');
-  const [sellingCurrency, setSellingCurrency] = React.useState('try');
-  const [buyingAmount, setBuyingAmount] = React.useState('0');
-  const [buyingCurrency, setBuyingCurrency] = React.useState('usd');
-
-  React.useEffect(() => {
-    setBuyingAmount(
-      formatAmount(
-        convertCurrency(sellingCurrency, sellingAmount, buyingCurrency)
-      )
-        .toString()
-        .replace(/\,$/, '')
-    );
-  }, [sellingCurrency, sellingAmount, buyingCurrency]);
-
-  const switchCurrencies = () => {
-    setSellingCurrency(buyingCurrency);
-    setBuyingCurrency(sellingCurrency);
-  };
+  const [state, dispatch] = React.useReducer(reducer, initialState);
 
   const { theme } = useTheme();
 
@@ -52,7 +34,7 @@ const CryptoCalculating = () => {
       marginLeft: DEVICE_WIDTH * (2 / 100),
     },
     numericInput: {
-      height: (DEVICE_HEIGHT * 5) / 100,
+      height: (DEVICE_HEIGHT * 6) / 100,
       width: '55%',
       textAlign: 'right',
       color: theme.colors.text,
@@ -65,23 +47,31 @@ const CryptoCalculating = () => {
     },
     pickerInputContainer: {
       width: '40%',
-      borderWidth: 0.4,
-      borderColor: theme.colors.blue,
-      borderRadius: 10,
-      height: (DEVICE_HEIGHT * 5) / 100,
-      padding: 5,
     },
     buttonContainer: {
       flexDirection: 'row',
+      marginRight: '20%',
       marginLeft: 'auto',
-      marginRight: '15%',
-      marginTop: (DEVICE_HEIGHT * 1) / 100,
+      marginVertical: (DEVICE_HEIGHT * 3) / 100,
+      zIndex: 1,
     },
-
     button: {
       borderRadius: 100,
-      width: 55,
+      width: 40,
       backgroundColor: theme.colors.blue,
+    },
+    picker: {
+      borderColor: theme.colors.blue,
+      borderWidth: 0.4,
+      height: (DEVICE_HEIGHT * 6) / 100,
+    },
+    pickerBox: {
+      borderColor: theme.colors.blue,
+      borderWidth: 0.4,
+      height: (DEVICE_HEIGHT * 16) / 100,
+    },
+    pickerText: {
+      fontFamily: 'Ubuntu',
     },
   });
 
@@ -94,38 +84,44 @@ const CryptoCalculating = () => {
         <View style={styles.container}>
           <TextInput
             keyboardType="numeric"
-            value={sellingAmount}
-            onChangeText={setSellingAmount}
+            value={state.sellingAmount}
+            onChangeText={text =>
+              dispatch({
+                type: 'sellingAmountChanged',
+                payload: { value: text },
+              })
+            }
             style={styles.numericInput}
             maxLength={20}
           />
           <View style={styles.pickerInputContainer}>
-            <Picker
-              selectedValue={sellingCurrency}
-              onValueChange={(val, index) => setSellingCurrency(val)}
-              dropdownIconColor={theme.colors.blue}
-              style={{ color: theme.colors.text }}
-              itemStyle={{ fontFamily: 'Ubuntu' }}
-            >
-              <Picker.Item
-                label={`${CURRENCY_DICTIONARY.try} TL`}
-                value="try"
-              />
-              <Picker.Item
-                label={`${CURRENCY_DICTIONARY.usd} USD`}
-                value="usd"
-              />
-              <Picker.Item
-                label={`${CURRENCY_DICTIONARY.eur} EUR`}
-                value="eur"
-              />
-            </Picker>
+            <DropDownPicker
+              open={state.sellingCurrencyDropDownOpen}
+              setOpen={() =>
+                dispatch({ type: 'sellingCurrencyDropDownToggled' })
+              }
+              value={state.sellingCurrency}
+              setValue={cb =>
+                dispatch({
+                  type: 'sellingCurrencyChanged',
+                  payload: { value: cb(state.sellingCurrency) },
+                })
+              }
+              items={state.currencies}
+              style={styles.picker}
+              dropDownContainerStyle={styles.pickerBox}
+              listItemLabelStyle={styles.pickerText}
+              labelStyle={styles.pickerText}
+              zIndex={3000}
+              zIndexInverse={1000}
+              placeholder=""
+            />
           </View>
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <FAB
-          onPress={switchCurrencies}
+        <Button
+          onPress={() => dispatch({ type: 'currenciesSwitched' })}
           buttonStyle={styles.button}
           icon={
             <Icon name="sync" type="font-awesome-5" size={20} color="white" />
@@ -141,36 +137,143 @@ const CryptoCalculating = () => {
         <View style={styles.container}>
           <TextInput
             keyboardType="numeric"
-            value={buyingAmount}
+            value={state.buyingAmount}
             disabled
             style={styles.numericInput}
           />
           <View style={styles.pickerInputContainer}>
-            <Picker
-              selectedValue={buyingCurrency}
-              onValueChange={(val, index) => setBuyingCurrency(val)}
-              dropdownIconColor={theme.colors.blue}
-              style={{ color: theme.colors.text }}
-              itemStyle={{ fontFamily: 'Ubuntu' }}
-            >
-              <Picker.Item
-                label={`${CURRENCY_DICTIONARY.try} TL`}
-                value="try"
-              />
-              <Picker.Item
-                label={`${CURRENCY_DICTIONARY.usd} USD`}
-                value="usd"
-              />
-              <Picker.Item
-                label={`${CURRENCY_DICTIONARY.eur} EUR`}
-                value="eur"
-              />
-            </Picker>
+            <DropDownPicker
+              open={state.buyingCurrencyDropDownOpen}
+              setOpen={() =>
+                dispatch({ type: 'buyingCurrencyDropDownToggled' })
+              }
+              value={state.buyingCurrency}
+              setValue={cb =>
+                dispatch({
+                  type: 'buyingCurrencyChanged',
+                  payload: { value: cb(state.buyingCurrency) },
+                })
+              }
+              items={state.currencies}
+              style={styles.picker}
+              dropDownContainerStyle={styles.pickerBox}
+              listItemLabelStyle={styles.pickerText}
+              labelStyle={styles.pickerText}
+              zIndex={2000}
+              zIndexInverse={2000}
+              placeholder=""
+            />
           </View>
         </View>
       </View>
     </View>
   );
 };
+
+const initialState = {
+  sellingAmount: '',
+  sellingCurrency: 'try',
+  sellingCurrencyDropDownOpen: false,
+  buyingAmount: '',
+  buyingCurrency: 'usd',
+  buyingCurrencyDropDownOpen: false,
+  currencies: [
+    {
+      label: `${CURRENCY_DICTIONARY.try} TL`,
+      value: 'try',
+    },
+    {
+      label: `${CURRENCY_DICTIONARY.usd} USD`,
+      value: 'usd',
+    },
+    {
+      label: `${CURRENCY_DICTIONARY.eur} EUR`,
+      value: 'eur',
+    },
+  ],
+};
+
+function calculateBuyingAmount(sellingCurrency, sellingAmount, buyingCurrency) {
+  return formatAmount(
+    convertCurrency(sellingCurrency, sellingAmount, buyingCurrency)
+  )
+    .toString()
+    .replace(/\,$/, '');
+}
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'sellingCurrencyChanged': {
+      return {
+        ...state,
+        sellingCurrency: action.payload.value,
+        buyingAmount: calculateBuyingAmount(
+          action.payload.value,
+          state.sellingAmount,
+          state.buyingCurrency
+        ),
+      };
+    }
+    case 'sellingAmountChanged': {
+      return {
+        ...state,
+        sellingAmount: action.payload.value,
+        buyingAmount: calculateBuyingAmount(
+          state.sellingCurrency,
+          action.payload.value,
+          state.buyingCurrency
+        ),
+      };
+    }
+    case 'buyingCurrencyChanged': {
+      return {
+        ...state,
+        buyingCurrency: action.payload.value,
+        buyingAmount: formatAmount(
+          convertCurrency(
+            state.sellingCurrency,
+            state.sellingAmount,
+            action.payload.value
+          )
+        )
+          .toString()
+          .replace(/\,$/, ''),
+      };
+    }
+    case 'sellingCurrencyDropDownToggled': {
+      return {
+        ...state,
+        sellingCurrencyDropDownOpen: !state.sellingCurrencyDropDownOpen,
+        buyingCurrencyDropDownOpen: false,
+      };
+    }
+    case 'buyingCurrencyDropDownToggled': {
+      return {
+        ...state,
+        buyingCurrencyDropDownOpen: !state.buyingCurrencyDropDownOpen,
+        sellingCurrencyDropDownOpen: false,
+      };
+    }
+    case 'currenciesSwitched': {
+      return {
+        ...state,
+        buyingAmount: formatAmount(
+          convertCurrency(
+            state.buyingCurrency,
+            state.sellingAmount,
+            state.sellingCurrency
+          )
+        )
+          .toString()
+          .replace(/\,$/, ''),
+        buyingCurrency: state.sellingCurrency,
+        sellingCurrency: state.buyingCurrency,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}
 
 export default CryptoCalculating;

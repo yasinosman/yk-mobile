@@ -80,11 +80,11 @@ const Dashboard = props => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            snapToInterval={DEVICE_WIDTH - 18}
+            snapToInterval={DEVICE_WIDTH - 28}
             decelerationRate={0.5}
             scrollEnabled
           >
-            {accounts.map(account => {
+            {accounts.map((account, index) => {
               return (
                 <CardView
                   key={account.id}
@@ -111,6 +111,20 @@ const Dashboard = props => {
                       currency={account.currency}
                     />
                   }
+                  containerStyles={[
+                    index === 0
+                      ? {
+                          marginLeft: DEVICE_WIDTH * (5 / 100),
+                          marginRight: DEVICE_WIDTH * (3 / 100),
+                        }
+                      : {
+                          marginLeft: 0,
+                          marginRight: DEVICE_WIDTH * (3 / 100),
+                        },
+                    index === accounts.length - 1 && {
+                      marginRight: DEVICE_WIDTH * (5 / 100),
+                    },
+                  ]}
                 />
               );
             })}
