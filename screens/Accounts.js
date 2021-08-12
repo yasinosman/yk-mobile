@@ -3,8 +3,16 @@ import { StyleSheet, ScrollView } from 'react-native';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import MenuContainer from '../components/MenuContainer';
 import Tag from '../components/Tag';
+import { useTheme } from '../context/Theme';
 
 const Accounts = () => {
+  const { theme } = useTheme();
+  const styles = StyleSheet.create({
+    wrapper: {
+      width: DEVICE_WIDTH,
+      backgroundColor: theme.colors.bg,
+    },
+  });
   return (
     <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
       <MenuContainer
@@ -79,9 +87,3 @@ const Accounts = () => {
 };
 
 export default Accounts;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    width: DEVICE_WIDTH,
-  },
-});

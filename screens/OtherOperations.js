@@ -4,8 +4,16 @@ import { Icon, Image } from 'react-native-elements';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import MenuContainer from '../components/MenuContainer';
 import { BLUE } from '../common/colors';
+import { useTheme } from '../context/Theme';
 
 const OtherOperations = () => {
+  const { theme } = useTheme();
+  const styles = StyleSheet.create({
+    wrapper: {
+      width: DEVICE_WIDTH,
+      backgroundColor: theme.colors.bg,
+    },
+  });
   return (
     <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
       <MenuContainer
