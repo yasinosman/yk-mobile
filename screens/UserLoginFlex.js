@@ -8,10 +8,10 @@ import { Switch } from 'react-native';
 import { Formik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { useState } from 'react';
 import { object, string } from 'yup';
 import { login } from '../services/authentication';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 
 import Piyasalar from './Piyasalar';
 
@@ -137,7 +137,7 @@ const Login = ({ navigation }) => {
                   />
                   {errors.tckimlik && touched.tckimlik && (
                     <Text style={styles.tckimlikErrorStyle}>
-                      {errors.tcxkimlik}
+                      {errors.tckimlik}
                     </Text>
                   )}
                   <Divider
