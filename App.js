@@ -207,7 +207,9 @@ export default function App() {
                     <Navbar
                       navigation={props.scene.descriptor.navigation}
                       route={props.scene.route}
-                      currentRouteName={getCurrentRouteName(route)}
+                      currentRouteName={
+                        getCurrentRouteName(route) ?? 'Yatırımlar'
+                      }
                       {...props}
                     />
                   ),
