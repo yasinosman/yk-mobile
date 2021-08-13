@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Input, Button, Divider } from 'react-native-elements';
 import { StyleSheet, Text, View } from 'react-native';
-import { TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import { Keyboard } from 'react-native';
 import { BLUE } from '../common/colors';
 import { Switch } from 'react-native';
@@ -135,7 +135,6 @@ const Login = ({ navigation }) => {
                     }}
                     disabled={loading}
                   />
-
                   {errors.tckimlik && touched.tckimlik && (
                     <Text style={styles.tckimlikErrorStyle}>
                       {errors.tckimlik}
@@ -170,7 +169,6 @@ const Login = ({ navigation }) => {
                     }}
                     disabled={loading}
                   />
-
                   {errors.sifre && touched.sifre && (
                     <Text style={styles.tckimlikErrorStyle}>
                       {errors.sifre}
@@ -329,7 +327,7 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   loginWithoutButton: {
-    flex: 1.7,
+    flex: 1.8,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -375,7 +373,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    flex: 0.9,
+    flex: 1,
     borderWidth: 1,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -384,10 +382,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   tckimlikErrorStyle: {
-    flex: 1,
     fontSize: 14,
     color: 'red',
     fontWeight: 'bold',
+    marginLeft: 5,
+    fontSize: 10,
   },
   switchRememberMe: {
     marginLeft: 10,
