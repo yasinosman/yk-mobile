@@ -1,15 +1,27 @@
-import { DrawerContentScrollView } from '@react-navigation/drawer';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Image, Avatar } from 'react-native-elements';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
+import { TouchableOpacity, StyleSheet, View } from 'react-native';
+import { Image } from 'react-native-elements';
 import { BLUE } from '../common/colors';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import MenuButton from './MenuButton';
 import StyledText from './StyledText';
+import { StatusBarHeight } from '../utils';
 import { logout } from '../services/authentication';
 
 const NavigationDrawer = props => {
+  const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
+
+  React.useEffect(() => {
+    const lastRoute = props.state?.history[props.state?.history?.length - 1];
+    if (lastRoute && lastRoute.key) {
+      const currentRoute = props.state.routes.find(r => r.key == lastRoute.key);
+      if (currentRoute && currentRoute.name) {
+        setCurrentRoute(currentRoute.name);
+      }
+    }
+  }, [props.state]);
+
   const handleLogout = async () => {
     try {
       await logout();
@@ -18,7 +30,13 @@ const NavigationDrawer = props => {
     }
   };
   return (
-    <DrawerContentScrollView showsVerticalScrollIndicator={false} {...props}>
+    <DrawerContentScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        marginTop: StatusBarHeight,
+      }}
+      {...props}
+    >
       <View style={styles.wrapper}>
         <View style={styles.profileContainer}>
           <Image
@@ -47,7 +65,10 @@ const NavigationDrawer = props => {
             trailingIcon={null}
             title="Anasayfa"
             iconContainerStyles={styles.imageContainer}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Anasayfa' && styles.activeMenuButton,
+            ]}
             textStyles={styles.text}
             textContainerStyles={styles.textContainerStyles}
             onPress={() => {
@@ -67,7 +88,10 @@ const NavigationDrawer = props => {
             trailingIcon={null}
             title="Hesaplarım"
             iconContainerStyles={styles.imageContainer}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Hesaplarım' && styles.activeMenuButton,
+            ]}
             textStyles={styles.text}
             textContainerStyles={styles.textContainerStyles}
             onPress={() => {
@@ -89,7 +113,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Kartlarım' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Kartlarım');
             }}
@@ -109,7 +136,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Para Transferleri' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Para Transferleri');
             }}
@@ -129,7 +159,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Yatırımlar' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Yatırımlar');
             }}
@@ -149,7 +182,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Ödemeler' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Ödemeler');
             }}
@@ -166,7 +202,10 @@ const NavigationDrawer = props => {
             }
             trailingIcon={null}
             title="Krediler"
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Krediler' && styles.activeMenuButton,
+            ]}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
             iconContainerStyles={styles.imageContainer}
@@ -189,7 +228,10 @@ const NavigationDrawer = props => {
             iconContainerStyles={styles.imageContainer}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
-            containerStyles={[styles.menuButton]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Sigortalar' && styles.activeMenuButton,
+            ]}
             onPress={() => {
               props.navigation.navigate('Sigortalar');
             }}
@@ -207,7 +249,11 @@ const NavigationDrawer = props => {
             trailingIcon={null}
             title="Diğer İşlemler"
             iconContainerStyles={styles.imageContainer}
-            containerStyles={[styles.menuButton, { borderBottomWidth: 0 }]}
+            containerStyles={[
+              styles.menuButton,
+              currentRoute === 'Diğer İşlemler' && styles.activeMenuButton,
+              { borderBottomWidth: 0 },
+            ]}
             textContainerStyles={styles.textContainerStyles}
             textStyles={styles.text}
             onPress={() => {
@@ -290,16 +336,17 @@ const NavigationDrawer = props => {
 
 export default NavigationDrawer;
 
+const NAVBAR_HEIGHT = DEVICE_HEIGHT - StatusBarHeight;
+
 const styles = StyleSheet.create({
   wrapper: {
-    height: DEVICE_HEIGHT,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 0,
-    padding: 0,
+    marginTop: NAVBAR_HEIGHT * (5 / 100),
+    marginBottom: NAVBAR_HEIGHT * (6 / 100),
+    height: NAVBAR_HEIGHT * (85 / 100),
+    justifyContent: 'space-around',
   },
   profileContainer: {
-    height: DEVICE_HEIGHT * (20 / 100),
+    height: '15%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -307,14 +354,12 @@ const styles = StyleSheet.create({
   profilePicture: {
     width: DEVICE_HEIGHT * (12 / 100),
     height: DEVICE_HEIGHT * (12 / 100),
-    marginHorizontal: DEVICE_WIDTH * (2 / 100),
   },
   greetingContainer: {
     backgroundColor: 'white',
     width: '50%',
-    marginHorizontal: DEVICE_WIDTH * (2 / 100),
-    height: DEVICE_HEIGHT * (10 / 100),
-    paddingTop: DEVICE_HEIGHT * (2 / 100),
+    marginLeft: DEVICE_WIDTH * (5 / 100),
+    justifyContent: 'center',
   },
   greetingText: {
     fontSize: 18,
@@ -326,31 +371,30 @@ const styles = StyleSheet.create({
     color: BLUE,
   },
   buttonContainer: {
-    height: DEVICE_HEIGHT * (70 / 100),
+    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
   },
   menuButton: {
     backgroundColor: 'white',
-    height: DEVICE_HEIGHT * (7.5 / 100),
-    width: '100%',
-    //borderBottomWidth: 0.3,
+    height: '10%',
+    width: '95%',
     marginVertical: DEVICE_HEIGHT * (0.1 / 100),
     borderColor: 'transparent',
     borderLeftWidth: 5,
   },
   activeMenuButton: {
     borderColor: BLUE,
-    backgroundColor: 'rgb(240,240,250)',
+    backgroundColor: 'rgba(5,136,218, 0.1)',
   },
   exitContainer: {
     width: '100%',
-    height: DEVICE_HEIGHT * (10 / 100),
+    height: '10%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgb(245,247,250)',
+    // backgroundColor: 'rgb(245,247,250)',
   },
 
   settingsButton: {
