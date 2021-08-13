@@ -18,7 +18,11 @@ const buttonClickedHandler = () => {
 };
 
 const testValidationSchema = object().shape({
-  tckimlik: string().matches(/^\d{11}$/, 'TC kimlik no 11 haneli olmalıdır '),
+  firmakodu: string().matches(/^\d{10}$/, 'Firma kodu 5 haneli olmalıdır '),
+  kullanicikodu: string().matches(
+    /^\d{10}$/,
+    'Kullanıcı kodu 5 haneli olmalıdır '
+  ),
   sifre: string().matches(/^\d{6}$/, 'Şifre 6 haneli olmalıdır'),
 });
 
@@ -57,24 +61,8 @@ const Login = ({ navigation }) => {
           </View>
         </View>
         <Formik
-          initialValues={{ tckimlik: '', sifre: '' }}
-          onSubmit={values => {
-            // login(values.tc, values.password).catch(error => {alert("Login hatası")})
-            setLoading(true);
-            login({
-              nationalIdentity: values.tckimlik,
-              password: values.sifre,
-            })
-              .then(() => {
-                setLoading(false);
-              })
-              .catch(error => {
-                alert(
-                  'Lütfen giriş bilgilerinizi kontrol edip tekrar deneyin.'
-                );
-                setLoading(false);
-              });
-          }}
+          initialValues={{ firmakodu: '', kullanicikodu: '', sifre: '' }}
+          onSubmit={values => Console.log(value)}
           validateOnMount={true}
           validationSchema={testValidationSchema}
         >
@@ -123,20 +111,20 @@ const Login = ({ navigation }) => {
                     }}
                     // keyboardType="numeric"
                     inputStyle={{ borderBottomWidth: 0 }}
-                    maxLength={11}
+                    maxLength={10}
                     underlineColorAndroid="transparent"
-                    onChangeText={handleChange('tckimlik')}
-                    onBlur={handleBlur('tckimlik')}
-                    value={values.tckimlik}
+                    onChangeText={handleChange('firmakodu')}
+                    onBlur={handleBlur('firmakodu')}
+                    value={values.firmakodu}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                       justifyContent: 'center',
                     }}
                     disabled={loading}
                   />
-                  {errors.tckimlik && touched.tckimlik && (
+                  {errors.firmakodu && touched.firmakodu && (
                     <Text style={styles.tckimlikErrorStyle}>
-                      {errors.tckimlik}
+                      {errors.firmakodu}
                     </Text>
                   )}
                   <Divider
@@ -155,12 +143,12 @@ const Login = ({ navigation }) => {
                     inputStyle={{
                       borderBottomWidth: 0,
                     }}
-                    maxLength={6}
+                    maxLength={10}
                     underlineColorAndroid="transparent"
                     keyboardType="numeric"
-                    onChangeText={handleChange('sifre')}
-                    onBlur={handleBlur('sifre')}
-                    value={values.sifre}
+                    onChangeText={handleChange('kullanicikodu')}
+                    onBlur={handleBlur('kullanicikodu')}
+                    value={values.kullanicikodu}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                       justifyContent: 'center',
@@ -168,9 +156,9 @@ const Login = ({ navigation }) => {
                     }}
                     disabled={loading}
                   />
-                  {errors.sifre && touched.sifre && (
+                  {errors.kullanicikodu && touched.kullanicikodu && (
                     <Text style={styles.tckimlikErrorStyle}>
-                      {errors.sifre}
+                      {errors.kullanicikodu}
                     </Text>
                   )}
                   <Divider
@@ -186,14 +174,25 @@ const Login = ({ navigation }) => {
                       flex: 0.8,
                     }}
                     inputStyle={{ borderBottomWidth: 0 }}
-                    maxLength={11}
+                    maxLength={6}
                     underlineColorAndroid="transparent"
                     onChangeText={handleChange('sifre')}
-                    value={values.tckimlik}
-                    inputContainerStyle={{ borderBottomWidth: 0 }}
+                    onBlur={handleBlur('sifre')}
+                    value={values.sifre}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
                     secureTextEntry
                     keyboardType="numeric"
+                    disabled={loading}
                   />
+                  {errors.sifre && touched.sifre && (
+                    <Text style={styles.tckimlikErrorStyle}>
+                      {errors.sifre}
+                    </Text>
+                  )}
                 </View>
               </View>
               <View>
@@ -292,7 +291,7 @@ const Login = ({ navigation }) => {
           <View style={styles.piyasalarView}>
             <TouchableOpacity
               style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('DAHA FAZLASI')}
+              onPress={() => navigation.navigate('DAHA FAZLASI KURUMSAL')}
             >
               <Image
                 style={styles.piyasalarImage}
@@ -399,7 +398,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    flex: 1.4,
+    flex: 1.5,
     borderWidth: 1,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -408,10 +407,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   tckimlikErrorStyle: {
-    flex: 1,
     fontSize: 14,
     color: 'red',
     fontWeight: 'bold',
+    fontSize: 10,
   },
   switchRememberMe: {
     marginLeft: 10,
