@@ -17,7 +17,10 @@ const actions = [
     title: 'Para Çek / Yatır',
     id: 2,
     image: (
-      <Icon name="money" size={30} color={BLUE} type="font-awesome"></Icon>
+      <Image
+        source={require('../assets/img/cekyatir.png')}
+        style={{ width: 30, height: 30 }}
+      />
     ),
   },
   {
@@ -42,7 +45,7 @@ const actions = [
     id: 4,
     image: (
       <Image
-        source={require('../assets/img/world-pay.png')}
+        source={require('../assets/img/wpay2.png')}
         style={{ width: 55, height: 55, marginBottom: -5 }}
       />
     ),

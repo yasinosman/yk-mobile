@@ -162,7 +162,7 @@ const Dashboard = props => {
                       currency={card.currency}
                     />
                   }
-                  containerStyles={{ borderColor: 'black' }}
+                  containerStyles={{ borderColor: theme.colors.text }}
                 />
               );
             })}

@@ -16,7 +16,7 @@ const InfoCard = ({
   text = 'text',
   image = (
     <Image
-      source={require('../assets/img/interest.png')}
+      source={require('../assets/img/interest2.png')}
       style={{ width: 75, height: 100 }}
     />
   ),
