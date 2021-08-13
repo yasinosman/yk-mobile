@@ -34,8 +34,6 @@ import Araclar from './screens/Araclar';
 import DahaFKurum from './screens/DahaFKurum';
 import { DEVICE_HEIGHT } from './common/dimensions';
 import { getCurrentRouteName } from './utils';
-
-import { DEVICE_HEIGHT } from './common/dimensions';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
