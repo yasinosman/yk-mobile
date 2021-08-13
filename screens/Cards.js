@@ -4,8 +4,16 @@ import { ORANGE } from '../common/colors';
 import { DEVICE_WIDTH } from '../common/dimensions';
 import MenuContainer from '../components/MenuContainer';
 import Tag from '../components/Tag';
+import { useTheme } from '../context/Theme';
 
 const Cards = () => {
+  const { theme } = useTheme();
+  const styles = StyleSheet.create({
+    wrapper: {
+      width: DEVICE_WIDTH,
+      backgroundColor: theme.colors.bg,
+    },
+  });
   return (
     <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
       <MenuContainer
@@ -118,9 +126,3 @@ const Cards = () => {
 };
 
 export default Cards;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    width: DEVICE_WIDTH,
-  },
-});

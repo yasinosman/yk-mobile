@@ -8,8 +8,24 @@ import MenuContainer from '../components/MenuContainer';
 import MenuTitle from '../components/MenuTitle';
 import SmallCardView from '../components/SmallCardView';
 import Tag from '../components/Tag';
+import { useTheme } from '../context/Theme';
 
 const MoneyTransfers = () => {
+  const { theme } = useTheme();
+
+  const styles = StyleSheet.create({
+    wrapper: {
+      width: DEVICE_WIDTH,
+      backgroundColor: theme.colors.bg,
+    },
+    container: {
+      height: 150,
+      width: DEVICE_WIDTH,
+      marginBottom: 10,
+      justifyContent: 'center',
+    },
+  });
+
   return (
     <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
       <MenuContainer
@@ -57,7 +73,7 @@ const MoneyTransfers = () => {
               <Icon
                 name="address-book"
                 size={45}
-                color={BLUE}
+                color={theme.colors.blue}
                 type="font-awesome"
               />
             }
@@ -69,7 +85,7 @@ const MoneyTransfers = () => {
             titleContainerStyles={{
               width: DEVICE_WIDTH * (45 / 100),
               height: 50,
-              backgroundColor: BLUE,
+              backgroundColor: theme.colors.blue,
             }}
             titleTextStyles={{
               fontSize: 16,
@@ -79,7 +95,12 @@ const MoneyTransfers = () => {
 
           <SmallCardView
             image={
-              <Icon name="book" size={45} color={BLUE} type="font-awesome" />
+              <Icon
+                name="book"
+                size={45}
+                color={theme.colors.blue}
+                type="font-awesome"
+              />
             }
             title="Akıllı Rehber'den Havale / EFT"
             containerStyles={{
@@ -89,7 +110,7 @@ const MoneyTransfers = () => {
             titleContainerStyles={{
               width: DEVICE_WIDTH * (45 / 100),
               height: 50,
-              backgroundColor: BLUE,
+              backgroundColor: theme.colors.blue,
             }}
             titleTextStyles={{
               fontSize: 16,
@@ -103,15 +124,3 @@ const MoneyTransfers = () => {
 };
 
 export default MoneyTransfers;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    width: DEVICE_WIDTH,
-  },
-  container: {
-    height: 150,
-    width: DEVICE_WIDTH,
-    marginBottom: 10,
-    justifyContent: 'center',
-  },
-});

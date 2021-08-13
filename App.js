@@ -1,7 +1,7 @@
 import React from 'react';
 import './firebase/index';
+import ThemeProvider from './context/Theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ThemeProvider } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -32,6 +32,8 @@ import DahaF from './screens/DahaF';
 import İletisim from './screens/İletisim';
 import Araclar from './screens/Araclar';
 import DahaFKurum from './screens/DahaFKurum';
+import { DEVICE_HEIGHT } from './common/dimensions';
+import { getCurrentRouteName } from './utils';
 
 import { DEVICE_HEIGHT } from './common/dimensions';
 const Drawer = createDrawerNavigator();
@@ -202,15 +204,16 @@ export default function App() {
               <Drawer.Screen
                 name="Yatırımlar"
                 component={Investments}
-                options={{
+                options={({ route }) => ({
                   header: props => (
                     <Navbar
                       navigation={props.scene.descriptor.navigation}
                       route={props.scene.route}
+                      currentRouteName={getCurrentRouteName(route)}
                       {...props}
                     />
                   ),
-                }}
+                })}
               />
               <Drawer.Screen
                 name="Ödemeler"
