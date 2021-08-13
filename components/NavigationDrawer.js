@@ -36,7 +36,7 @@ const NavigationDrawer = props => {
 
   const styles = StyleSheet.create({
     wrapper: {
-      marginTop: isIPhoneX() ? 10 : StatusBarHeight,
+      marginTop: Platform.OS === 'ios' ? 35 : StatusBarHeight,
       height: DEVICE_HEIGHT,
       justifyContent: 'space-around',
       backgroundColor: theme.colors.bg,
@@ -88,7 +88,7 @@ const NavigationDrawer = props => {
     },
     exitContainer: {
       width: '100%',
-      height: '10%',
+      height: Platform.OS === 'ios' ? '13%' : '10%',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
@@ -96,6 +96,7 @@ const NavigationDrawer = props => {
       borderRightColor: theme.colors.text,
       borderRightWidth: 0.2,
       backgroundColor: theme.colors.card,
+      //marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * ( / 100) : 0,
     },
 
     settingsButton: {
@@ -106,6 +107,7 @@ const NavigationDrawer = props => {
       alignItems: 'center',
       marginHorizontal: '1.5%',
       padding: 0,
+      marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * (3 / 100) : 0,
     },
     settingsText: {
       fontSize: 21,
@@ -120,6 +122,7 @@ const NavigationDrawer = props => {
       alignItems: 'center',
       marginHorizontal: '1.5%',
       padding: 0,
+      marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * (3 / 100) : 0,
     },
     exitText: {
       fontSize: 21,
