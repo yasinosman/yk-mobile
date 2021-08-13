@@ -18,10 +18,10 @@ const buttonClickedHandler = () => {
 };
 
 const testValidationSchema = object().shape({
-  firmakodu: string().matches(/^\d{10}$/, 'Firma kodu 5 haneli olmalıdır '),
+  firmakodu: string().matches(/^\d{10}$/, 'Firma kodu 10 haneli olmalıdır '),
   kullanicikodu: string().matches(
     /^\d{10}$/,
-    'Kullanıcı kodu 5 haneli olmalıdır '
+    'Kullanıcı kodu 10 haneli olmalıdır '
   ),
   sifre: string().matches(/^\d{6}$/, 'Şifre 6 haneli olmalıdır'),
 });
