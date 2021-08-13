@@ -1,7 +1,7 @@
 import React from 'react';
 import './firebase/index';
+import ThemeProvider from './context/Theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ThemeProvider } from 'react-native-elements';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -202,15 +202,16 @@ export default function App() {
               <Drawer.Screen
                 name="Yatırımlar"
                 component={Investments}
-                options={{
+                options={({ route }) => ({
                   header: props => (
                     <Navbar
                       navigation={props.scene.descriptor.navigation}
                       route={props.scene.route}
+                      currentRouteName={getCurrentRouteName(route)}
                       {...props}
                     />
                   ),
-                }}
+                })}
               />
               <Drawer.Screen
                 name="Ödemeler"

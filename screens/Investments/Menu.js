@@ -1,12 +1,21 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { ICON_BLUE } from '../common/colors';
-import { DEVICE_WIDTH } from '../common/dimensions';
-import MenuContainer from '../components/MenuContainer';
-import Tag from '../components/Tag';
+import { ICON_BLUE } from '../../common/colors';
+import { DEVICE_WIDTH } from '../../common/dimensions';
+import MenuContainer from '../../components/MenuContainer';
+import Tag from '../../components/Tag';
+import { useTheme } from '../../context/Theme';
 
-const Investments = () => {
+const Menu = props => {
+  const { theme } = useTheme();
+  const styles = StyleSheet.create({
+    wrapper: {
+      width: DEVICE_WIDTH,
+      backgroundColor: theme.colors.bg,
+    },
+  });
+
   return (
     <ScrollView style={styles.wrapper} showsVerticalScrollIndicator={false}>
       <MenuContainer
@@ -61,6 +70,48 @@ const Investments = () => {
           },
           {
             title: 'Döviz Hesaplama',
+          },
+        ]}
+      />
+
+      <MenuContainer
+        title="Kripto Varlıklarım"
+        buttons={[
+          {
+            title: 'Kripto Alış/Satış',
+            onPress: () => {
+              props.navigation.navigate('Kripto Alış/Satış');
+            },
+          },
+          {
+            title: 'Çapraz Kripto İşlemleri',
+            onPress: () => {
+              props.navigation.navigate('Çapraz Kripto İşlemleri');
+            },
+          },
+          {
+            title: 'Kripto Cüzdanım',
+            onPress: () => {
+              props.navigation.navigate('Kripto Cüzdanım');
+            },
+          },
+          {
+            title: 'Emirlerim',
+            onPress: () => {
+              props.navigation.navigate('Emirlerim');
+            },
+          },
+          {
+            title: 'Alarmlarım',
+            onPress: () => {
+              props.navigation.navigate('Alarmlarım');
+            },
+          },
+          {
+            title: 'Kripto Hesaplama',
+            onPress: () => {
+              props.navigation.navigate('Kripto Hesaplama');
+            },
           },
         ]}
       />
@@ -204,7 +255,7 @@ const Investments = () => {
   );
 };
 
-export default Investments;
+export default Menu;
 
 const styles = StyleSheet.create({
   wrapper: {

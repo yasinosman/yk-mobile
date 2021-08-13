@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import useCurrency, { CURRENCY_DICTIONARY } from '../hooks/useCurrency';
 import FadeInText from './FadeInText';
 
@@ -30,5 +29,3 @@ const CurrencyText = ({
 };
 
 export default CurrencyText;
-
-const styles = StyleSheet.create({});
