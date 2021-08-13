@@ -96,7 +96,7 @@ export function convertCurrency(
     Math.round(
       (initialAmount * EXCHANGE_RATES[initialCurrency][targetCurrency] +
         Number.EPSILON) *
-        100
-    ) / 100
+        1000000
+    ) / 1000000
   );
 }
