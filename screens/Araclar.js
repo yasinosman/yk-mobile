@@ -16,7 +16,7 @@ const SifreM = ({ navigation }) => {
     <View style={styles.container}>
       <SafeAreaView style={styles.title}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('UserLoginFlex')}
+          onPress={() => navigation.navigate('BusinessLoginFlex')}
           style={styles.lessView}
         >
           <Image

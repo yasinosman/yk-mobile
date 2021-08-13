@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 
-const İletisim = ({ navigation }) => {
+const SifreM = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.title}>
@@ -25,16 +25,10 @@ const İletisim = ({ navigation }) => {
           ></Image>
         </TouchableOpacity>
         <View style={styles.titleView}>
-          <Text style={styles.titleText}>İletişim</Text>
+          <Text style={styles.titleText}>Daha Fazlası</Text>
         </View>
       </SafeAreaView>
 
-      <View style={styles.imageView}>
-        <Image
-          source={require('../assets/iletisim.jpg')}
-          style={styles.imageStyle}
-        />
-      </View>
       <ScrollView style={styles.scrollView}>
         <View
           style={{
@@ -51,10 +45,9 @@ const İletisim = ({ navigation }) => {
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
-            <Text style={styles.optionText}>Yapı Kredi'yi Ara</Text>
+            <Text style={styles.optionText}>Mobil Güvenlik</Text>
             <Text style={styles.description}>
-              Ürün ve hizmetlerimizle ilgili şikayet, talep ve önerileriniz için
-              bizi arayabilirsiniz.
+              Mobil bankacılık güvenlik önlemleri hakkında bilgi alabilirsiniz.
             </Text>
           </View>
           <Image
@@ -77,7 +70,10 @@ const İletisim = ({ navigation }) => {
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
-            <Text style={styles.optionText}>@YapiKrediHizmet</Text>
+            <Text style={styles.optionText}>Planlı Çalışmalar Takvimi</Text>
+            <Text style={styles.description}>
+              Planlanan Mobil Şube çalışmalarını görüntüleyebilirsiniz.
+            </Text>
           </View>
           <Image
             style={styles.arrowText}
@@ -99,7 +95,10 @@ const İletisim = ({ navigation }) => {
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
-            <Text style={styles.optionText}>Yapı Kredi</Text>
+            <Text style={styles.optionText}>Uygulama Hakkında</Text>
+            <Text style={styles.description}>
+              Uygulama hakkında bilgi alabilirsiniz.
+            </Text>
           </View>
           <Image
             style={styles.arrowText}
@@ -119,7 +118,7 @@ const İletisim = ({ navigation }) => {
     </View>
   );
 };
-export default İletisim;
+export default SifreM;
 
 const styles = StyleSheet.create({
   container: {
@@ -128,15 +127,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 
-  imageView: {
-    flex: 0.249,
-  },
-  imageStyle: {
-    resizeMode: 'contain',
-    width: 946 / 2.4,
-    height: 361 / 2,
-    flex: 1,
-  },
   imgArPic: {
     height: 36,
     width: 20,
@@ -157,15 +147,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   scrollView: {
-    flex: 1,
+    flex: 10,
     width: '100%',
   },
   optionText: {
-    flex: 0.4,
+    flex: 2,
     marginLeft: 20,
     fontWeight: 'bold',
-    fontSize: 15,
-    marginTop: 11,
+    fontSize: 17,
   },
   optionWhite: {
     flex: 1,
@@ -183,12 +172,14 @@ const styles = StyleSheet.create({
   },
   lessView: {
     marginLeft: 10,
-    flex: 2.5,
+    flex: 3,
     justifyContent: 'center',
     backgroundColor: 'white',
   },
   titleView: {
-    flex: 3.5,
+    flex: 7,
+    textAlign: 'center',
+    marginLeft: 40,
   },
   lessText: {
     marginLeft: 10,
@@ -197,7 +188,15 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 20,
+  },
+  description: {
+    flex: 3.5,
+    marginLeft: 20,
+    fontSize: 14,
+    marginRight: 10,
+    marginTop: 5,
+    opacity: 0.7,
   },
   icons: {
     marginLeft: 25,
@@ -207,39 +206,6 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 1,
-    alignItems: 'flex-start',
-  },
-  description: {
-    flex: 1,
-    marginLeft: 20,
-    fontSize: 14,
-    marginRight: 10,
-    marginTop: 5,
-    opacity: 0.7,
-  },
-  newStyle: {
-    flexDirection: 'row',
-  },
-  yeniTextView: {
-    flex: 0.12,
-    backgroundColor: 'rgba(255,84,51,255)',
-    height: 15,
-    borderRadius: 3,
-    borderColor: 'rgba(255,84,51,255)',
-    borderWidth: 1,
-    marginTop: 18,
-  },
-  yeniText: {
-    textAlign: 'center',
-    height: 15,
-    fontSize: 12,
-    color: 'white',
-  },
-  newAccountStyle: {
-    flex: 0.85,
-    marginLeft: 20,
-    fontWeight: 'bold',
-    fontSize: 15,
-    marginTop: 18,
+    marginTop: 20,
   },
 });

@@ -31,9 +31,11 @@ import Kampanyalar from './screens/Kampanyalar';
 import DahaF from './screens/DahaF';
 import İletisim from './screens/İletisim';
 import Araclar from './screens/Araclar';
+import DahaFKurum from './screens/DahaFKurum';
 import { DEVICE_HEIGHT } from './common/dimensions';
 import { getCurrentRouteName } from './utils';
 
+import { DEVICE_HEIGHT } from './common/dimensions';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
@@ -100,6 +102,13 @@ export default function App() {
               <Stack.Screen
                 name="DAHA FAZLASI"
                 component={DahaF}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="DAHA FAZLASI KURUMSAL"
+                component={DahaFKurum}
                 options={{
                   animationEnabled: false,
                 }}
