@@ -45,6 +45,32 @@ const CryptoCalculating = () => {
         ),
       },
       {
+        label: `DOGE`,
+        value: 'doge',
+        icon: () => (
+          <Image
+            source={{
+              uri: 'https://firebasestorage.googleapis.com/v0/b/yk-mobile-7ce20.appspot.com/o/icons%2Fdogecoin.png?alt=media&token=433482a9-ded3-4030-acee-4fe752523a78',
+            }}
+            style={{ width: 20, height: 20 }}
+            resizeMode="contain"
+          />
+        ),
+      },
+      {
+        label: `XRP`,
+        value: 'xrp',
+        icon: () => (
+          <Image
+            source={{
+              uri: 'https://firebasestorage.googleapis.com/v0/b/yk-mobile-7ce20.appspot.com/o/icons%2Fxrp.png?alt=media&token=368d6c24-5d57-4f92-8974-004c4568d5dd',
+            }}
+            style={{ width: 20, height: 20 }}
+            resizeMode="contain"
+          />
+        ),
+      },
+      {
         label: `TRY`,
         value: 'try',
         icon: () => (

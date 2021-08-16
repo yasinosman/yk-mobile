@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import Menu from './Menu';
 import { createStackNavigator } from '@react-navigation/stack';
 import CryptoTrading from '../Crypto/CryptoTrading';
@@ -29,5 +28,3 @@ const Investments = props => {
 };
 
 export default Investments;
-
-const styles = StyleSheet.create({});
