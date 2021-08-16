@@ -1,15 +1,15 @@
 import React from 'react';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Image } from 'react-native-elements';
 import { BLUE } from '../common/colors';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import MenuButton from './MenuButton';
 import StyledText from './StyledText';
-import { isIPhoneX, StatusBarHeight } from '../utils';
+import { StatusBarHeight } from '../utils';
 import { logout } from '../services/authentication';
 import { useTheme } from '../context/Theme';
 import { Platform } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
 
 const NavigationDrawer = props => {
   const [currentRoute, setCurrentRoute] = React.useState('Anasayfa');
@@ -270,7 +270,14 @@ const NavigationDrawer = props => {
             currentRoute === 'Yatırımlar' && styles.activeMenuButton,
           ]}
           onPress={() => {
-            props.navigation.navigate('Yatırımlar');
+            // props.navigation.navigate('Yatırımlar');
+
+            props.navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'Yatırımlar' }],
+              })
+            );
           }}
         />
         <MenuButton
