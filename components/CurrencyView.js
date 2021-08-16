@@ -14,8 +14,7 @@ const CurrencyView = ({
   content,
   initialCurrency,
   targetCurrency,
-  navigation,
-  targetRouteName,
+  onPress = () => null,
 }) => {
   const [integerValue, decimalValue] = formatAmount(
     convertCurrency(initialCurrency, 1, targetCurrency)
@@ -73,12 +72,7 @@ const CurrencyView = ({
   });
 
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate(targetRouteName, { currency: initialCurrency })
-      }
-      style={styles.wrapper}
-    >
+    <TouchableOpacity onPress={onPress} style={styles.wrapper}>
       <View style={styles.iconContainer}>{icon}</View>
       <View style={styles.nameContainer}>
         <StyledText style={styles.nameText}>{initialCurrencyName}</StyledText>

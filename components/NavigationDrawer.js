@@ -1,12 +1,11 @@
 import React from 'react';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { TouchableOpacity, StyleSheet, View } from 'react-native';
 import { Image } from 'react-native-elements';
 import { BLUE } from '../common/colors';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import MenuButton from './MenuButton';
 import StyledText from './StyledText';
-import { isIPhoneX, StatusBarHeight } from '../utils';
+import { StatusBarHeight } from '../utils';
 import { logout } from '../services/authentication';
 import { useTheme } from '../context/Theme';
 import { Platform } from 'react-native';
@@ -98,7 +97,6 @@ const NavigationDrawer = props => {
       backgroundColor: theme.colors.card,
       //marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * ( / 100) : 0,
     },
-
     settingsButton: {
       width: '47%',
       height: '80%',
