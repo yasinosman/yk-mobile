@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
     flex: 2,
     marginLeft: 20,
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 16,
+    fontFamily: 'UbuntuBold',
   },
   optionWhite: {
     flex: 1,
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   titleView: {
-    flex: 7,
+    flex: 8,
     textAlign: 'center',
     marginLeft: 40,
   },
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'black',
     fontSize: 20,
+    fontFamily: 'Ubuntu',
   },
   description: {
     flex: 3.5,
@@ -197,6 +199,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 5,
     opacity: 0.7,
+    fontFamily: 'Ubuntu',
   },
   icons: {
     marginLeft: 25,
@@ -206,6 +209,6 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 15,
   },
 });

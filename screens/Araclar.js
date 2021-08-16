@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 20,
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 16,
+    fontFamily: 'UbuntuBold',
   },
   optionWhite: {
     flex: 1,
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
   titleText: {
     color: 'black',
     fontSize: 20,
+    fontFamily: 'Ubuntu',
   },
   icons: {
     marginLeft: 25,
