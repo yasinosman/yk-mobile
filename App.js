@@ -18,7 +18,7 @@ import Investments from './screens/Investments';
 import MoneyTransfers from './screens/MoneyTransfers';
 import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
-import useCurrentUser from './hooks/useCurrenUser';
+import useCurrentUser from './hooks/useCurrentUser';
 import Navbar from './components/Navbar';
 import { useFonts } from 'expo-font';
 import NavigationDrawer from './components/NavigationDrawer';
