@@ -202,18 +202,27 @@ export default function App() {
               <Drawer.Screen
                 name="Yatırımlar"
                 component={Investments}
-                options={({ route }) => ({
+                // options={({ route }) => ({
+                //   header: props => (
+                //     <Navbar
+                //       navigation={props.scene.descriptor.navigation}
+                //       route={props.scene.route}
+                //       currentRouteName={
+                //         getCurrentRouteName(route) ?? 'Yatırımlar'
+                //       }
+                //       {...props}
+                //     />
+                //   ),
+                // })}
+                options={{
                   header: props => (
                     <Navbar
                       navigation={props.scene.descriptor.navigation}
                       route={props.scene.route}
-                      currentRouteName={
-                        getCurrentRouteName(route) ?? 'Yatırımlar'
-                      }
                       {...props}
                     />
                   ),
-                })}
+                }}
               />
               <Drawer.Screen
                 name="Ödemeler"

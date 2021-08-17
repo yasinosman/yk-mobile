@@ -6,6 +6,7 @@ import { ICON_BLUE } from '../common/colors';
 import StyledText from './StyledText';
 import { logout } from '../services/authentication';
 import { useTheme } from '../context/Theme';
+import { getLastDefinedValue, isArray } from '../utils';
 
 const NavbarMenuButton = props => {
   return (
@@ -28,6 +29,28 @@ const Navbar = props => {
       console.log(error);
     }
   };
+
+  const testName = React.useMemo(() => calculateRouteName(), [props]);
+
+  function calculateRouteName() {
+    const newResult = getLastDefinedValue(props, [
+      'scene',
+      'route',
+      'state',
+      'routes',
+      1,
+      'state',
+      'routes',
+      routesArr => routesArr[routesArr.length - 1],
+      'name',
+    ]);
+
+    return typeof newResult.lastValue === 'string'
+      ? newResult.lastValue
+      : isArray(newResult.lastValue)
+      ? newResult.lastValue[0].name
+      : newResult.lastValue.name;
+  }
 
   const { theme, toggleTheme } = useTheme();
 
@@ -105,10 +128,11 @@ const Navbar = props => {
         )}
         {props.route.name !== 'Anasayfa' && (
           <StyledText style={styles.title}>
-            {props?.scene?.route?.state?.routes?.[1]?.state?.routes?.[1]
+            {testName}
+            {/* {props?.scene?.route?.state?.routes?.[1]?.state?.routes?.[1]
               ?.name ??
               props.currentRouteName ??
-              props.route.name}
+              props.route.name} */}
           </StyledText>
         )}
       </View>
