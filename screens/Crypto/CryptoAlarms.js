@@ -4,6 +4,15 @@ import { getCurrentRouteName } from '../../utils';
 import { PopupScreen } from './Popup';
 
 const CryptoAlarms = ({ navigation }) => {
+  let popupRef = React.createRef();
+
+  const onShowPopup = () => {
+    popupRef.show();
+  };
+
+  const onClosePopup = () => {
+    popupRef.close();
+  };
   return (
     <View style={styles.container}>
       <Image
@@ -11,13 +20,14 @@ const CryptoAlarms = ({ navigation }) => {
         source={require('../../assets/img/notification.png')}
       ></Image>
       <Text style={styles.noAlarm}>Alarmınız bulunmamaktadır.</Text>
-      <TouchableOpacity
-        style={styles.bottomView}
-        onPress={() => navigation.navigate('Alarm Kur')}
-      >
+      <TouchableOpacity style={styles.bottomView} onPress={onShowPopup}>
         <Text style={styles.textStyle}>Alarm Kur</Text>
       </TouchableOpacity>
-      <PopupScreen />
+      <PopupScreen
+        title="Alarm Kur"
+        ref={target => (popupRef = target)}
+        onTouchOutside={onClosePopup}
+      />
     </View>
   );
 };
