@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { getCurrentRouteName } from '../../utils';
+import { PopupScreen } from './Popup';
 
 const CryptoAlarms = ({ navigation }) => {
   return (
@@ -9,13 +10,14 @@ const CryptoAlarms = ({ navigation }) => {
         style={styles.imgArPic}
         source={require('../../assets/img/notification.png')}
       ></Image>
-      <Text>Alarmınız bulunmamaktadır.</Text>
+      <Text style={styles.noAlarm}>Alarmınız bulunmamaktadır.</Text>
       <TouchableOpacity
         style={styles.bottomView}
         onPress={() => navigation.navigate('Alarm Kur')}
       >
         <Text style={styles.textStyle}>Alarm Kur</Text>
       </TouchableOpacity>
+      <PopupScreen />
     </View>
   );
 };
@@ -46,10 +48,14 @@ const styles = StyleSheet.create({
   textStyle: {
     color: '#fff',
     fontSize: 18,
+    fontFamily: 'Ubuntu',
   },
   alarmKur: {
     backgroundColor: 'blue',
     justifyContent: 'center',
     textAlign: 'center',
+  },
+  noAlarm: {
+    fontFamily: 'Ubuntu',
   },
 });

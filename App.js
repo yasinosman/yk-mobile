@@ -5,7 +5,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import { BLUE } from './common/colors';
 import Dashboard from './screens/Dashboard';
 import UserLoginFlex from './screens/UserLoginFlex';

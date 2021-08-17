@@ -10,7 +10,6 @@ import {
   StatusBar,
   TouchableWithoutFeedback,
   Image,
-  Modal,
   SafeAreaView,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
@@ -28,6 +27,7 @@ export class PopupScreen extends React.Component {
   close = () => {
     this.setState({ show: false });
   };
+
   render() {
     let { show } = this.state;
     return (
@@ -40,6 +40,7 @@ export class PopupScreen extends React.Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   searchQuery: {
     backgroundColor: 'white',

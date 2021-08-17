@@ -97,7 +97,7 @@ const Login = ({ navigation }) => {
                       style={styles.userImage}
                       source={require('../assets/user-32px.png')}
                     ></Image>
-                    mpo
+
                     <Text style={styles.userText}>Bireysel</Text>
                   </View>
                   <View style={styles.businessView}>
