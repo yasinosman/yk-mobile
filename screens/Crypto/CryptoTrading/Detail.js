@@ -242,6 +242,12 @@ const Detail = props => {
               borderColor: 'white',
             },
           ]}
+          onPress={() =>
+            props.navigation.navigate('Kripto Alış', {
+              currency: currency.value,
+              targetCurrency: targetCurrency,
+            })
+          }
         >
           <StyledText style={{ color: 'white' }}>
             {currency.value.toUpperCase()} Al
@@ -256,6 +262,12 @@ const Detail = props => {
               borderColor: theme.colors.blue,
             },
           ]}
+          onPress={() =>
+            props.navigation.navigate('Kripto Satış', {
+              currency: currency.value,
+              targetCurrency: targetCurrency,
+            })
+          }
         >
           <StyledText style={{ color: theme.colors.blue }}>
             {currency.value.toUpperCase()} Sat

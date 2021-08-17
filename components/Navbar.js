@@ -41,7 +41,7 @@ const Navbar = props => {
       1,
       'state',
       'routes',
-      1,
+      routesArr => routesArr[routesArr.length - 1],
       'name',
     ]);
 
