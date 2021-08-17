@@ -3,28 +3,48 @@ import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet } from 'react-native';
 import { Button, Image } from 'react-native-elements';
-import { DEVICE_HEIGHT } from '../../../common/dimensions';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../common/dimensions';
 import ChangePercentageView from '../../../components/ChangePercentageView';
 import CurrencyView from '../../../components/CurrencyView';
 import MarketActionView from '../../../components/MarketActionView';
 import StyledText from '../../../components/StyledText';
 import { useTheme } from '../../../context/Theme';
-import { CRYPTO_CURRENCIES } from '../../../hooks/useCurrency';
+import {
+  CRYPTO_CURRENCIES,
+  CURRENCY_DICTIONARY,
+} from '../../../hooks/useCurrency';
 import { generateMockMarketData } from '../../../utils';
+import { LineChart, PieChart } from 'react-native-chart-kit';
 
 const Detail = props => {
   const [currency, setCurrency] = React.useState(CRYPTO_CURRENCIES[0]);
+  const [targetCurrency, setTargetCurrency] = React.useState('usd');
 
-  const btcMarketData = generateMockMarketData('btc', 'usd');
+  const marketData = generateMockMarketData(currency.value, targetCurrency);
 
   React.useEffect(() => {
     const curr = CRYPTO_CURRENCIES.find(
       c => c.value === props.route.params.currency
     );
     setCurrency(curr);
+
+    setTargetCurrency(props.route.params.targetCurrency);
   }, [props.route.params]);
 
   const { theme } = useTheme();
+
+  const chartConfig = {
+    backgroundGradientFrom: 'white',
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: 'white',
+    backgroundGradientToOpacity: 0,
+    color: () => theme.colors.blue,
+    //(opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+    decimalPlaces: 0,
+  };
 
   const styles = StyleSheet.create({
     wrapper: {
@@ -59,7 +79,6 @@ const Detail = props => {
       marginHorizontal: '2.5%',
       justifyContent: 'center',
       alignItems: 'center',
-      // backgroundColor: 'gray',
       borderRadius: 10,
       marginVertical: 20,
     },
@@ -114,38 +133,11 @@ const Detail = props => {
 
   return (
     <ScrollView style={styles.wrapper}>
-      {/* <MenuTitle text={`${currency.label}`} textStyles={styles.title} /> */}
-
-      {/* <View style={styles.marketTypeContainer}>
-        <Button
-          title="Piyasalar"
-          type="outline"
-          containerStyle={styles.marketTypeButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
-        />
-        <Button
-          title="Limit"
-          type="outline"
-          containerStyle={styles.marketTypeButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
-          disabled
-        />
-        <Button
-          title="Stop"
-          type="outline"
-          containerStyle={styles.marketTypeButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
-          disabled
-        />
-      </View> */}
       <CurrencyView
         icon={currency.icon}
         initialCurrency={currency.value}
         initialCurrencyName={currency.label}
-        targetCurrency={'try'}
+        targetCurrency={targetCurrency}
         content={
           <ChangePercentageView
             state={currency.state}
@@ -155,12 +147,32 @@ const Detail = props => {
       />
 
       <View style={styles.chartContainer}>
-        <Image
-          source={{
-            uri: 'https://firebasestorage.googleapis.com/v0/b/yk-mobile-7ce20.appspot.com/o/img%2Fchart.png?alt=media&token=6119860d-1403-4bdc-8679-4cdbba7d37bc',
+        <LineChart
+          data={{
+            labels: marketData.map(data => data.date).slice(-4),
+            datasets: [
+              {
+                data: marketData
+                  .map(data =>
+                    parseInt(
+                      data.price.split('.').join('').split(',').join('.')
+                    )
+                  )
+                  .slice(-10),
+              },
+            ],
           }}
-          resizeMode="contain"
-          style={{ width: 378, height: 330 }}
+          width={DEVICE_WIDTH * (90 / 100)}
+          height={DEVICE_HEIGHT * (30 / 100)}
+          chartConfig={chartConfig}
+          bezier
+          withInnerLines={false}
+          // withOuterLines={false}
+          // style={{
+          //   backgroundColor: 'gray',
+          // }}
+          yLabelsOffset={5}
+          yAxisSuffix={CURRENCY_DICTIONARY[targetCurrency] ?? targetCurrency}
         />
       </View>
 
@@ -205,7 +217,7 @@ const Detail = props => {
           <StyledText style={[styles.marketInfoText]}>Tarih</StyledText>
         </View>
         <ScrollView style={{ height: '100%', width: '100%' }}>
-          {btcMarketData.map((data, index) => (
+          {marketData.map((data, index) => (
             <MarketActionView
               key={data.id}
               date={data.date}

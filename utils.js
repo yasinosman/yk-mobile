@@ -128,8 +128,9 @@ export function generateMockMarketData(initialCurrency, targetCurrency) {
   for (let i = 0; i < 20; i++) {
     const [integer, decimal] = formatAmount(
       getPositiveRandomNumber(
-        EXCHANGE_RATES[initialCurrency][targetCurrency] - getNDigitNumber(2),
-        EXCHANGE_RATES[initialCurrency][targetCurrency] + getNDigitNumber(2)
+        EXCHANGE_RATES[initialCurrency][targetCurrency] -
+          (getNDigitNumber(3) > 0 || 0),
+        EXCHANGE_RATES[initialCurrency][targetCurrency] + getNDigitNumber(3)
       ).toFixed(4)
     );
 
@@ -137,8 +138,11 @@ export function generateMockMarketData(initialCurrency, targetCurrency) {
       getPositiveRandomNumber(0, 10).toFixed(4)
     );
 
+    const d = new Date();
+    d.setSeconds(d.getSeconds() + (i + 10));
+
     data.push({
-      date: formatDate(new Date()),
+      date: formatDate(d),
       type: ['buy', 'sell'][Math.floor(Math.random() * 2)],
       quantity: `${quantityInt}${
         quantityDecimal ? `,${quantityDecimal}` : `,00`
@@ -149,4 +153,76 @@ export function generateMockMarketData(initialCurrency, targetCurrency) {
   }
 
   return data;
+}
+
+/**
+ *
+ * @param {any} obj
+ * @param {Array<any>} propertyChain
+ */
+export function getLastDefinedValue(obj, propertyChain) {
+  let lastValue = obj;
+  let lastProperty = null;
+  let firstUndefinedProperty = null;
+  let fistUndefinedPropertyIndex = 0;
+
+  for (let i = 0; i < propertyChain.length; i++) {
+    const currentProp = propertyChain[i];
+
+    if (typeof currentProp === 'function') {
+      try {
+        const result = currentProp(lastValue);
+
+        if (result !== null && typeof result !== 'undefined') {
+          lastValue = result;
+          lastProperty = currentProp;
+        } else {
+          firstUndefinedProperty = currentProp;
+          fistUndefinedPropertyIndex = i;
+          break;
+        }
+      } catch (error) {
+        break;
+      }
+    } else if (typeof currentProp === 'number') {
+      const result = lastValue[currentProp];
+
+      if (result !== null && typeof result !== 'undefined') {
+        lastValue = result;
+        lastProperty = currentProp;
+      } else {
+        firstUndefinedProperty = currentProp;
+        fistUndefinedPropertyIndex = i;
+
+        break;
+      }
+    } else if (
+      lastValue.hasOwnProperty(currentProp) ||
+      (isArray(lastValue) && lastValue.includes(currentProp))
+    ) {
+      lastValue = lastValue[currentProp];
+      lastProperty = currentProp;
+    } else {
+      firstUndefinedProperty = currentProp;
+      fistUndefinedPropertyIndex = i;
+
+      break;
+    }
+  }
+
+  return {
+    lastValue,
+    lastProperty,
+    firstUndefinedProperty,
+    fistUndefinedPropertyIndex,
+    initialObject: obj,
+  };
+}
+
+export function isArray(a) {
+  return !!a && a.constructor === Array;
+}
+
+export function isObject(a) {
+  return !!a && a.constructor === Object;
 }

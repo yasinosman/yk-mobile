@@ -116,6 +116,7 @@ const Dashboard = props => {
                   onPress={() =>
                     props.navigation.navigate('Kripto Detayı', {
                       currency: currency.value,
+                      targetCurrency: parity.value,
                     })
                   }
                   key={currency.value}
@@ -141,6 +142,7 @@ const Dashboard = props => {
               onPress={() =>
                 props.navigation.navigate('Kripto Detayı', {
                   currency: currency.value,
+                  targetCurrency: selectedParity.value,
                 })
               }
               key={currency.value}
