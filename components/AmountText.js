@@ -34,7 +34,8 @@ const AmountText = ({
     <StyledText style={[styles.primaryText, primaryTextStyles]} {...props}>
       {integer}
       <StyledText style={[styles.secondaryText, secondaryTextStyles]}>
-        {decimal && `,${decimal}`} {CURRENCY_DICTIONARY[currency]}
+        {decimal && `,${decimal}`}{' '}
+        {CURRENCY_DICTIONARY[currency] ?? currency.toUpperCase()}
       </StyledText>
     </StyledText>
   );

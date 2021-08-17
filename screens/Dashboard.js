@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { View } from 'react-native';
-import { Image, makeStyles } from 'react-native-elements';
+import { Image, makeStyles, Icon } from 'react-native-elements';
 import { ORANGE, RED } from '../common/colors';
 import SmallCardView from '../components/SmallCardView';
 import CardView from '../components/CardView';
@@ -90,10 +90,19 @@ const Dashboard = props => {
                   key={account.id}
                   onPress={() => alert(account.name)}
                   icon={
-                    <Image
-                      source={{ uri: account.image_url }}
-                      style={{ width: 60, height: 45 }}
-                    />
+                    account.icon ? (
+                      <Icon
+                        name={account.icon.name}
+                        type={account.icon.type}
+                        size={40}
+                        color={theme.colors.blue}
+                      />
+                    ) : (
+                      <Image
+                        source={{ uri: account.image_url }}
+                        style={{ width: 60, height: 45 }}
+                      />
+                    )
                   }
                   title={account.name}
                   subTitle={account.number}
