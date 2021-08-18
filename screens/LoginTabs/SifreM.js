@@ -19,7 +19,7 @@ const SifreM = ({ navigation }) => {
         >
           <Image
             style={styles.imgArPic}
-            source={require('../assets/img/ic_action_backward.png')}
+            source={require('../../assets/img/ic_action_backward.png')}
           ></Image>
         </TouchableOpacity>
         <View style={styles.titleView}>
@@ -38,13 +38,13 @@ const SifreM = ({ navigation }) => {
       <View style={styles.options}>
         <TouchableOpacity style={styles.sifreBelirleme}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <Text style={styles.optionText}>Mobil Şifre Belirleme</Text>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -58,13 +58,13 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.kartSifreBelirleme}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <Text style={styles.optionText}>Kart Şifre Belirleme</Text>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View

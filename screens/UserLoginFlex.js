@@ -14,8 +14,6 @@ import { login } from '../services/authentication';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { StyledText } from '../';
 
-import Piyasalar from './Piyasalar';
-
 const buttonClickedHandler = () => {
   console.log('Changed language');
 };

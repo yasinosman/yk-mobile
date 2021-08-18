@@ -9,7 +9,7 @@ import {
   Divider,
   ScrollView,
 } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 
 const SifreM = ({ navigation }) => {
   return (
@@ -21,11 +21,11 @@ const SifreM = ({ navigation }) => {
         >
           <Image
             style={styles.imgArPic}
-            source={require('../assets/img/ic_action_backward.png')}
+            source={require('../../assets/img/ic_action_backward.png')}
           ></Image>
         </TouchableOpacity>
         <View style={styles.titleView}>
-          <Text style={styles.titleText}>Daha Fazlası</Text>
+          <Text style={styles.titleText}>Araçlar</Text>
         </View>
       </SafeAreaView>
 
@@ -41,18 +41,15 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
-            <Text style={styles.optionText}>Mobil Güvenlik</Text>
-            <Text style={styles.description}>
-              Mobil bankacılık güvenlik önlemleri hakkında bilgi alabilirsiniz.
-            </Text>
+            <Text style={styles.optionText}>Mevduat Faizi Hesaplama</Text>
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -66,18 +63,15 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionBlue}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
-            <Text style={styles.optionText}>Planlı Çalışmalar Takvimi</Text>
-            <Text style={styles.description}>
-              Planlanan Mobil Şube çalışmalarını görüntüleyebilirsiniz.
-            </Text>
+            <Text style={styles.optionText}>Döviz Hesaplama</Text>
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -91,18 +85,15 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
-            <Text style={styles.optionText}>Uygulama Hakkında</Text>
-            <Text style={styles.description}>
-              Uygulama hakkında bilgi alabilirsiniz.
-            </Text>
+            <Text style={styles.optionText}>Esnek Hesap Hesaplama</Text>
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -151,7 +142,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   optionText: {
-    flex: 2,
+    flex: 1,
     marginLeft: 20,
     fontWeight: 'bold',
     fontSize: 16,
@@ -159,26 +150,26 @@ const styles = StyleSheet.create({
   },
   optionWhite: {
     flex: 1,
-    height: 80,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
   },
   optionBlue: {
     flex: 1,
-    height: 80,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(245,246,250,255)',
   },
   lessView: {
     marginLeft: 10,
-    flex: 3,
+    flex: 2.5,
     justifyContent: 'center',
     backgroundColor: 'white',
   },
   titleView: {
-    flex: 8,
+    flex: 5,
     textAlign: 'center',
     marginLeft: 40,
   },
@@ -192,15 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Ubuntu',
   },
-  description: {
-    flex: 3.5,
-    marginLeft: 20,
-    fontSize: 14,
-    marginRight: 10,
-    marginTop: 5,
-    opacity: 0.7,
-    fontFamily: 'Ubuntu',
-  },
   icons: {
     marginLeft: 25,
     width: 30,
@@ -209,6 +191,6 @@ const styles = StyleSheet.create({
   },
   textView: {
     flex: 1,
-    marginTop: 15,
+    marginTop: 20,
   },
 });

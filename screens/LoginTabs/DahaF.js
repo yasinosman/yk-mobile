@@ -9,7 +9,7 @@ import {
   Divider,
   ScrollView,
 } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 
 const SifreM = ({ navigation }) => {
   return (
@@ -21,7 +21,7 @@ const SifreM = ({ navigation }) => {
         >
           <Image
             style={styles.imgArPic}
-            source={require('../assets/img/ic_action_backward.png')}
+            source={require('../../assets/img/ic_action_backward.png')}
           ></Image>
         </TouchableOpacity>
         <View style={styles.titleView}>
@@ -41,7 +41,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -60,7 +60,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -74,7 +74,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionBlue}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -86,7 +86,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -100,7 +100,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -112,7 +112,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -126,7 +126,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionBlue}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -138,7 +138,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -152,7 +152,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -164,7 +164,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -178,7 +178,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionBlue}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -189,7 +189,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -203,7 +203,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -214,7 +214,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -228,7 +228,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionBlue}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -239,7 +239,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -253,7 +253,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -264,7 +264,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -278,7 +278,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionBlue}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -290,7 +290,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View
@@ -304,7 +304,7 @@ const SifreM = ({ navigation }) => {
         ></View>
         <TouchableOpacity style={styles.optionWhite}>
           <Image
-            source={require('../assets/gift.png')}
+            source={require('../../assets/gift.png')}
             style={styles.icons}
           ></Image>
           <View style={styles.textView}>
@@ -315,7 +315,7 @@ const SifreM = ({ navigation }) => {
           </View>
           <Image
             style={styles.arrowText}
-            source={require('../assets/img/ic_action_forward.png')}
+            source={require('../../assets/img/ic_action_forward.png')}
           ></Image>
         </TouchableOpacity>
         <View

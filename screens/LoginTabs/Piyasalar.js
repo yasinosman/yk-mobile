@@ -33,7 +33,7 @@ const Piyasalar = ({ navigation }) => {
         >
           <Image
             style={styles.arrow}
-            source={require('../assets/img/ic_action_backward.png')}
+            source={require('../../assets/img/ic_action_backward.png')}
           ></Image>
         </TouchableOpacity>
         <View style={styles.titleView}>
@@ -65,7 +65,7 @@ const Piyasalar = ({ navigation }) => {
               <View style={styles.euroImageAndCaptionView}>
                 <View style={styles.euroView}>
                   <Image
-                    source={require('../assets/eur.png')}
+                    source={require('../../assets/eur.png')}
                     style={styles.eurImage}
                   />
                   <Text style={styles.currencyInfoText}>EUR</Text>
@@ -73,7 +73,7 @@ const Piyasalar = ({ navigation }) => {
                 <Text style={styles.euroCaption}>Avrupa Para Birimi</Text>
               </View>
               <Image
-                source={require('../assets/arrow_down.png')}
+                source={require('../../assets/arrow_down.png')}
                 style={styles.arrowDown}
               />
               <View style={styles.euroNumbers}>
@@ -93,7 +93,7 @@ const Piyasalar = ({ navigation }) => {
               <View style={styles.arrowView}>
                 <Image
                   style={styles.arrowText}
-                  source={require('../assets/img/ic_action_forward.png')}
+                  source={require('../../assets/img/ic_action_forward.png')}
                 ></Image>
               </View>
             </View>
@@ -115,7 +115,7 @@ const Piyasalar = ({ navigation }) => {
               <View style={styles.euroImageAndCaptionView}>
                 <View style={styles.euroView}>
                   <Image
-                    source={require('../assets/amerika.jpg')}
+                    source={require('../../assets/amerika.jpg')}
                     style={styles.eurImage}
                   />
                   <Text style={styles.currencyInfoText}>USD</Text>
@@ -123,7 +123,7 @@ const Piyasalar = ({ navigation }) => {
                 <Text style={styles.euroCaption}>Amerikan Doları</Text>
               </View>
               <Image
-                source={require('../assets/arrow_down.png')}
+                source={require('../../assets/arrow_down.png')}
                 style={styles.arrowDown}
               />
               <View style={styles.euroNumbers}>
@@ -143,7 +143,7 @@ const Piyasalar = ({ navigation }) => {
               <View style={styles.arrowView}>
                 <Image
                   style={styles.arrowText}
-                  source={require('../assets/img/ic_action_forward.png')}
+                  source={require('../../assets/img/ic_action_forward.png')}
                 ></Image>
               </View>
             </View>
@@ -165,7 +165,7 @@ const Piyasalar = ({ navigation }) => {
               <View style={styles.euroImageAndCaptionView}>
                 <View style={styles.euroView}>
                   <Image
-                    source={require('../assets/xau.jpg')}
+                    source={require('../../assets/xau.jpg')}
                     style={styles.eurImage}
                   />
                   <Text style={styles.currencyInfoText}>XAU</Text>
@@ -173,7 +173,7 @@ const Piyasalar = ({ navigation }) => {
                 <Text style={styles.euroCaption}>Altın (Gram)</Text>
               </View>
               <Image
-                source={require('../assets/arrow_down.png')}
+                source={require('../../assets/arrow_down.png')}
                 style={styles.arrowDown}
               />
               <View style={styles.euroNumbers}>
@@ -193,7 +193,7 @@ const Piyasalar = ({ navigation }) => {
               <View style={styles.arrowView}>
                 <Image
                   style={styles.arrowText}
-                  source={require('../assets/img/ic_action_forward.png')}
+                  source={require('../../assets/img/ic_action_forward.png')}
                 ></Image>
               </View>
             </View>
@@ -201,7 +201,7 @@ const Piyasalar = ({ navigation }) => {
         </View>
         <View style={styles.infoMessage}>
           <Image
-            source={require('../assets/info.jpg')}
+            source={require('../../assets/info.jpg')}
             style={styles.infoImage}
           />
           <Text style={styles.infoText}>
@@ -217,7 +217,7 @@ const Piyasalar = ({ navigation }) => {
           <View style={styles.euroImageAndCaptionView}>
             <View style={styles.euroView}>
               <Image
-                source={require('../assets/bist.jpg')}
+                source={require('../../assets/bist.jpg')}
                 style={styles.bistImage}
               />
               <Text style={styles.bistInfoText}>BIST 100</Text>
@@ -227,7 +227,7 @@ const Piyasalar = ({ navigation }) => {
             <View style={styles.bistView}>
               <Text style={styles.bistNumber}>1.459,11</Text>
               <Image
-                source={require('../assets/arrow_up.png')}
+                source={require('../../assets/arrow_up.png')}
                 style={styles.arrowUp}
               />
               <Text style={styles.bistRate}>% 0,79</Text>
@@ -250,7 +250,7 @@ const Piyasalar = ({ navigation }) => {
           <View style={styles.euroImageAndCaptionView}>
             <View style={styles.euroView}>
               <Image
-                source={require('../assets/bist.jpg')}
+                source={require('../../assets/bist.jpg')}
                 style={styles.bistImage}
               />
               <Text style={styles.bistInfoText}>BIST 50</Text>
@@ -260,7 +260,7 @@ const Piyasalar = ({ navigation }) => {
             <View style={styles.bistView}>
               <Text style={styles.bistNumber}>1.290,18</Text>
               <Image
-                source={require('../assets/arrow_up.png')}
+                source={require('../../assets/arrow_up.png')}
                 style={styles.arrowUp}
               />
               <Text style={styles.bistRate}>% 0,70</Text>
@@ -283,7 +283,7 @@ const Piyasalar = ({ navigation }) => {
           <View style={styles.euroImageAndCaptionView}>
             <View style={styles.euroView}>
               <Image
-                source={require('../assets/bist.jpg')}
+                source={require('../../assets/bist.jpg')}
                 style={styles.bistImage}
               />
               <Text style={styles.bistInfoText}>BIST 30</Text>
@@ -293,7 +293,7 @@ const Piyasalar = ({ navigation }) => {
             <View style={styles.bistView}>
               <Text style={styles.bistNumber}>1.573,77</Text>
               <Image
-                source={require('../assets/arrow_up.png')}
+                source={require('../../assets/arrow_up.png')}
                 style={styles.arrowUp}
               />
               <Text style={styles.bistRate}>% 0,75</Text>
@@ -322,7 +322,7 @@ const Piyasalar = ({ navigation }) => {
           <Text style={styles.shareText}>IZFAS</Text>
           <Text style={styles.izfas1}>16.82</Text>
           <Image
-            source={require('../assets/arrow_up.png')}
+            source={require('../../assets/arrow_up.png')}
             style={styles.arrowUp}
           />
           <Text style={styles.izfas2}>% 10,00</Text>
@@ -342,7 +342,7 @@ const Piyasalar = ({ navigation }) => {
           <Text style={styles.shareText}>VKING</Text>
           <Text style={styles.izfas1}>10,36</Text>
           <Image
-            source={require('../assets/arrow_up.png')}
+            source={require('../../assets/arrow_up.png')}
             style={styles.arrowUp}
           />
           <Text style={styles.izfas2}>% 10,00</Text>
@@ -362,7 +362,7 @@ const Piyasalar = ({ navigation }) => {
           <Text style={styles.shareText}>KSTUR</Text>
           <Text style={styles.izfas1}>26,60</Text>
           <Image
-            source={require('../assets/arrow_up.png')}
+            source={require('../../assets/arrow_up.png')}
             style={styles.arrowUp}
           />
           <Text style={styles.izfas2}>% 10,00</Text>
@@ -382,7 +382,7 @@ const Piyasalar = ({ navigation }) => {
           <Text style={styles.shareText}>UFUK</Text>
           <Text style={styles.izfas1}>18,63</Text>
           <Image
-            source={require('../assets/arrow_up.png')}
+            source={require('../../assets/arrow_up.png')}
             style={styles.arrowUp}
           />
           <Text style={styles.izfas2}>% 9,98</Text>
@@ -402,14 +402,14 @@ const Piyasalar = ({ navigation }) => {
           <Text style={styles.shareText}>MANAS</Text>
           <Text style={styles.izfas1}>17,53</Text>
           <Image
-            source={require('../assets/arrow_up.png')}
+            source={require('../../assets/arrow_up.png')}
             style={styles.arrowUp}
           />
           <Text style={styles.izfas2}>% 9,97</Text>
         </View>
         <View style={styles.infoMessage}>
           <Image
-            source={require('../assets/info.jpg')}
+            source={require('../../assets/info.jpg')}
             style={styles.infoImage}
           />
           <Text style={styles.infoText}>
