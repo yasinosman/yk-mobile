@@ -4,34 +4,37 @@ import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 const CryptoOrders = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [selectedValue, setSelectedValue] = useState('Hesap seçiniz');
+
   return (
     <View style={styles.container}>
       <View style={styles.update}>
-        <Text style={styles.updateText}>Sözleşme Bilgileri</Text>
+        <Text style={styles.updateText}>Paranın Çekileceği Ödeme Aracı</Text>
       </View>
-      <View style={styles.protokolContainer}>
-        <Text style={styles.underlinedProtokol}>
-          Kripto Alım Satım Emir Bırakma İşlemleri Ek{'\n'}Protokolü
-          <Text style={styles.protokolStyle}>'nü okudum ve onaylıyorum.</Text>
-        </Text>
-        <Switch
-          style={styles.switch}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        ></Switch>
+      <Text style={styles.tutarText}>Paranın Çekileceği Ana Hesap</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          placeholder="Hesap seçiniz"
+          style={styles.inputStyle}
+        ></TextInput>
+        <Image
+          source={require('../../assets/img/ic_action_forward.png')}
+          style={styles.forwardImage}
+        ></Image>
       </View>
       <View style={styles.update}>
-        <Text style={styles.updateText}>
-          Onaylanan Sözleşmenin Gönderileceği E-Posta
-        </Text>
+        <Text style={styles.updateText}>Paranın Yatırılacağı Hesap</Text>
       </View>
-      <Text style={styles.tutarText}>E-posta</Text>
       <View style={styles.inputView}>
-        <TextInput placeholder="E-posta" style={styles.inputStyle}></TextInput>
+        <TextInput
+          placeholder="Hesap seçiniz"
+          style={styles.inputStyle}
+        ></TextInput>
         <Image
           source={require('../../assets/img/ic_action_forward.png')}
           style={styles.forwardImage}
@@ -45,9 +48,9 @@ const CryptoOrders = ({ navigation }) => {
             style={styles.infoImage}
           />
           <Text style={styles.infoText}>
-            Döviz alım satım emir işlemi yapabilmeniz için Döviz{'\n'}Alım Satım
-            Emir Bırakma işlemleri Ek Protokolü'nü{'\n'}onaylamanız
-            gerekmektedir.
+            Farklı döviz cinsinden işlem yapmak için ilgili döviz cinsinden
+            {'\n'}vadesiz hesap seçiniz. Hesap açılışı yapmak için{' '}
+            <Text style={styles.tiklayinizStyle}>tıklayınız.</Text>
           </Text>
         </View>
         <TouchableOpacity
@@ -129,14 +132,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'lightgray',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    marginTop: 10,
   },
   inputStyle: {
-    width: '90%',
-    textAlign: 'right',
     fontFamily: 'Ubuntu',
+    marginLeft: 10,
   },
   forwardImage: {
     width: 20,
@@ -179,5 +182,9 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH * (85 / 100),
     height: 40,
     borderRadius: 22,
+  },
+  tiklayinizStyle: {
+    color: 'rgba(136,205,224,255)',
+    textDecorationLine: 'underline',
   },
 });

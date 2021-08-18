@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { color } from 'react-native-elements/dist/helpers';
 import { useState } from 'react';
+import ChangePercentageView from '../../components/ChangePercentageView';
 
 let start = new Date().toLocaleString();
 
@@ -51,9 +52,6 @@ const Piyasalar = ({ navigation }) => {
         }}
       ></View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.update}>
-          <Text style={styles.updateText}>Son Güncelleme: {start} </Text>
-        </View>
         <View style={styles.currencyTitle}>
           <Text style={styles.currencyTitleText}>Döviz / Altın Bilgileri</Text>
         </View>
@@ -226,11 +224,7 @@ const Piyasalar = ({ navigation }) => {
           <View style={styles.bistNumbers}>
             <View style={styles.bistView}>
               <Text style={styles.bistNumber}>1.459,11</Text>
-              <Image
-                source={require('../../assets/arrow_up.png')}
-                style={styles.arrowUp}
-              />
-              <Text style={styles.bistRate}>% 0,79</Text>
+              <ChangePercentageView state="ascending" percentage={0.79} />
             </View>
           </View>
         </View>
@@ -259,11 +253,7 @@ const Piyasalar = ({ navigation }) => {
           <View style={styles.bistNumbers}>
             <View style={styles.bistView}>
               <Text style={styles.bistNumber}>1.290,18</Text>
-              <Image
-                source={require('../../assets/arrow_up.png')}
-                style={styles.arrowUp}
-              />
-              <Text style={styles.bistRate}>% 0,70</Text>
+              <ChangePercentageView state="ascending" percentage={0.81} />
             </View>
           </View>
         </View>
@@ -292,11 +282,7 @@ const Piyasalar = ({ navigation }) => {
           <View style={styles.bistNumbers}>
             <View style={styles.bistView}>
               <Text style={styles.bistNumber}>1.573,77</Text>
-              <Image
-                source={require('../../assets/arrow_up.png')}
-                style={styles.arrowUp}
-              />
-              <Text style={styles.bistRate}>% 0,75</Text>
+              <ChangePercentageView state="ascending" percentage={0.77} />
             </View>
           </View>
         </View>
@@ -321,11 +307,7 @@ const Piyasalar = ({ navigation }) => {
         <View style={styles.shareCell}>
           <Text style={styles.shareText}>IZFAS</Text>
           <Text style={styles.izfas1}>16.82</Text>
-          <Image
-            source={require('../../assets/arrow_up.png')}
-            style={styles.arrowUp}
-          />
-          <Text style={styles.izfas2}>% 10,00</Text>
+          <ChangePercentageView state="ascending" percentage={10.11} />
         </View>
         {/* Divider */}
         <View
@@ -341,11 +323,7 @@ const Piyasalar = ({ navigation }) => {
         <View style={styles.shareCell}>
           <Text style={styles.shareText}>VKING</Text>
           <Text style={styles.izfas1}>10,36</Text>
-          <Image
-            source={require('../../assets/arrow_up.png')}
-            style={styles.arrowUp}
-          />
-          <Text style={styles.izfas2}>% 10,00</Text>
+          <ChangePercentageView state="ascending" percentage={10.02} />
         </View>
         {/* Divider */}
         <View
@@ -361,11 +339,7 @@ const Piyasalar = ({ navigation }) => {
         <View style={styles.shareCell}>
           <Text style={styles.shareText}>KSTUR</Text>
           <Text style={styles.izfas1}>26,60</Text>
-          <Image
-            source={require('../../assets/arrow_up.png')}
-            style={styles.arrowUp}
-          />
-          <Text style={styles.izfas2}>% 10,00</Text>
+          <ChangePercentageView state="ascending" percentage={10.01} />
         </View>
         {/* Divider */}
         <View
@@ -381,11 +355,7 @@ const Piyasalar = ({ navigation }) => {
         <View style={styles.shareCell}>
           <Text style={styles.shareText}>UFUK</Text>
           <Text style={styles.izfas1}>18,63</Text>
-          <Image
-            source={require('../../assets/arrow_up.png')}
-            style={styles.arrowUp}
-          />
-          <Text style={styles.izfas2}>% 9,98</Text>
+          <ChangePercentageView state="ascending" percentage={10.98} />
         </View>
         {/* Divider */}
         <View
@@ -401,11 +371,7 @@ const Piyasalar = ({ navigation }) => {
         <View style={styles.shareCell}>
           <Text style={styles.shareText}>MANAS</Text>
           <Text style={styles.izfas1}>17,53</Text>
-          <Image
-            source={require('../../assets/arrow_up.png')}
-            style={styles.arrowUp}
-          />
-          <Text style={styles.izfas2}>% 9,97</Text>
+          <ChangePercentageView state="ascending" percentage={10.79} />
         </View>
         <View style={styles.infoMessage}>
           <Image
@@ -573,12 +539,12 @@ const styles = StyleSheet.create({
   },
   bistView: {
     flexDirection: 'row',
-    flex: 3,
+    flex: 1,
     alignItems: 'center',
   },
   bistNumber: {
-    flex: 1,
     fontFamily: 'UbuntuLight',
+    marginRight: 50,
   },
   bistRate: {
     flex: 1,
@@ -623,26 +589,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  shareText: {
-    flex: 1.7,
-    fontSize: 16,
-    marginLeft: 25,
-    marginTop: 5,
-    fontFamily: 'Ubuntu',
-  },
   shareCell: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
     alignItems: 'center',
     height: 60,
   },
-  izfas1: {
-    flex: 1,
+  shareText: {
+    fontSize: 16,
+    marginTop: 5,
+    fontFamily: 'Ubuntu',
+    marginLeft: 40,
+    flex: 0.72,
   },
-  izfas2: {
-    flex: 1,
-    fontFamily: 'UbuntuLight',
-    color: 'rgb(59,136,196)',
+  izfas1: {
+    marginRight: 80,
   },
   empty: {
     height: 80,
