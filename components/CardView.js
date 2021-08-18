@@ -29,6 +29,8 @@ const CardView = ({
   titleContainerStyles = {},
   keyStyles = {},
   valueStyles = {},
+  titleStyles = {},
+  subTitleStyles = {},
 }) => {
   const { theme } = useTheme();
 
@@ -110,8 +112,10 @@ const CardView = ({
       <View style={[styles.cardContainerHeader, headerContainerStyles]}>
         <View style={[styles.iconContainer, iconContainerStyles]}>{icon}</View>
         <View style={[styles.titleContainer, titleContainerStyles]}>
-          <StyledText style={styles.title}>{title}</StyledText>
-          <StyledText style={styles.subTitle}>{subTitle}</StyledText>
+          <StyledText style={[styles.title, titleStyles]}>{title}</StyledText>
+          <StyledText style={[styles.subTitle, subTitleStyles]}>
+            {subTitle}
+          </StyledText>
         </View>
       </View>
       <View style={[styles.cardContainerContent, contentContainerStyles]}>
