@@ -12,8 +12,7 @@ import { useState } from 'react';
 import { object, string } from 'yup';
 import { login } from '../services/authentication';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
-
-import Piyasalar from './Piyasalar';
+import { StyledText } from '../';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
@@ -96,6 +95,7 @@ const Login = ({ navigation }) => {
                       style={styles.userImage}
                       source={require('../assets/user-32px.png')}
                     ></Image>
+
                     <Text style={styles.userText}>Bireysel</Text>
                   </View>
                   <View style={styles.businessView}>
@@ -123,7 +123,7 @@ const Login = ({ navigation }) => {
                       alignItems: 'stretch',
                     }}
                     // keyboardType="numeric"
-                    inputStyle={{ borderBottomWidth: 0 }}
+                    inputStyle={{ borderBottomWidth: 0, fontFamily: 'Ubuntu' }}
                     maxLength={11}
                     underlineColorAndroid="transparent"
                     onChangeText={handleChange('tckimlik')}
@@ -155,6 +155,7 @@ const Login = ({ navigation }) => {
                     }}
                     inputStyle={{
                       borderBottomWidth: 0,
+                      fontFamily: 'Ubuntu',
                     }}
                     maxLength={6}
                     underlineColorAndroid="transparent"
@@ -194,6 +195,7 @@ const Login = ({ navigation }) => {
               <Button
                 onPress={handleSubmit}
                 title={loading ? 'Lütfen Bekleyin' : 'Giriş'}
+                titleStyle={{ fontFamily: 'Ubuntu' }}
                 containerStyle={styles.submitButton}
                 buttonStyle={{
                   borderRadius: 22,
@@ -313,6 +315,7 @@ const styles = StyleSheet.create({
   languageText: {
     fontSize: 13,
     color: 'white',
+    fontFamily: 'Ubuntu',
   },
   logoView: {
     flex: 3.2,
@@ -351,6 +354,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 20,
     textDecorationLine: 'underline',
+    fontFamily: 'Ubuntu',
   },
   businessView: {
     flex: 1,
@@ -366,6 +370,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 20,
     opacity: 0.5,
+    fontFamily: 'Ubuntu',
   },
   businessButton: {
     justifyContent: 'center',
@@ -387,6 +392,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 5,
     fontSize: 10,
+    fontFamily: 'Ubuntu',
   },
   switchRememberMe: {
     marginLeft: 10,
@@ -400,6 +406,7 @@ const styles = StyleSheet.create({
   },
   textRememberMe: {
     color: 'white',
+    fontFamily: 'Ubuntu',
   },
   forgotPassword: {
     marginTop: 30,
@@ -407,6 +414,7 @@ const styles = StyleSheet.create({
     width: '85%',
     textAlign: 'right',
     flex: 1,
+    fontFamily: 'Ubuntu',
   },
   submitButton: {
     marginTop: 15,
@@ -435,5 +443,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     marginTop: 5,
     color: 'white',
+    fontFamily: 'Ubuntu',
   },
 });

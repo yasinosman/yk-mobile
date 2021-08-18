@@ -110,7 +110,7 @@ const Login = ({ navigation }) => {
                       alignItems: 'stretch',
                     }}
                     // keyboardType="numeric"
-                    inputStyle={{ borderBottomWidth: 0 }}
+                    inputStyle={{ borderBottomWidth: 0, fontFamily: 'Ubuntu' }}
                     maxLength={10}
                     underlineColorAndroid="transparent"
                     onChangeText={handleChange('firmakodu')}
@@ -140,9 +140,7 @@ const Login = ({ navigation }) => {
                       borderRadius: 10,
                       flex: 0.8,
                     }}
-                    inputStyle={{
-                      borderBottomWidth: 0,
-                    }}
+                    inputStyle={{ borderBottomWidth: 0, fontFamily: 'Ubuntu' }}
                     maxLength={10}
                     underlineColorAndroid="transparent"
                     keyboardType="numeric"
@@ -173,7 +171,7 @@ const Login = ({ navigation }) => {
                       borderRadius: 10,
                       flex: 0.8,
                     }}
-                    inputStyle={{ borderBottomWidth: 0 }}
+                    inputStyle={{ borderBottomWidth: 0, fontFamily: 'Ubuntu' }}
                     maxLength={6}
                     underlineColorAndroid="transparent"
                     onChangeText={handleChange('sifre')}
@@ -213,6 +211,7 @@ const Login = ({ navigation }) => {
               <Button
                 onPress={handleSubmit}
                 title={loading ? 'Lütfen Bekleyin' : 'Giriş'}
+                titleStyle={{ fontFamily: 'Ubuntu' }}
                 containerStyle={styles.submitButton}
                 buttonStyle={{
                   borderRadius: 22,
@@ -335,6 +334,7 @@ const styles = StyleSheet.create({
   languageText: {
     fontSize: 13,
     color: 'white',
+    fontFamily: 'Ubuntu',
   },
   logoView: {
     flex: 5.5,
@@ -375,6 +375,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 20,
     opacity: 0.5,
+    fontFamily: 'Ubuntu',
   },
   businessView: {
     flex: 1,
@@ -389,7 +390,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: 5,
     fontSize: 20,
-
+    fontFamily: 'Ubuntu',
     textDecorationLine: 'underline',
   },
   businessButton: {
@@ -410,6 +411,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'red',
     fontWeight: 'bold',
+    fontFamily: 'Ubuntu',
     fontSize: 10,
   },
   switchRememberMe: {
@@ -425,7 +427,9 @@ const styles = StyleSheet.create({
   textRememberMe: {
     color: 'white',
     opacity: 0.9,
+    fontFamily: 'Ubuntu',
   },
+
   forgotPassword: {
     marginTop: 30,
     color: 'white',
@@ -433,6 +437,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     flex: 1,
     opacity: 0.9,
+    fontFamily: 'Ubuntu',
   },
   submitButton: {
     marginTop: 15,
@@ -444,6 +449,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 17,
     marginTop: 12,
+    fontFamily: 'Ubuntu',
   },
   navigationBar: {
     flex: 0.2,
@@ -466,5 +472,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     marginTop: 5,
     color: 'white',
+    fontFamily: 'Ubuntu',
   },
 });

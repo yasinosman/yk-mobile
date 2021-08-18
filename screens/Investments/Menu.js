@@ -104,7 +104,7 @@ const Menu = props => {
           {
             title: 'Alarmlarım',
             onPress: () => {
-              props.navigation.navigate('Alarmlarım');
+              props.navigation.navigate('Kripto Alarmlarım');
             },
           },
           {
