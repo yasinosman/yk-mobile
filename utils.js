@@ -3,6 +3,9 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import axios from 'axios';
 import { EXCHANGE_RATES } from './hooks/useCurrency';
 
+import 'react-native-get-random-values';
+import { v4 as uuid } from 'uuid';
+
 /**
  *
  * @param  {...any} styles
@@ -148,7 +151,7 @@ export function generateMockMarketData(initialCurrency, targetCurrency) {
         quantityDecimal ? `,${quantityDecimal}` : `,00`
       }`,
       price: `${integer}${decimal ? `,${decimal}` : `,00`}`,
-      id: i,
+      id: uuid(),
     });
   }
 

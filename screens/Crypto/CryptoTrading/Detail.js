@@ -15,12 +15,15 @@ import {
 } from '../../../hooks/useCurrency';
 import { generateMockMarketData } from '../../../utils';
 import { LineChart, PieChart } from 'react-native-chart-kit';
+import useMock from '../../../hooks/useMock';
 
 const Detail = props => {
   const [currency, setCurrency] = React.useState(CRYPTO_CURRENCIES[0]);
   const [targetCurrency, setTargetCurrency] = React.useState('usd');
 
-  const marketData = generateMockMarketData(currency.value, targetCurrency);
+  const marketData = useMock(() =>
+    generateMockMarketData(currency.value, targetCurrency)
+  );
 
   React.useEffect(() => {
     const curr = CRYPTO_CURRENCIES.find(
