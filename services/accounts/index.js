@@ -53,21 +53,23 @@ export function tradeCurrencies(
           .collection('accounts')
           .doc(withdrawAccountId)
           .update({
-            available_balance:
+            available_balance: (
               parseFloat(withdrawAccountAvailableAmount - requestedAmount) *
-              parseFloat(EXCHANGE_RATES.try[withdrawAccountCurrency] ?? 1),
+              parseFloat(EXCHANGE_RATES.try[withdrawAccountCurrency] ?? 1)
+            ).toFixed(6),
           });
 
         await db
           .collection('accounts')
           .doc(depositAccountId)
           .update({
-            available_balance:
+            available_balance: (
               parseFloat(depositAccountBalance) +
               parseFloat(
                 requestedAmount *
                   (EXCHANGE_RATES.try[depositAccountCurrency] ?? 1)
-              ),
+              )
+            ).toFixed(6),
           });
 
         return resolve('Al/Sat İşlemi Başarıyla Tamamlandı');

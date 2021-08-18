@@ -13,12 +13,16 @@ import AmountText from '../../../components/AmountText';
 import { useKeyboard } from '../../../hooks/useKeyboard';
 import StyledText from '../../../components/StyledText';
 import { convertCurrency } from '../../../utils';
+import Popup from '../../../components/Popup';
 
 const Buy = props => {
   const [accounts, setAccounts] = React.useState([]);
   const [payingAmount, setPayingAmount] = React.useState('');
   const [cryptoAmount, setCryptoAmount] = React.useState('');
   const keyboardHeight = useKeyboard();
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
+  const [success, setSuccess] = React.useState('');
 
   async function fetchAllData() {
     try {
@@ -132,12 +136,15 @@ const Buy = props => {
   }, [props.route.params]);
 
   const handleBuy = () => {
+    setLoading(true);
+
     if (!payingAmount) {
-      return alert('Ödenecek tutar kısmı boş bırakılamaz.');
+      setLoading(false);
+      return setError('Ödenecek tutar kısmı boş bırakılamaz.');
     }
 
     const withdrawAccount = accounts.find(a => a.currency === targetCurrency);
-    const depositAccount = accounts.find(a => a.currency === currency.value);
+    const depositAccount = accounts.find(a => a.currency === 'btc');
 
     tradeCurrencies(
       withdrawAccount.id,
@@ -146,7 +153,7 @@ const Buy = props => {
       targetCurrency
     )
       .then(result => {
-        alert(result);
+        setSuccess(result);
         //Reset form
         setPayingAmount('');
         setCryptoAmount('');
@@ -154,7 +161,8 @@ const Buy = props => {
         //Fetch accounts
         fetchAllData();
       })
-      .catch(error => alert(error));
+      .catch(error => setError(error))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -248,7 +256,7 @@ const Buy = props => {
             scrollEnabled
           >
             {accounts.map((account, index) => {
-              if (account.currency !== currency.value) {
+              if (account.currency !== 'btc') {
                 return null;
               }
               return (
@@ -347,11 +355,30 @@ const Buy = props => {
       </View>
       <View>
         <Button
-          title={`${currency.value.toUpperCase()} Al`}
+          title={
+            loading ? 'Lütfen Bekleyin' : `${currency.value.toUpperCase()} Al`
+          }
           buttonStyle={styles.button}
           onPress={handleBuy}
+          disabled={loading}
         />
       </View>
+      <Popup
+        type="success"
+        open={success !== ''}
+        title="İşlem Tamamlandı"
+        text={success}
+        onClose={() => setSuccess('')}
+        styleOverrides={{ container: { height: DEVICE_HEIGHT * (25 / 100) } }}
+      />
+      <Popup
+        type="error"
+        open={error !== ''}
+        title="Hata"
+        text={error}
+        onClose={() => setError('')}
+        styleOverrides={{ container: { height: DEVICE_HEIGHT * (25 / 100) } }}
+      />
     </ScrollView>
   );
 };
