@@ -7,7 +7,7 @@ import StyledText from './StyledText';
 
 /**
  *
- * @param {{type: "info" | "success" | "warning" | "error", open: boolean, styleOverrides: {container: any, iconContainer: any, textContainer:any, title: any, text:any, buttonContainer:any, defaultButton:any}, title?: string, text: string, buttons: Array<React.FC>, onClose: Function}} props
+ * @param {{type: "info" | "success" | "warning" | "error", open: boolean, styleOverrides?: {container: any, iconContainer: any, textContainer:any, title: any, text:any, buttonContainer:any, defaultButton:any}, title?: string, text: string, buttons?: Array<React.FC>, onClose: Function}} props
  * @returns {React.FC}
  */
 const Popup = ({

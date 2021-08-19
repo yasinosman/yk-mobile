@@ -107,53 +107,63 @@ const Dashboard = props => {
         {selectedParity.value === 'all' &&
           AVAILABLE_PARITIES.map((parity, index) => {
             if (index !== 0) {
-              return CRYPTO_CURRENCIES.map(currency => (
-                <CurrencyView
-                  icon={currency.icon}
-                  initialCurrencyName={currency.label}
-                  initialCurrency={currency.value}
-                  targetCurrency={parity.value}
-                  onPress={() =>
-                    props.navigation.navigate('Kripto Detayı', {
-                      currency: currency.value,
-                      targetCurrency: parity.value,
-                    })
-                  }
-                  key={currency.value}
-                  content={
-                    <ChangePercentageView
-                      state={currency.state}
-                      percentage={currency.changePercentage}
-                    />
-                  }
-                />
-              ));
+              return CRYPTO_CURRENCIES.map(currency => {
+                if (currency.value === parity.value) {
+                  return null;
+                }
+                return (
+                  <CurrencyView
+                    icon={currency.icon}
+                    initialCurrencyName={currency.label}
+                    initialCurrency={currency.value}
+                    targetCurrency={parity.value}
+                    onPress={() =>
+                      props.navigation.navigate('Kripto Detayı', {
+                        currency: currency.value,
+                        targetCurrency: parity.value,
+                      })
+                    }
+                    key={currency.value}
+                    content={
+                      <ChangePercentageView
+                        state={currency.state}
+                        percentage={currency.changePercentage}
+                      />
+                    }
+                  />
+                );
+              });
             }
 
             return null;
           })}
         {selectedParity.value !== 'all' &&
-          CRYPTO_CURRENCIES.map(currency => (
-            <CurrencyView
-              icon={currency.icon}
-              initialCurrencyName={currency.label}
-              initialCurrency={currency.value}
-              targetCurrency={selectedParity.value}
-              onPress={() =>
-                props.navigation.navigate('Kripto Detayı', {
-                  currency: currency.value,
-                  targetCurrency: selectedParity.value,
-                })
-              }
-              key={currency.value}
-              content={
-                <ChangePercentageView
-                  state={currency.state}
-                  percentage={currency.changePercentage}
-                />
-              }
-            />
-          ))}
+          CRYPTO_CURRENCIES.map(currency => {
+            if (currency.value === selectedParity.value) {
+              return null;
+            }
+            return (
+              <CurrencyView
+                icon={currency.icon}
+                initialCurrencyName={currency.label}
+                initialCurrency={currency.value}
+                targetCurrency={selectedParity.value}
+                onPress={() =>
+                  props.navigation.navigate('Kripto Detayı', {
+                    currency: currency.value,
+                    targetCurrency: selectedParity.value,
+                  })
+                }
+                key={currency.value}
+                content={
+                  <ChangePercentageView
+                    state={currency.state}
+                    percentage={currency.changePercentage}
+                  />
+                }
+              />
+            );
+          })}
       </ScrollView>
     </View>
   );
