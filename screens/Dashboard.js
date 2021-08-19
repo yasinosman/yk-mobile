@@ -39,7 +39,7 @@ const Dashboard = props => {
       flex: 1,
       alignItems: 'center',
       paddingTop: DEVICE_HEIGHT * (1 / 100),
-      paddingBottom: 100,
+      paddingBottom: 150,
       backgroundColor: theme.colors.bg,
     },
     title: {
