@@ -117,7 +117,7 @@ const Detail = props => {
       width: '25%',
     },
     marketInfoBar: {
-      width: '95%',
+      width: '100%',
       height: 24,
       marginHorizontal: '2.5%',
       backgroundColor: theme.colors.seperator,
