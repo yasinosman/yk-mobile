@@ -2,6 +2,8 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import ChangePercentageView from '../../components/ChangePercentageView';
+
 let start = new Date().toLocaleDateString();
 
 const CryptoCrossTransactions = ({ navigation }) => {
@@ -50,8 +52,9 @@ const CryptoCrossTransactions = ({ navigation }) => {
           <TouchableOpacity
             style={styles.cell}
             onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: 'BTC/ETH',
+              navigation.navigate('Kripto Alış', {
+                currency: 'btc',
+                targetCurrency: 'eth',
               })
             }
           >
@@ -84,19 +87,16 @@ const CryptoCrossTransactions = ({ navigation }) => {
               </View>
               <View style={styles.rowView}>
                 <Text style={styles.rowTitle}>Günlük Fark</Text>
-                <Image
-                  source={require('../../assets/arrow_up.png')}
-                  style={styles.arrowUp}
-                />
-                <Text style={styles.rowNumber}> % -0,74</Text>
+                <ChangePercentageView state="descending" percentage={-0.69} />
               </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cell}
-            onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: 'BTC/DOGE',
+            oonPress={() =>
+              navigation.navigate('Kripto Alış', {
+                currency: 'btc',
+                targetCurrency: 'doge',
               })
             }
           >
@@ -129,11 +129,7 @@ const CryptoCrossTransactions = ({ navigation }) => {
               </View>
               <View style={styles.rowView}>
                 <Text style={styles.rowTitle}>Günlük Fark</Text>
-                <Image
-                  source={require('../../assets/arrow_up.png')}
-                  style={styles.arrowUp}
-                />
-                <Text style={styles.rowNumber}> % -0,74</Text>
+                <ChangePercentageView state="ascending" percentage={0.81} />
               </View>
             </View>
           </TouchableOpacity>
@@ -143,8 +139,9 @@ const CryptoCrossTransactions = ({ navigation }) => {
           <TouchableOpacity
             style={styles.cell}
             onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: 'DOGE/ETH',
+              navigation.navigate('Kripto Alış', {
+                currency: 'doge',
+                targetCurrency: 'eth',
               })
             }
           >
@@ -177,24 +174,21 @@ const CryptoCrossTransactions = ({ navigation }) => {
               </View>
               <View style={styles.rowView}>
                 <Text style={styles.rowTitle}>Günlük Fark</Text>
-                <Image
-                  source={require('../../assets/arrow_up.png')}
-                  style={styles.arrowUp}
-                />
-                <Text style={styles.rowNumber}> % -0,74</Text>
+                <ChangePercentageView state="ascending" percentage={0.91} />
               </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cell}
             onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: 'BTC/USDT',
+              navigation.navigate('Kripto Alış', {
+                currency: 'btc',
+                targetCurrency: 'xrp',
               })
             }
           >
             <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>BTC/USDT</Text>
+              <Text style={styles.cryptoPair}>BTC/XRP</Text>
               <Image
                 style={styles.searchStyle}
                 source={require('../../assets/img/search.png')}
@@ -222,11 +216,7 @@ const CryptoCrossTransactions = ({ navigation }) => {
               </View>
               <View style={styles.rowView}>
                 <Text style={styles.rowTitle}>Günlük Fark</Text>
-                <Image
-                  source={require('../../assets/arrow_up.png')}
-                  style={styles.arrowUp}
-                />
-                <Text style={styles.rowNumber}> % -0,74</Text>
+                <ChangePercentageView state="descending" percentage={-0.79} />
               </View>
             </View>
           </TouchableOpacity>
@@ -236,13 +226,14 @@ const CryptoCrossTransactions = ({ navigation }) => {
           <TouchableOpacity
             style={styles.cell}
             onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: 'USDT/DOGE',
+              navigation.navigate('Kripto Alış', {
+                currency: 'xrp',
+                targetCurrency: 'doge',
               })
             }
           >
             <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>USDT/DOGE</Text>
+              <Text style={styles.cryptoPair}>XRP/DOGE</Text>
               <Image
                 style={styles.searchStyle}
                 source={require('../../assets/img/search.png')}
@@ -270,24 +261,21 @@ const CryptoCrossTransactions = ({ navigation }) => {
               </View>
               <View style={styles.rowView}>
                 <Text style={styles.rowTitle}>Günlük Fark</Text>
-                <Image
-                  source={require('../../assets/arrow_up.png')}
-                  style={styles.arrowUp}
-                />
-                <Text style={styles.rowNumber}> % -0,74</Text>
+                <ChangePercentageView state="descending" percentage={-0.74} />
               </View>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cell}
             onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: 'ETH/USDT',
+              navigation.navigate('Kripto Alış', {
+                currency: 'eth',
+                targetCurrency: 'xrp',
               })
             }
           >
             <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>ETH/USDT</Text>
+              <Text style={styles.cryptoPair}>ETH/XRP</Text>
               <Image
                 style={styles.searchStyle}
                 source={require('../../assets/img/search.png')}
@@ -315,123 +303,9 @@ const CryptoCrossTransactions = ({ navigation }) => {
               </View>
               <View style={styles.rowView}>
                 <Text style={styles.rowTitle}>Günlük Fark</Text>
-                <Image
-                  source={require('../../assets/arrow_up.png')}
-                  style={styles.arrowUp}
-                />
-                <Text style={styles.rowNumber}> % -0,74</Text>
+                <ChangePercentageView state="ascending" percentage={0.73} />
               </View>
             </View>
-          </TouchableOpacity>
-        </View>
-        {/* 2li rowlar */}
-        <View style={styles.cellRow}>
-          <TouchableOpacity
-            style={styles.cell}
-            onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: '*Crypto Pair*',
-              })
-            }
-          >
-            <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>*Crypto Pair*</Text>
-              <Image
-                style={styles.searchStyle}
-                source={require('../../assets/img/search.png')}
-              ></Image>
-            </View>
-            {/* Divider */}
-            <View
-              style={{
-                width: '100%',
-                flex: 0.0000001,
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                opacity: 0.1,
-              }}
-            ></View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cell}
-            onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: '*Crypto Pair*',
-              })
-            }
-          >
-            <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>*Crypto Pair*</Text>
-              <Image
-                style={styles.searchStyle}
-                source={require('../../assets/img/search.png')}
-              ></Image>
-            </View>
-            {/* Divider */}
-            <View
-              style={{
-                width: '100%',
-                flex: 0.0000001,
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                opacity: 0.1,
-              }}
-            ></View>
-          </TouchableOpacity>
-        </View>
-        {/* 2li rowlar */}
-        <View style={styles.cellRow}>
-          <TouchableOpacity
-            style={styles.cell}
-            onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: '*Crypto Pair*',
-              })
-            }
-          >
-            <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>*Crypto Pair*</Text>
-              <Image
-                style={styles.searchStyle}
-                source={require('../../assets/img/search.png')}
-              ></Image>
-            </View>
-            {/* Divider */}
-            <View
-              style={{
-                width: '100%',
-                flex: 0.0000001,
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                opacity: 0.1,
-              }}
-            ></View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cell}
-            onPress={() =>
-              navigation.navigate('Çapraz Kripto İşlemi Detay', {
-                cryptoPair: '*Crypto Pair*',
-              })
-            }
-          >
-            <View style={styles.cardViewTitle}>
-              <Text style={styles.cryptoPair}>*Crypto Pair*</Text>
-              <Image
-                style={styles.searchStyle}
-                source={require('../../assets/img/search.png')}
-              ></Image>
-            </View>
-            {/* Divider */}
-            <View
-              style={{
-                width: '100%',
-                flex: 0.0000001,
-                borderBottomColor: 'black',
-                borderBottomWidth: 1,
-                opacity: 0.1,
-              }}
-            ></View>
           </TouchableOpacity>
         </View>
         <View style={styles.empty}></View>
@@ -479,7 +353,7 @@ const styles = StyleSheet.create({
   },
   rowView: {
     justifyContent: 'space-between',
-    marginRight: 5,
+    marginRight: 10,
     marginLeft: 10,
     marginTop: 10,
     flexDirection: 'row',

@@ -5,14 +5,11 @@ import {
   Dimensions,
   Text,
   View,
-  ScrollView,
-  Picker,
-  TouchableOpacity,
-  StatusBar,
   TouchableWithoutFeedback,
-  Image,
-  SafeAreaView,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 const deviceHeight = Dimensions.get('window').height;
 export class PopupScreen extends React.Component {
@@ -64,7 +61,75 @@ export class PopupScreen extends React.Component {
   renderContent = () => {
     return (
       <View>
-        <Text>Kripto Çiftleri</Text>
+        <Text>Kripto Çiftleri:</Text>
+        <ModalDropdown
+          defaultValue="Seçiniz.."
+          style={{
+            borderColor: 'black',
+            borderWidth: 2,
+            width: '30%',
+            height: '20%',
+            borderRadius: 10,
+            marginTop: 10,
+            alignItems: 'center',
+          }}
+          options={[
+            'BTC/DOGE',
+            'BTC/ETH',
+            'BTC/XRP',
+            'BTC/USDT',
+            'BTC/TRY',
+            'ETH/BTC',
+            'ETH/DOGE',
+            'ETH/XRP',
+            'ETH/USDT',
+            'ETH/TRY',
+            'XRP/BTC',
+            'XRP/ETH',
+            'XRP/DOGE',
+            'XRP/USDT',
+            'XRP/TRY',
+            'USDT/BTC',
+            'USDT/ETH',
+            'USDT/DOGE',
+            'USDT/XRP',
+            'USDT/TRY',
+          ]}
+        />
+        <View>
+          <TouchableOpacity
+            style={{
+              marginLeft: '20%',
+              borderColor: 'black',
+              borderWidth: 2,
+              borderRadius: 10,
+              width: 85,
+              top: 22,
+              alignItems: 'center',
+            }}
+          >
+            <Text>Banka Alış</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignItems: 'center',
+              marginLeft: '50%',
+              borderRadius: 10,
+              borderColor: 'black',
+              borderWidth: 2,
+              width: 85,
+            }}
+          >
+            <Text>Banka Satış</Text>
+          </TouchableOpacity>
+          <Text style={{ top: 20 }}>Hedef Kur:</Text>
+          <TextInput
+            type="numeric"
+            placeholder="0,00000"
+            placeholderTextColor="black"
+            style={{ top: 25 }}
+          ></TextInput>
+        </View>
       </View>
     );
   };
@@ -93,11 +158,11 @@ export class PopupScreen extends React.Component {
             style={{
               backgroundColor: 'white',
               width: '100%',
-              maxHeight: deviceHeight * 0.4,
+              maxHeight: deviceHeight * 0.6,
               borderRadius: 30,
               paddingHorizontal: 5,
               paddingBottom: 50,
-              bottom: 50,
+              bottom: 200,
             }}
           >
             {this.renderTitle()}

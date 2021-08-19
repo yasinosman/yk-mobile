@@ -1,18 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { getCurrentRouteName } from '../../utils';
-import { PopupScreen } from './Popup';
 
 const CryptoAlarms = ({ navigation }) => {
-  let popupRef = React.createRef();
-
-  const onShowPopup = () => {
-    popupRef.show();
-  };
-
-  const onClosePopup = () => {
-    popupRef.close();
-  };
   return (
     <View style={styles.container}>
       <Image
@@ -20,14 +10,9 @@ const CryptoAlarms = ({ navigation }) => {
         source={require('../../assets/img/notification.png')}
       ></Image>
       <Text style={styles.noAlarm}>Alarmınız bulunmamaktadır.</Text>
-      <TouchableOpacity style={styles.bottomView} onPress={onShowPopup}>
+      <TouchableOpacity style={styles.bottomView}>
         <Text style={styles.textStyle}>Alarm Kur</Text>
       </TouchableOpacity>
-      <PopupScreen
-        title="Alarm Kur"
-        ref={target => (popupRef = target)}
-        onTouchOutside={onClosePopup}
-      />
     </View>
   );
 };
@@ -38,7 +23,7 @@ const styles = StyleSheet.create({
   imgArPic: {
     height: 100,
     width: 100,
-    bottom: 30,
+    bottom: 40,
   },
   container: {
     flex: 1,
