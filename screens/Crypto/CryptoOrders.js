@@ -21,14 +21,14 @@ const CryptoOrders = ({ navigation }) => {
     update: {
       width: '100%',
       height: 30,
-      backgroundColor: theme.colors.gray,
+      backgroundColor: theme.colors.seperator,
     },
     updateText: {
       marginTop: 8,
       marginLeft: 20,
       fontFamily: 'Ubuntu',
       fontSize: 15,
-      color: theme.colors.darkGray,
+      color: theme.colors.text,
     },
     protokolContainer: {
       height: 60,

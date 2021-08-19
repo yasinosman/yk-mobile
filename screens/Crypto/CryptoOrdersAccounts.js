@@ -34,13 +34,14 @@ const CryptoOrders = ({ navigation }) => {
     update: {
       width: '100%',
       height: 30,
-      backgroundColor: theme.colors.gray,
+      backgroundColor: theme.colors.seperator,
     },
     updateText: {
       marginTop: 8,
       marginLeft: 20,
       fontFamily: 'Ubuntu',
       fontSize: 15,
+      color: theme.colors.text,
     },
     accountView: {
       width: '100%',
@@ -141,10 +142,21 @@ const CryptoOrders = ({ navigation }) => {
       color: theme.colors.blue,
       textDecorationLine: 'underline',
     },
-    dropDownPickerStyle: {
+    dropDownPickerContainerStyle: {
       marginHorizontal: 20,
       height: 220,
       marginTop: 5,
+    },
+    dropDownTop: {
+      backgroundColor: 'white',
+      borderColor: theme.colors.blue,
+    },
+    dropDownText: {
+      fontFamily: 'Ubuntu',
+    },
+    dropDownContainer: {
+      backgroundColor: 'white',
+      borderColor: theme.colors.blue,
     },
   });
 
@@ -164,17 +176,12 @@ const CryptoOrders = ({ navigation }) => {
         }}
       ></View>
 
-      <View style={styles.dropDownPickerStyle}>
+      <View style={styles.dropDownPickerContainerStyle}>
         <DropDownPicker
-          style={{
-            backgroundColor: theme.colors.card,
-          }}
-          dropDownContainerStyle={{
-            backgroundColor: theme.colors.card,
-          }}
-          textStyle={{
-            color: theme.colors.text,
-          }}
+          style={styles.dropDownTop}
+          dropDownContainerStyle={styles.dropDownContainer}
+          textStyle={styles.dropDownText}
+          listItemLabelStyle={styles.dropDownText}
           open={open1}
           value={value1}
           setValue={setValue1}
@@ -208,17 +215,11 @@ const CryptoOrders = ({ navigation }) => {
           opacity: 0.1,
         }}
       ></View>
-      <View style={styles.dropDownPickerStyle}>
+      <View style={styles.dropDownPickerContainerStyle}>
         <DropDownPicker
-          style={{
-            backgroundColor: theme.colors.card,
-          }}
-          dropDownContainerStyle={{
-            backgroundColor: theme.colors.card,
-          }}
-          textStyle={{
-            color: theme.colors.text,
-          }}
+          style={styles.dropDownTop}
+          dropDownContainerStyle={styles.dropDownContainer}
+          textStyle={styles.dropDownText}
           open={open2}
           value={value2}
           setValue={setValue2}
