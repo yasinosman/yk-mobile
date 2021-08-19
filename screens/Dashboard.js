@@ -109,7 +109,7 @@ const Dashboard = props => {
                   key1={'Kullanılabilir Bakiye'}
                   value1Component={
                     <AmountText
-                      amount={account.available_balance}
+                      amount={parseFloat(account.available_balance).toFixed(2)}
                       currency={account.currency}
                     />
                   }
