@@ -3,9 +3,12 @@ import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import ThemeProvider, { useTheme } from '../../context/Theme';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { Icon } from 'react-native-elements';
 
 const CryptoOrders = ({ navigation }) => {
+  const { theme } = useTheme();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [selectedValue, setSelectedValue] = useState('Hesap seçiniz');
@@ -22,6 +25,130 @@ const CryptoOrders = ({ navigation }) => {
   ]);
   const [open1, setDropdown1Open] = useState(false);
   const [open2, setDropdown2Open] = useState(false);
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.bg,
+    },
+    update: {
+      width: '100%',
+      height: 30,
+      backgroundColor: theme.colors.gray,
+    },
+    updateText: {
+      marginTop: 8,
+      marginLeft: 20,
+      fontFamily: 'Ubuntu',
+      fontSize: 15,
+    },
+    accountView: {
+      width: '100%',
+      height: 30,
+    },
+    accountTitle: {
+      marginTop: 8,
+      marginLeft: 20,
+      fontFamily: 'Ubuntu',
+      fontSize: 15,
+    },
+    protokolContainer: {
+      height: 60,
+      width: '100%',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    underlinedProtokol: {
+      fontFamily: 'Ubuntu',
+      fontSize: 12,
+      color: 'rgba(136,205,224,255)',
+      textDecorationLine: 'underline',
+      marginLeft: 20,
+    },
+    protokolStyle: {
+      fontFamily: 'Ubuntu',
+      fontSize: 12,
+      color: 'black',
+      textDecorationColor: 'transparent',
+    },
+    switch: {
+      width: 20,
+      height: 20,
+      marginRight: 50,
+    },
+    inputView: {
+      height: 40,
+      width: '90%',
+      marginLeft: '5%',
+      borderWidth: 1,
+      borderRadius: 10,
+      borderColor: 'lightgray',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    inputStyle: {
+      fontFamily: 'Ubuntu',
+      marginLeft: 10,
+    },
+    forwardImage: {
+      width: 20,
+      height: 20,
+      marginLeft: 10,
+      marginRight: 10,
+    },
+    tutarText: {
+      marginLeft: '5%',
+      fontFamily: 'Ubuntu',
+      fontSize: 14,
+      marginBottom: 10,
+      marginTop: 10,
+    },
+    infoImage: {
+      width: 32,
+      height: 32,
+    },
+    infoMessage: {
+      flexDirection: 'row',
+      height: 50,
+      marginLeft: 20,
+      alignItems: 'center',
+    },
+    infoText: {
+      fontFamily: 'UbuntuLight',
+      marginLeft: 5,
+      fontSize: 12,
+      opacity: 0.8,
+      color: theme.colors.text,
+    },
+    bottomBar: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+      marginRight: 30,
+      marginBottom: 30,
+    },
+    submitButton: {
+      marginTop: 15,
+      width: DEVICE_WIDTH * (85 / 100),
+      height: 40,
+      borderRadius: 22,
+    },
+    tiklayinizStyle: {
+      color: theme.colors.blue,
+      textDecorationLine: 'underline',
+    },
+    dropDownPickerStyle: {
+      marginHorizontal: 20,
+      height: 220,
+      marginTop: 5,
+    },
+    dropDownPickerStyle2: {},
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.update}>
@@ -90,9 +217,11 @@ const CryptoOrders = ({ navigation }) => {
 
       <View style={styles.bottomBar}>
         <View style={styles.infoMessage}>
-          <Image
-            source={require('../../assets/info.jpg')}
-            style={styles.infoImage}
+          <Icon
+            name="info-circle"
+            type="font-awesome-5"
+            size={30}
+            color={theme.colors.blue}
           />
           <Text style={styles.infoText}>
             Farklı döviz cinsinden işlem yapmak için ilgili döviz cinsinden
@@ -129,125 +258,3 @@ const CryptoOrders = ({ navigation }) => {
 };
 
 export default CryptoOrders;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  update: {
-    width: '100%',
-    height: 30,
-    backgroundColor: 'rgba(244,247,250,255)',
-  },
-  updateText: {
-    marginTop: 8,
-    marginLeft: 20,
-    fontFamily: 'Ubuntu',
-    fontSize: 15,
-  },
-  accountView: {
-    width: '100%',
-    height: 30,
-  },
-  accountTitle: {
-    marginTop: 8,
-    marginLeft: 20,
-    fontFamily: 'Ubuntu',
-    fontSize: 15,
-  },
-  protokolContainer: {
-    height: 60,
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  underlinedProtokol: {
-    fontFamily: 'Ubuntu',
-    fontSize: 12,
-    color: 'rgba(136,205,224,255)',
-    textDecorationLine: 'underline',
-    marginLeft: 20,
-  },
-  protokolStyle: {
-    fontFamily: 'Ubuntu',
-    fontSize: 12,
-    color: 'black',
-    textDecorationColor: 'transparent',
-  },
-  switch: {
-    width: 20,
-    height: 20,
-    marginRight: 50,
-  },
-  inputView: {
-    height: 40,
-    width: '90%',
-    marginLeft: '5%',
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: 'lightgray',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  inputStyle: {
-    fontFamily: 'Ubuntu',
-    marginLeft: 10,
-  },
-  forwardImage: {
-    width: 20,
-    height: 20,
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  tutarText: {
-    marginLeft: '5%',
-    fontFamily: 'Ubuntu',
-    fontSize: 14,
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  infoImage: {
-    width: 32,
-    height: 32,
-  },
-  infoMessage: {
-    flexDirection: 'row',
-    height: 50,
-    marginLeft: 20,
-    alignItems: 'center',
-  },
-  infoText: {
-    fontFamily: 'UbuntuLight',
-    marginLeft: 5,
-    fontSize: 12,
-    opacity: 0.8,
-  },
-  bottomBar: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginRight: 30,
-    marginBottom: 30,
-  },
-  submitButton: {
-    marginTop: 15,
-    width: DEVICE_WIDTH * (85 / 100),
-    height: 40,
-    borderRadius: 22,
-  },
-  tiklayinizStyle: {
-    color: 'rgba(136,205,224,255)',
-    textDecorationLine: 'underline',
-  },
-  dropDownPickerStyle: {
-    marginHorizontal: 20,
-    height: 220,
-    marginTop: 5,
-  },
-  dropDownPickerStyle2: {},
-});
