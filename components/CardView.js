@@ -133,17 +133,22 @@ const CardView = ({
           )}
           <StyledText style={[styles.key, keyStyles]}>{key1}</StyledText>
         </View>
-        <View style={styles.seperator}></View>
-        <View style={{ width: DEVICE_WIDTH * (40 / 100) }}>
-          {value2 !== null ? (
-            <StyledText style={[styles.value, valueStyles]}>
-              {value2}
-            </StyledText>
-          ) : (
-            value2Component
-          )}
-          <StyledText style={[styles.key, keyStyles]}>{key2}</StyledText>
-        </View>
+        {value2 !== null ||
+          (value2Component !== null && (
+            <React.Fragment>
+              <View style={styles.seperator}></View>
+              <View style={{ width: DEVICE_WIDTH * (40 / 100) }}>
+                {value2 !== null ? (
+                  <StyledText style={[styles.value, valueStyles]}>
+                    {value2}
+                  </StyledText>
+                ) : (
+                  value2Component
+                )}
+                <StyledText style={[styles.key, keyStyles]}>{key2}</StyledText>
+              </View>
+            </React.Fragment>
+          ))}
       </View>
     </TouchableOpacity>
   );

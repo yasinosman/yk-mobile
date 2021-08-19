@@ -22,4 +22,14 @@ function fetchCollectionByName(collectionName) {
   });
 }
 
+/**
+ *  Firebase'de bulunan bir dokümanı günceller
+ * @param {string} collectionName Güncellenecek dokümanın bulunduğu koleksiyon adı
+ * @param {string} documentId Güncellenecek dokümanın ID'si
+ * @param {any} data Güncellenecek alanlar
+ */
+export function updateDocument(collectionName, documentId, data) {
+  return db.collection(collectionName).doc(documentId).update(data);
+}
+
 export { fetchCollectionByName };

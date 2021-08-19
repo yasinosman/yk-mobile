@@ -3,20 +3,27 @@ import { StyleSheet, View, ScrollView } from 'react-native';
 import { useTheme } from '../../../context/Theme';
 import MenuTitle from '../../../components/MenuTitle';
 import CurrencyView from '../../../components/CurrencyView';
-import { CRYPTO_CURRENCIES } from '../../../hooks/useCurrency';
+import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
 import ChangePercentageView from '../../../components/ChangePercentageView';
 import { Button, Input, Image, Icon } from 'react-native-elements';
 import CardView from '../../../components/CardView';
-import { getAccounts, tradeCurrencies } from '../../../services/accounts';
+import { getAccounts } from '../../../services/accounts';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../common/dimensions';
 import AmountText from '../../../components/AmountText';
 import { useKeyboard } from '../../../hooks/useKeyboard';
 import StyledText from '../../../components/StyledText';
-import { convertCurrency } from '../../../utils';
+import { clearTurkishNumberFormat, convertCurrency } from '../../../utils';
 import Popup from '../../../components/Popup';
+import {
+  buyCryptoFromCashAccount,
+  buyCryptoFromCryptoWallet,
+  getWallets,
+} from '../../../services/wallets';
+import { Platform } from 'react-native';
 
 const Buy = props => {
   const [accounts, setAccounts] = React.useState([]);
+  const [wallets, setWallets] = React.useState([]);
   const [payingAmount, setPayingAmount] = React.useState('');
   const [cryptoAmount, setCryptoAmount] = React.useState('');
   const keyboardHeight = useKeyboard();
@@ -27,6 +34,7 @@ const Buy = props => {
   async function fetchAllData() {
     try {
       setAccounts(await getAccounts());
+      setWallets(await getWallets());
     } catch (error) {
       console.log(error);
     }
@@ -135,6 +143,17 @@ const Buy = props => {
     setTargetCurrency(props.route.params.targetCurrency);
   }, [props.route.params]);
 
+  const [buyingAccountType, setBuyingAccountType] = React.useState(null);
+  React.useEffect(() => {
+    if (CRYPTO_CURRENCIES.find(cu => cu.value === targetCurrency)) {
+      return setBuyingAccountType('crypto');
+    }
+
+    if (EXCHANGE_RATES.hasOwnProperty(targetCurrency)) {
+      return setBuyingAccountType('cash');
+    }
+  }, [targetCurrency]);
+
   const handleBuy = () => {
     setLoading(true);
 
@@ -143,28 +162,173 @@ const Buy = props => {
       return setError('Ödenecek tutar kısmı boş bırakılamaz.');
     }
 
-    const withdrawAccount = accounts.find(a => a.currency === targetCurrency);
-    const depositAccount = accounts.find(a => a.currency === 'btc');
+    const withdrawAccount =
+      buyingAccountType === 'cash'
+        ? accounts.find(a => a.currency === targetCurrency)
+        : buyingAccountType === 'crypto'
+        ? wallets[0]
+        : null;
+    const depositWallet = wallets[0];
 
-    tradeCurrencies(
-      withdrawAccount.id,
-      depositAccount.id,
-      payingAmount,
-      targetCurrency
-    )
-      .then(result => {
-        setSuccess(result);
-        //Reset form
-        setPayingAmount('');
-        setCryptoAmount('');
+    if (buyingAccountType === 'cash') {
+      buyCryptoFromCashAccount(
+        withdrawAccount.id,
+        payingAmount,
+        depositWallet.id,
+        currency.value,
+        cryptoAmount
+      )
+        .then(result => {
+          setSuccess(result);
+          //Reset form
+          setPayingAmount('');
+          setCryptoAmount('');
 
-        //Fetch accounts
-        fetchAllData();
-      })
-      .catch(error => setError(error))
-      .finally(() => setLoading(false));
+          //Fetch accounts
+          fetchAllData();
+        })
+        .catch(error => setError(error))
+        .finally(() => setLoading(false));
+    } else if (buyingAccountType === 'crypto') {
+      buyCryptoFromCryptoWallet(
+        withdrawAccount.id,
+        payingAmount,
+        targetCurrency,
+        currency.value,
+        depositWallet.id,
+        cryptoAmount
+      )
+        .then(result => {
+          setSuccess(result);
+          //Reset form
+          setPayingAmount('');
+          setCryptoAmount('');
+
+          //Fetch accounts
+          fetchAllData();
+        })
+        .catch(error => setError(error))
+        .finally(() => setLoading(false));
+    } else {
+      setError(
+        `${currency.value.toUpperCase()} almak için gereken bir hesabınız bulunmuyor.`
+      );
+    }
   };
 
+  const Wallets = ({ displayCurrency }) =>
+    wallets.map(wallet => (
+      <CardView
+        key={wallet.id}
+        onPress={() => alert(wallet.name)}
+        iconContainerStyles={{
+          height: 50,
+          justifyContent: 'flex-start',
+        }}
+        icon={
+          wallet.icon ? (
+            <Icon
+              name={wallet.icon.name}
+              type={wallet.icon.type}
+              size={40}
+              color={theme.colors.blue}
+            />
+          ) : (
+            <Image
+              source={{ uri: wallet.image_url }}
+              style={{ width: 60, height: 45 }}
+            />
+          )
+        }
+        title={wallet.name}
+        subTitle={wallet.number}
+        key1={`Cüzdandaki ${displayCurrency.toUpperCase()} Miktarı`}
+        value1Component={
+          <AmountText
+            amount={
+              wallet.assets.find(asset => asset.currency === displayCurrency)
+                .amount
+            }
+            currency={displayCurrency}
+            primaryTextStyles={styles.amountTextTitle}
+            secondaryTextStyles={styles.amountTextSubTitle}
+          />
+        }
+        key2={`Toplam Bakiye (${displayCurrency.toUpperCase()})`}
+        value2Component={
+          <AmountText
+            amount={wallet.assets.reduce((accumulator, current) => {
+              return (
+                parseFloat(accumulator) +
+                parseFloat(current.amount) *
+                  (EXCHANGE_RATES[current.currency][displayCurrency] ?? 1)
+              ).toFixed(6);
+            }, 0)}
+            currency={displayCurrency}
+            primaryTextStyles={styles.amountTextTitle}
+            secondaryTextStyles={styles.amountTextSubTitle}
+          />
+        }
+        containerStyles={[
+          { height: 100, marginBottom: 0 },
+          {
+            marginLeft: DEVICE_WIDTH * (5 / 100),
+            marginRight: DEVICE_WIDTH * (3 / 100),
+          },
+        ]}
+        primaryTextStyles={styles.amountTextTitle}
+        secondaryTextStyles={styles.amountTextSubTitle}
+      />
+    ));
+
+  const CashAccounts = () =>
+    accounts.map((account, index) => {
+      if (account.currency === targetCurrency) {
+        return (
+          <CardView
+            key={account.id}
+            onPress={() => alert(account.name)}
+            icon={
+              <Image
+                source={{ uri: account.image_url }}
+                style={{ width: 60, height: 45 }}
+              />
+            }
+            title={account.name}
+            subTitle={account.number}
+            key1={'Kullanılabilir Bakiye'}
+            value1Component={
+              <AmountText
+                amount={account.available_balance}
+                currency={account.currency}
+                primaryTextStyles={styles.amountTextTitle}
+                secondaryTextStyles={styles.amountTextSubTitle}
+              />
+            }
+            key2={'Güncel Bakiye'}
+            value2Component={
+              <AmountText
+                amount={account.current_balance}
+                currency={account.currency}
+                primaryTextStyles={styles.amountTextTitle}
+                secondaryTextStyles={styles.amountTextSubTitle}
+              />
+            }
+            containerStyles={[
+              calculateContainerStyles(
+                index,
+                accounts.filter(a => a.currency === targetCurrency).length
+              ),
+            ]}
+            primaryTextStyles={styles.amountTextTitle}
+            secondaryTextStyles={styles.amountTextSubTitle}
+          />
+        );
+      }
+      return null;
+    });
+
+  const renderedAccounts = React.useMemo(() => CashAccounts(), [accounts]);
   return (
     <ScrollView style={styles.wrapper}>
       <View>
@@ -187,7 +351,14 @@ const Buy = props => {
       </View>
 
       <View style={[styles.accountsContainer, { marginTop: 0 }]}>
-        <MenuTitle text="Para Çekilecek Hesap" textStyles={styles.title} />
+        <MenuTitle
+          text={
+            buyingAccountType === 'crypto'
+              ? `${targetCurrency.toUpperCase()} Çekilecek Cüzdan`
+              : 'Para Çekilecek Hesap'
+          }
+          textStyles={styles.title}
+        />
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -195,57 +366,16 @@ const Buy = props => {
           decelerationRate={0.5}
           scrollEnabled
         >
-          {accounts.map((account, index) => {
-            if (account.currency === targetCurrency) {
-              return (
-                <CardView
-                  key={account.id}
-                  onPress={() => alert(account.name)}
-                  icon={
-                    <Image
-                      source={{ uri: account.image_url }}
-                      style={{ width: 60, height: 45 }}
-                    />
-                  }
-                  title={account.name}
-                  subTitle={account.number}
-                  key1={'Kullanılabilir Bakiye'}
-                  value1Component={
-                    <AmountText
-                      amount={account.available_balance}
-                      currency={account.currency}
-                      primaryTextStyles={styles.amountTextTitle}
-                      secondaryTextStyles={styles.amountTextSubTitle}
-                    />
-                  }
-                  key2={'Güncel Bakiye'}
-                  value2Component={
-                    <AmountText
-                      amount={account.current_balance}
-                      currency={account.currency}
-                      primaryTextStyles={styles.amountTextTitle}
-                      secondaryTextStyles={styles.amountTextSubTitle}
-                    />
-                  }
-                  containerStyles={[
-                    calculateContainerStyles(
-                      index,
-                      accounts.filter(a => a.currency === targetCurrency).length
-                    ),
-                  ]}
-                  primaryTextStyles={styles.amountTextTitle}
-                  secondaryTextStyles={styles.amountTextSubTitle}
-                />
-              );
-            }
-            return null;
-          })}
+          {buyingAccountType === 'crypto' && (
+            <Wallets displayCurrency={targetCurrency} />
+          )}
+          {buyingAccountType === 'cash' && renderedAccounts}
         </ScrollView>
       </View>
       <View>
         <View style={[styles.accountsContainer, { marginTop: 0 }]}>
           <MenuTitle
-            text={`${currency.value.toUpperCase()} Yatırılacak Hesap`}
+            text={`${currency.value.toUpperCase()} Yatırılacak Cüzdan`}
             textStyles={styles.title}
           />
           <ScrollView
@@ -255,72 +385,15 @@ const Buy = props => {
             decelerationRate={0.5}
             scrollEnabled
           >
-            {accounts.map((account, index) => {
-              if (account.currency !== 'btc') {
-                return null;
-              }
-              return (
-                <CardView
-                  key={account.id}
-                  onPress={() => alert(account.name)}
-                  iconContainerStyles={{
-                    height: 50,
-                    justifyContent: 'flex-start',
-                  }}
-                  icon={
-                    account.icon ? (
-                      <Icon
-                        name={account.icon.name}
-                        type={account.icon.type}
-                        size={40}
-                        color={theme.colors.blue}
-                      />
-                    ) : (
-                      <Image
-                        source={{ uri: account.image_url }}
-                        style={{ width: 60, height: 45 }}
-                      />
-                    )
-                  }
-                  title={account.name}
-                  subTitle={account.number}
-                  key1={'Kullanılabilir Bakiye'}
-                  value1Component={
-                    <AmountText
-                      amount={account.available_balance}
-                      currency={account.currency}
-                      primaryTextStyles={styles.amountTextTitle}
-                      secondaryTextStyles={styles.amountTextSubTitle}
-                    />
-                  }
-                  key2={'Güncel Bakiye'}
-                  value2Component={
-                    <AmountText
-                      amount={account.current_balance}
-                      currency={account.currency}
-                      primaryTextStyles={styles.amountTextTitle}
-                      secondaryTextStyles={styles.amountTextSubTitle}
-                    />
-                  }
-                  containerStyles={[
-                    calculateContainerStyles(
-                      index,
-                      accounts.filter(a => a.currency === currency.value)
-                        .length,
-                      'hey'
-                    ),
-                  ]}
-                  primaryTextStyles={styles.amountTextTitle}
-                  secondaryTextStyles={styles.amountTextSubTitle}
-                />
-              );
-            })}
+            <Wallets displayCurrency={currency.value} />
           </ScrollView>
         </View>
       </View>
       <View>
         <MenuTitle text="İşlem Bilgileri" textStyles={styles.title} />
-        <StyledText style={styles.label}>Ödenecek Tutar</StyledText>
+        <StyledText style={styles.label}>
+          Ödenecek Tutar ({targetCurrency.toUpperCase()})
+        </StyledText>
         <Input
           placeholder="0,00"
           keyboardType="numeric"
@@ -331,7 +404,11 @@ const Buy = props => {
           onChangeText={text => {
             setPayingAmount(text);
             setCryptoAmount(
-              convertCurrency(targetCurrency, text, currency.value).toString()
+              convertCurrency(
+                targetCurrency,
+                Platform.OS === 'ios' ? clearTurkishNumberFormat(text) : text,
+                currency.value
+              ).toString()
             );
           }}
         />
@@ -348,7 +425,11 @@ const Buy = props => {
           onChangeText={text => {
             setCryptoAmount(text);
             setPayingAmount(
-              convertCurrency(currency.value, text, targetCurrency).toString()
+              convertCurrency(
+                currency.value,
+                Platform.OS === 'ios' ? clearTurkishNumberFormat(text) : text,
+                targetCurrency
+              ).toString()
             );
           }}
         />
@@ -375,7 +456,7 @@ const Buy = props => {
         type="error"
         open={error !== ''}
         title="Hata"
-        text={error}
+        text={error?.message ?? error}
         onClose={() => setError('')}
         styleOverrides={{ container: { height: DEVICE_HEIGHT * (25 / 100) } }}
       />
