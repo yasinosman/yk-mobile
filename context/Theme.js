@@ -18,6 +18,7 @@ const themes = {
       orange: 'rgb(255,196,0)',
       icon: 'rgb(5,136,218)',
       highlight: 'rgba(5,136,218,0.1)',
+      paleGrey: 'rgb(245,247,250)',
     },
   },
   dark: {
@@ -35,6 +36,7 @@ const themes = {
       orange: 'rgb(255,196,0)',
       icon: 'rgb(5,136,218)',
       highlight: 'rgba(5,136,218,0.2)',
+      paleGrey: 'rgb(28,28,29)',
     },
   },
 };

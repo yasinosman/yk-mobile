@@ -35,8 +35,10 @@ const NavigationDrawer = props => {
 
   const styles = StyleSheet.create({
     wrapper: {
-      marginTop: Platform.OS === 'ios' ? 35 : StatusBarHeight,
-      height: DEVICE_HEIGHT,
+      // marginTop: Platform.OS === 'ios' ? 35 : StatusBarHeight,
+      paddingTop: Platform.OS === 'ios' ? 30 : StatusBarHeight,
+      height: DEVICE_HEIGHT + StatusBarHeight,
+      paddingBottom: Platform.OS === 'ios' ? 30 : 0,
       justifyContent: 'space-around',
       backgroundColor: theme.colors.bg,
       borderRightColor: theme.colors.text,
@@ -87,14 +89,14 @@ const NavigationDrawer = props => {
     },
     exitContainer: {
       width: '100%',
-      height: Platform.OS === 'ios' ? '13%' : '10%',
+      height: Platform.OS === 'ios' ? '10%' : '10%',
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: theme.colors.card,
       borderRightColor: theme.colors.text,
       borderRightWidth: 0.2,
-      backgroundColor: theme.colors.card,
+      backgroundColor: theme.colors.paleGrey,
       //marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * ( / 100) : 0,
     },
     settingsButton: {
@@ -105,7 +107,7 @@ const NavigationDrawer = props => {
       alignItems: 'center',
       marginHorizontal: '1.5%',
       padding: 0,
-      marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * (3 / 100) : 0,
+      marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * (1 / 100) : 0,
     },
     settingsText: {
       fontSize: 21,
@@ -120,7 +122,7 @@ const NavigationDrawer = props => {
       alignItems: 'center',
       marginHorizontal: '1.5%',
       padding: 0,
-      marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * (3 / 100) : 0,
+      marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * (1 / 100) : 0,
     },
     exitText: {
       fontSize: 21,
