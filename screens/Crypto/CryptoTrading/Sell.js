@@ -232,7 +232,7 @@ const Buy = props => {
               name={wallet.icon.name}
               type={wallet.icon.type}
               size={40}
-              color={theme.colors.blue}
+              color={theme.colors.orange}
             />
           ) : (
             <Image
@@ -276,6 +276,9 @@ const Buy = props => {
             marginLeft: DEVICE_WIDTH * (5 / 100),
             marginRight: DEVICE_WIDTH * (3 / 100),
           },
+          {
+            borderColor: theme.colors.orange,
+          },
         ]}
         primaryTextStyles={styles.amountTextTitle}
         secondaryTextStyles={styles.amountTextSubTitle}
@@ -300,7 +303,7 @@ const Buy = props => {
             key1={'Kullanılabilir Bakiye'}
             value1Component={
               <AmountText
-                amount={account.available_balance}
+                amount={parseFloat(account.available_balance).toFixed(2)}
                 currency={account.currency}
                 primaryTextStyles={styles.amountTextTitle}
                 secondaryTextStyles={styles.amountTextSubTitle}
