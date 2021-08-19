@@ -7,7 +7,6 @@ import { useTheme } from '../../context/Theme';
 
 const CryptoAlarms = ({ navigation }) => {
   const { theme } = useTheme();
-
   const styles = StyleSheet.create({
     container: {
       width: DEVICE_WIDTH,
