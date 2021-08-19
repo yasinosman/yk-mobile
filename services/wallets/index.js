@@ -9,37 +9,30 @@ import { checkIfAccountExists } from '../accounts';
  * @param {number} cashAmount Nakit miktarı
  * @param {string} cryptoWalletId Kripto Cüzdan ID'si
  * @param {string} cryptoCurrency Alınacak kripto varlık türü
+ * @param {number} calculatedCryptoAmount cashAmount'a göre hesaplanan, alınacak kripto miktarı
  */
 export function buyCryptoFromCashAccount(
   cashAccountId,
   cashAmount,
   cryptoWalletId,
-  cryptoCurrency
+  cryptoCurrency,
+  calculatedCryptoAmount
 ) {
   return new Promise(async (resolve, reject) => {
     try {
       const accountData = await checkIfAccountExists(cashAccountId);
       const walletData = await checkIfWalletExists(cryptoWalletId);
 
-      const requestedAmount =
-        parseFloat(cashAmount) *
-        (EXCHANGE_RATES[accountData.currency].try ?? 1);
+      const requestedAmount = parseFloat(cashAmount);
 
-      if (
-        parseFloat(accountData.available_balance) *
-          (EXCHANGE_RATES[accountData.currency].try ?? 1) <
-        requestedAmount
-      ) {
+      if (parseFloat(accountData.available_balance) < requestedAmount) {
         return reject('Yetersiz bakiye');
       }
 
       //Withdraw
       await updateDocument('accounts', cashAccountId, {
         available_balance: (
-          parseFloat(accountData.available_balance) -
-          parseFloat(
-            requestedAmount * (EXCHANGE_RATES.try[accountData.currency] ?? 1)
-          )
+          parseFloat(accountData.available_balance) - requestedAmount
         ).toFixed(6),
       });
 
@@ -50,11 +43,7 @@ export function buyCryptoFromCashAccount(
             ? {
                 ...asset,
                 amount: (
-                  parseFloat(asset.amount) +
-                  parseFloat(
-                    cashAmount *
-                      EXCHANGE_RATES[accountData.currency][asset.currency]
-                  )
+                  parseFloat(asset.amount) + parseFloat(calculatedCryptoAmount)
                 ).toFixed(6),
               }
             : asset
@@ -71,16 +60,64 @@ export function buyCryptoFromCashAccount(
 /**
  *  Kripto cüzdanından nakit hesaba kripto varlık bozdururken kullanılır.
  * @param {string} cashAccountId Nakit Hesap ID'si
- * @param {number} cryptoAmount Alınacak kripto varlık miktarı
- * @param {string} crypoWalletId Kripto Cüzdan ID'si
+ * @param {number} withdrawCryptoAmount Alınacak kripto varlık miktarı
+ * @param {string} cryptoWalletId Kripto Cüzdan ID'si
  * @param {string} cryptoCurrency  Alınacak kripto varlık türü
+ * @param {string} cryptoCurrency  cryptoAmount'a göre hesaplanan, alınacak nakit para miktarı
  */
 export function buyCashFromCryptoWallet(
   cashAccountId,
-  cryptoAmount,
-  crypoWalletId,
-  cryptoCurrency
-) {}
+  withdrawCryptoAmount,
+  cryptoWalletId,
+  cryptoCurrency,
+  calculatedCashAmount
+) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const accountData = await checkIfAccountExists(cashAccountId);
+      const withdrawWalletData = await checkIfWalletExists(cryptoWalletId);
+
+      const requestedAmount = parseFloat(withdrawCryptoAmount);
+
+      const hasEnoughAssets =
+        parseFloat(
+          withdrawWalletData.assets.find(
+            asset => asset.currency === cryptoCurrency
+          ).amount
+        ) > requestedAmount;
+
+      if (!hasEnoughAssets) {
+        return reject('Yetersiz bakiye');
+      }
+
+      //Withdraw
+      await updateDocument('wallets', cryptoWalletId, {
+        assets: withdrawWalletData.assets.map(asset => {
+          if (asset.currency === cryptoCurrency) {
+            return {
+              ...asset,
+              amount: (parseFloat(asset.amount) - requestedAmount).toFixed(6),
+            };
+          }
+
+          return asset;
+        }),
+      });
+
+      //Deposit
+      await updateDocument('accounts', cashAccountId, {
+        available_balance: (
+          parseFloat(accountData.available_balance) +
+          parseFloat(calculatedCashAmount)
+        ).toFixed(6),
+      });
+
+      return resolve('Al/Sat işlemi başarılı.');
+    } catch (error) {
+      return reject(error.message);
+    }
+  });
+}
 
 /**
  *  Kripto hesabındaki bir kripto varlığı başka bir varlık için satmak için kullanılır.
@@ -90,66 +127,56 @@ export function buyCashFromCryptoWallet(
  * @param {string} withdrawCurrency Çekilecek kripto varlık türü
  * @param {string} depositCurrency Yatırılacak kripto varlık türü
  * @param {string} depositWalletId Kripto varlık yatırılacak Kripto Cüzdan'ın ID'si
+ * @param {number} calculatedDepositAmount withdrawAmount'a göre hesaplanan, alınacak kripto miktarı
  */
 export function buyCryptoFromCryptoWallet(
   withdrawWalletId,
   withdrawAmount,
   withdrawCurrency,
   depositCurrency,
-  depositWalletId
+  depositWalletId,
+  calculatedDepositAmount
 ) {
   return new Promise(async (resolve, reject) => {
     try {
       const withdrawWalletData = await checkIfWalletExists(withdrawWalletId);
       const depositWalletData = await checkIfWalletExists(depositWalletId);
 
-      const requestedAmount =
-        parseFloat(withdrawAmount) *
-        (EXCHANGE_RATES[withdrawCurrency].try ?? 1);
+      const requestedAmount = parseFloat(withdrawAmount);
 
       const hasEnoughAssets =
         parseFloat(
           withdrawWalletData.assets.find(
             asset => asset.currency === withdrawCurrency
           ).amount
-        ) *
-          EXCHANGE_RATES[withdrawCurrency].try >
-        requestedAmount;
+        ) > requestedAmount;
 
       if (!hasEnoughAssets) {
         return reject('Yetersiz bakiye');
       }
 
       //Withdraw
-      console.log({
-        withdrawWalletId,
-        withdrawAmount,
-        withdrawCurrency,
-        depositCurrency,
-        depositWalletId,
-      });
+      // console.log({
+      //   withdrawWalletId,
+      //   withdrawAmount,
+      //   withdrawCurrency,
+      //   depositCurrency,
+      //   depositWalletId,
+      // });
       await updateDocument('wallets', depositWalletId, {
         assets: depositWalletData.assets.map(asset => {
           if (asset.currency === depositCurrency) {
             return {
               ...asset,
               amount: (
-                (parseFloat(asset.amount) *
-                  EXCHANGE_RATES[depositCurrency].try +
-                  requestedAmount) *
-                (EXCHANGE_RATES.try[depositCurrency] ?? 1)
+                parseFloat(asset.amount) + parseFloat(calculatedDepositAmount)
               ).toFixed(6),
             };
           }
           if (asset.currency === withdrawCurrency) {
             return {
               ...asset,
-              amount: (
-                (parseFloat(asset.amount) *
-                  EXCHANGE_RATES[withdrawCurrency].try -
-                  requestedAmount) *
-                (EXCHANGE_RATES.try[withdrawCurrency] ?? 1)
-              ).toFixed(6),
+              amount: (parseFloat(asset.amount) - requestedAmount).toFixed(6),
             };
           }
 
