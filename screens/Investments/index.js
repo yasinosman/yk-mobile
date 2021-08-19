@@ -7,7 +7,6 @@ import CryptoOrders from '../Crypto/CryptoOrders';
 import CryptoAlarms from '../Crypto/CryptoAlarms';
 import CryptoCalculating from '../Crypto/CryptoCalculating';
 import CryptoWallet from '../Crypto/CryptoWallet';
-import CryptoCrossTransactionsDetail from '../Crypto/CryptoCrossTransactionsDetail';
 import CryptoOrdersAccounts from '../Crypto/CryptoOrdersAccounts';
 import Buy from '../Crypto/CryptoTrading/Buy';
 
