@@ -229,3 +229,11 @@ export function isArray(a) {
 export function isObject(a) {
   return !!a && a.constructor === Object;
 }
+
+/**
+ * @param {string} string
+ * @returns  {string} Correctly formatted number
+ */
+export function clearTurkishNumberFormat(string) {
+  return string.split('.').join('').split(',').join('.');
+}
