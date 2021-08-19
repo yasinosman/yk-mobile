@@ -63,7 +63,7 @@ const CryptoOrders = ({ navigation }) => {
       marginLeft: '5%',
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: 'lightgray',
+      borderColor: theme.colors.blue,
       flexDirection: 'row',
       justifyContent: 'flex-end',
       alignItems: 'center',

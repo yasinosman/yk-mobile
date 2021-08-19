@@ -146,7 +146,6 @@ const CryptoOrders = ({ navigation }) => {
       height: 220,
       marginTop: 5,
     },
-    dropDownPickerStyle2: {},
   });
 
   return (
@@ -167,6 +166,15 @@ const CryptoOrders = ({ navigation }) => {
 
       <View style={styles.dropDownPickerStyle}>
         <DropDownPicker
+          style={{
+            backgroundColor: theme.colors.card,
+          }}
+          dropDownContainerStyle={{
+            backgroundColor: theme.colors.card,
+          }}
+          textStyle={{
+            color: theme.colors.text,
+          }}
           open={open1}
           value={value1}
           setValue={setValue1}
@@ -202,6 +210,15 @@ const CryptoOrders = ({ navigation }) => {
       ></View>
       <View style={styles.dropDownPickerStyle}>
         <DropDownPicker
+          style={{
+            backgroundColor: theme.colors.card,
+          }}
+          dropDownContainerStyle={{
+            backgroundColor: theme.colors.card,
+          }}
+          textStyle={{
+            color: theme.colors.text,
+          }}
           open={open2}
           value={value2}
           setValue={setValue2}
@@ -212,6 +229,9 @@ const CryptoOrders = ({ navigation }) => {
           }}
           setItems={setItems2}
           placeholder="Hesap seçiniz."
+          labelStyle={{
+            fontWeight: 'bold',
+          }}
         />
       </View>
 
