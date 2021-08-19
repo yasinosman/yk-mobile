@@ -144,7 +144,6 @@ const CryptoWallet = () => {
         color: calculateColor(index),
         legendFontColor: calculateColor(index),
         legendFontSize: 15,
-        legendFontFamily: 'monospace',
       }));
     }
   }, [wallets]);
