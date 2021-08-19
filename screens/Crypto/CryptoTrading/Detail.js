@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { View, StyleSheet } from 'react-native';
-import { Button, Image } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../common/dimensions';
 import ChangePercentageView from '../../../components/ChangePercentageView';
 import CurrencyView from '../../../components/CurrencyView';
@@ -14,7 +14,7 @@ import {
   CURRENCY_DICTIONARY,
 } from '../../../hooks/useCurrency';
 import { generateMockMarketData } from '../../../utils';
-import { LineChart, PieChart } from 'react-native-chart-kit';
+import { LineChart } from 'react-native-chart-kit';
 import useMock from '../../../hooks/useMock';
 
 const Detail = props => {
