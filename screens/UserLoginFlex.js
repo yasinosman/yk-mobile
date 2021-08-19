@@ -13,6 +13,7 @@ import { object, string } from 'yup';
 import { login } from '../services/authentication';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
 import { StyledText } from '../';
+import Popup from '../components/Popup';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
@@ -24,6 +25,7 @@ const testValidationSchema = object().shape({
 });
 
 const Login = ({ navigation }) => {
+  const [loginError, setLoginError] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -69,7 +71,7 @@ const Login = ({ navigation }) => {
                 setLoading(false);
               })
               .catch(error => {
-                alert(
+                setLoginError(
                   'Lütfen giriş bilgilerinizi kontrol edip tekrar deneyin.'
                 );
                 setLoading(false);
@@ -280,6 +282,13 @@ const Login = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+        <Popup
+          type="error"
+          open={loginError !== ''}
+          title="Hata"
+          text={loginError}
+          onClose={() => setLoginError('')}
+        />
       </LinearGradient>
     </TouchableWithoutFeedback>
   );

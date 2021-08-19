@@ -1,41 +1,91 @@
 import React from 'react';
-import { Switch } from 'react-native';
 import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const CryptoOrders = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [selectedValue, setSelectedValue] = useState('Hesap seçiniz');
+  const [value1, setValue1] = useState(null);
+  const [value2, setValue2] = useState(null);
+  const [items1, setItems1] = useState([
+    { label: 'Hesap 1', value: 'hesap1' },
+    { label: 'Hesap 2', value: 'hesap2' },
+    { label: 'Hesap 3', value: 'hesap3' },
+    { label: 'Hesap 4', value: 'hesap4' },
+  ]);
+  const [items2, setItems2] = useState([
+    { label: 'Kripto Cüzdanım', value: 'kriptocuzdan' },
+  ]);
+  const [open1, setDropdown1Open] = useState(false);
+  const [open2, setDropdown2Open] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.update}>
-        <Text style={styles.updateText}>Sözleşme Bilgileri</Text>
+        <Text style={styles.updateText}>Paranın Çekileceği Hesap</Text>
       </View>
-      <View style={styles.protokolContainer}>
-        <Text style={styles.underlinedProtokol}>
-          Kripto Alım Satım Emir Bırakma İşlemleri Ek{'\n'}Protokolü
-          <Text style={styles.protokolStyle}>'nü okudum ve onaylıyorum.</Text>
-        </Text>
-        <Switch
-          style={styles.switch}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        ></Switch>
+      {/* Divider */}
+      <View
+        style={{
+          width: '100%',
+          flex: 0.0000001,
+          borderBottomColor: 'darkblue',
+          borderBottomWidth: 1,
+          opacity: 0.1,
+        }}
+      ></View>
+
+      <View style={styles.dropDownPickerStyle}>
+        <DropDownPicker
+          open={open1}
+          value={value1}
+          setValue={setValue1}
+          items={items1}
+          setOpen={() => {
+            setDropdown1Open(!open1);
+            setDropdown2Open(false);
+          }}
+          setItems={setItems1}
+          placeholder="Hesap seçiniz."
+        />
       </View>
+      <View
+        style={{
+          width: '100%',
+          flex: 0.0000001,
+          borderBottomColor: 'darkblue',
+          borderBottomWidth: 1,
+          opacity: 0.1,
+        }}
+      ></View>
       <View style={styles.update}>
-        <Text style={styles.updateText}>
-          Onaylanan Sözleşmenin Gönderileceği E-Posta
-        </Text>
+        <Text style={styles.updateText}>Paranın Yatırılacağı Hesap</Text>
       </View>
-      <Text style={styles.tutarText}>E-posta</Text>
-      <View style={styles.inputView}>
-        <TextInput placeholder="E-posta" style={styles.inputStyle}></TextInput>
-        <Image
-          source={require('../../assets/img/ic_action_forward.png')}
-          style={styles.forwardImage}
-        ></Image>
+      <View
+        style={{
+          width: '100%',
+          flex: 0.0000001,
+          borderBottomColor: 'darkblue',
+          borderBottomWidth: 1,
+          opacity: 0.1,
+        }}
+      ></View>
+      <View style={styles.dropDownPickerStyle}>
+        <DropDownPicker
+          open={open2}
+          value={value2}
+          setValue={setValue2}
+          items={items2}
+          setOpen={() => {
+            setDropdown1Open(false);
+            setDropdown2Open(!open2);
+          }}
+          setItems={setItems2}
+          placeholder="Hesap seçiniz."
+        />
       </View>
 
       <View style={styles.bottomBar}>
@@ -45,9 +95,9 @@ const CryptoOrders = ({ navigation }) => {
             style={styles.infoImage}
           />
           <Text style={styles.infoText}>
-            Döviz alım satım emir işlemi yapabilmeniz için Döviz{'\n'}Alım Satım
-            Emir Bırakma işlemleri Ek Protokolü'nü{'\n'}onaylamanız
-            gerekmektedir.
+            Farklı döviz cinsinden işlem yapmak için ilgili döviz cinsinden
+            {'\n'}vadesiz hesap seçiniz. Hesap açılışı yapmak için{' '}
+            <Text style={styles.tiklayinizStyle}>tıklayınız.</Text>
           </Text>
         </View>
         <TouchableOpacity
@@ -96,6 +146,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Ubuntu',
     fontSize: 15,
   },
+  accountView: {
+    width: '100%',
+    height: 30,
+  },
+  accountTitle: {
+    marginTop: 8,
+    marginLeft: 20,
+    fontFamily: 'Ubuntu',
+    fontSize: 15,
+  },
   protokolContainer: {
     height: 60,
     width: '100%',
@@ -129,14 +189,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: 'lightgray',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    marginTop: 10,
   },
   inputStyle: {
-    width: '90%',
-    textAlign: 'right',
     fontFamily: 'Ubuntu',
+    marginLeft: 10,
   },
   forwardImage: {
     width: 20,
@@ -180,4 +240,14 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 22,
   },
+  tiklayinizStyle: {
+    color: 'rgba(136,205,224,255)',
+    textDecorationLine: 'underline',
+  },
+  dropDownPickerStyle: {
+    marginHorizontal: 20,
+    height: 220,
+    marginTop: 5,
+  },
+  dropDownPickerStyle2: {},
 });
