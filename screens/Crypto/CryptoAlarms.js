@@ -1,60 +1,87 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { Button } from 'react-native-elements';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
+import StyledText from '../../components/StyledText';
 import { useTheme } from '../../context/Theme';
-
-import { getCurrentRouteName } from '../../utils';
 
 const CryptoAlarms = ({ navigation }) => {
   const { theme } = useTheme();
-
   const styles = StyleSheet.create({
-    imgArPic: {
+    container: {
+      width: DEVICE_WIDTH,
+      height: DEVICE_HEIGHT,
+      backgroundColor: theme.colors.bg,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
+    imageAndTextContainer: {
+      width: '100%',
+      height: '70%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    imageContainer: {
+      backgroundColor: theme.colors.seperator,
+      borderRadius: 55,
+      padding: 5,
       height: 100,
       width: 100,
-      bottom: 40,
-    },
-    container: {
-      flex: 1,
-      alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.colors.bg,
+      alignItems: 'center',
     },
-    bottomView: {
+    image: {
+      height: 80,
+      width: 80,
+    },
+    textContainer: {
+      marginTop: 30,
+    },
+    text: {
+      fontSize: 20,
+      fontFamily: 'UbuntuLight',
+    },
+    buttonContainer: {
+      width: '100%',
+      height: '30%',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+    },
+    button: {
       width: '80%',
-      height: 70,
+      height: '20%',
+      marginVertical: '15%',
       backgroundColor: theme.colors.blue,
-      borderRadius: 40,
+      borderRadius: 20,
       justifyContent: 'center',
       alignItems: 'center',
-      position: 'absolute', //Here is the trick
-      bottom: 50, //Here is the trick
     },
-    textStyle: {
-      color: '#fff',
-      fontSize: 18,
-      fontFamily: 'Ubuntu',
-    },
-    alarmKur: {
-      backgroundColor: 'blue',
-      justifyContent: 'center',
-      textAlign: 'center',
-    },
-    noAlarm: {
-      fontFamily: 'Ubuntu',
-      color: theme.colors.text,
+    buttonText: {
+      color: 'white',
+      fontSize: 16,
     },
   });
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.imgArPic}
-        source={require('../../assets/img/notification.png')}
-      ></Image>
-      <Text style={styles.noAlarm}>Alarmınız bulunmamaktadır.</Text>
-      <TouchableOpacity style={styles.bottomView}>
-        <Text style={styles.textStyle}>Alarm Kur</Text>
-      </TouchableOpacity>
+      <View style={styles.imageAndTextContainer}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/img/notification.png')}
+          ></Image>
+        </View>
+        <View style={styles.textContainer}>
+          <StyledText style={styles.text}>
+            Alarmınız bulunmamaktadır.
+          </StyledText>
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button}>
+          <StyledText style={styles.buttonText}>Alarm Kur</StyledText>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

@@ -109,7 +109,7 @@ export function getNDigitNumber(digit) {
   const multiplier = 9 * 10 ** digit;
   return Math.floor(Math.random() * multiplier) + 10 ** digit;
 }
-export function formatDate(date) {
+export function formatTime(date) {
   return (
     // ('00' + date.getDate()).slice(-2) +
     // '/' +
@@ -122,6 +122,16 @@ export function formatDate(date) {
     ('00' + date.getMinutes()).slice(-2) +
     ':' +
     ('00' + date.getSeconds()).slice(-2)
+  );
+}
+
+export function formatDate(date) {
+  return (
+    ('00' + date.getDate()).slice(-2) +
+    '/' +
+    ('00' + (date.getMonth() + 1)).slice(-2) +
+    '/' +
+    date.getFullYear()
   );
 }
 
@@ -145,7 +155,7 @@ export function generateMockMarketData(initialCurrency, targetCurrency) {
     d.setSeconds(d.getSeconds() + (i + 10));
 
     data.push({
-      date: formatDate(d),
+      date: formatTime(d),
       type: ['buy', 'sell'][Math.floor(Math.random() * 2)],
       quantity: `${quantityInt}${
         quantityDecimal ? `,${quantityDecimal}` : `,00`
