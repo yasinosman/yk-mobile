@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
+import { StyleSheet, Text, View } from 'react-native';
+import { DEVICE_WIDTH } from '../../common/dimensions';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-import ThemeProvider, { useTheme } from '../../context/Theme';
+import { useTheme } from '../../context/Theme';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Icon } from 'react-native-elements';
 
@@ -32,10 +32,20 @@ const CryptoOrders = ({ navigation }) => {
       backgroundColor: theme.colors.bg,
     },
     update: {
+      marginBottom: '2%',
       width: '100%',
       height: 30,
       backgroundColor: theme.colors.seperator,
     },
+    update2: {
+      marginTop: '5%',
+      marginBottom: '2%',
+      marginHorizontal: '-5%',
+      width: '200%',
+      height: 30,
+      backgroundColor: theme.colors.seperator,
+    },
+
     updateText: {
       marginTop: 8,
       marginLeft: 20,
@@ -147,9 +157,14 @@ const CryptoOrders = ({ navigation }) => {
       height: 220,
       marginTop: 5,
     },
+    dropDownPickerContainerStyle2: {
+      height: 220,
+      marginTop: 5,
+    },
     dropDownTop: {
       backgroundColor: 'white',
       borderColor: theme.colors.blue,
+      width: '100%',
     },
     dropDownText: {
       fontFamily: 'Ubuntu',
@@ -165,16 +180,6 @@ const CryptoOrders = ({ navigation }) => {
       <View style={styles.update}>
         <Text style={styles.updateText}>Paranın Çekileceği Hesap</Text>
       </View>
-      {/* Divider */}
-      <View
-        style={{
-          width: '100%',
-          flex: 0.0000001,
-          borderBottomColor: 'darkblue',
-          borderBottomWidth: 1,
-          opacity: 0.1,
-        }}
-      ></View>
 
       <View style={styles.dropDownPickerContainerStyle}>
         <DropDownPicker
@@ -193,47 +198,31 @@ const CryptoOrders = ({ navigation }) => {
           setItems={setItems1}
           placeholder="Hesap seçiniz."
         />
-      </View>
-      <View
-        style={{
-          width: '100%',
-          flex: 0.0000001,
-          borderBottomColor: 'darkblue',
-          borderBottomWidth: 1,
-          opacity: 0.1,
-        }}
-      ></View>
-      <View style={styles.update}>
-        <Text style={styles.updateText}>Paranın Yatırılacağı Hesap</Text>
-      </View>
-      <View
-        style={{
-          width: '100%',
-          flex: 0.0000001,
-          borderBottomColor: 'darkblue',
-          borderBottomWidth: 1,
-          opacity: 0.1,
-        }}
-      ></View>
-      <View style={styles.dropDownPickerContainerStyle}>
-        <DropDownPicker
-          style={styles.dropDownTop}
-          dropDownContainerStyle={styles.dropDownContainer}
-          textStyle={styles.dropDownText}
-          open={open2}
-          value={value2}
-          setValue={setValue2}
-          items={items2}
-          setOpen={() => {
-            setDropdown1Open(false);
-            setDropdown2Open(!open2);
-          }}
-          setItems={setItems2}
-          placeholder="Hesap seçiniz."
-          labelStyle={{
-            fontWeight: 'bold',
-          }}
-        />
+
+        <View style={styles.update2}>
+          <Text style={styles.updateText}>Paranın Yatırılacağı Hesap</Text>
+        </View>
+
+        <View style={styles.dropDownPickerContainerStyle2}>
+          <DropDownPicker
+            style={styles.dropDownTop}
+            dropDownContainerStyle={styles.dropDownContainer}
+            textStyle={styles.dropDownText}
+            open={open2}
+            value={value2}
+            setValue={setValue2}
+            items={items2}
+            setOpen={() => {
+              setDropdown1Open(false);
+              setDropdown2Open(!open2);
+            }}
+            setItems={setItems2}
+            placeholder="Hesap seçiniz."
+            labelStyle={{
+              fontWeight: 'bold',
+            }}
+          />
+        </View>
       </View>
 
       <View style={styles.bottomBar}>

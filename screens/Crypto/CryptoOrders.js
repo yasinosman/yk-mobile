@@ -133,7 +133,6 @@ const CryptoOrders = ({ navigation }) => {
           <Text style={styles.protokolStyle}>'nü okudum ve onaylıyorum.</Text>
         </Text>
         <Switch
-          ios_backgroundColor="rgb(80,180,255)"
           trackColor={{
             false: 'rgb(50,250,255)',
             true: 'rgb(101,214,255)',
