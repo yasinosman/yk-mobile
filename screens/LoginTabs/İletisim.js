@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     height: 36,
     width: 20,
     resizeMode: 'contain',
-    fontFamily: 'Ubuntu',
   },
   title: {
     flex: 0.06,

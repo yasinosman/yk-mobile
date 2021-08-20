@@ -288,6 +288,11 @@ const Login = ({ navigation }) => {
           title="Hata"
           text={loginError}
           onClose={() => setLoginError('')}
+          styleOverrides={{
+            container: {
+              height: DEVICE_HEIGHT * (23 / 100),
+            },
+          }}
         />
       </LinearGradient>
     </TouchableWithoutFeedback>
