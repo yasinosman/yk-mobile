@@ -41,8 +41,6 @@ const NavigationDrawer = props => {
       paddingBottom: Platform.OS === 'ios' ? 30 : 0,
       justifyContent: 'space-around',
       backgroundColor: theme.colors.bg,
-      borderRightColor: theme.colors.text,
-      borderRightWidth: 0.2,
     },
     profileContainer: {
       height: '18%',
@@ -93,9 +91,6 @@ const NavigationDrawer = props => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: theme.colors.card,
-      borderRightColor: theme.colors.text,
-      borderRightWidth: 0.2,
       backgroundColor: theme.colors.paleGrey,
       //marginBottom: Platform.OS === 'ios' ? DEVICE_HEIGHT * ( / 100) : 0,
     },
@@ -133,7 +128,7 @@ const NavigationDrawer = props => {
       width: '20%',
       height: '100%',
     },
-    image: { width: 40, height: 40 },
+    image: { width: 30, height: 30 },
     textContainerStyles: {
       width: '62%',
     },

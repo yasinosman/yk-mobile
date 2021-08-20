@@ -130,6 +130,7 @@ export default function App() {
         {user && (
           <NavigationContainer>
             <Drawer.Navigator
+              overlayColor="rgba(0,0,0,0.5)"
               drawerType="slide"
               initialRouteName="Dashboard"
               screenOptions={{
