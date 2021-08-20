@@ -408,11 +408,7 @@ const Buy = props => {
           onChangeText={text => {
             setPayingAmount(text);
             setCalculatedAmount(
-              convertCurrency(
-                currency.value,
-                Platform.OS === 'ios' ? clearTurkishNumberFormat(text) : text,
-                targetCurrency
-              ).toString()
+              convertCurrency(currency.value, text, targetCurrency).toString()
             );
           }}
         />
@@ -429,11 +425,7 @@ const Buy = props => {
           onChangeText={text => {
             setCalculatedAmount(text);
             setPayingAmount(
-              convertCurrency(
-                targetCurrency,
-                Platform.OS === 'ios' ? clearTurkishNumberFormat(text) : text,
-                currency.value
-              ).toString()
+              convertCurrency(targetCurrency, text, currency.value).toString()
             );
           }}
         />
