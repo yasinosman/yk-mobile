@@ -25,6 +25,7 @@ const AmountText = ({
       color: theme.colors.text,
       textAlign: 'center',
       fontSize: 17,
+      fontFamily: 'UbuntuBold',
     },
   });
 
