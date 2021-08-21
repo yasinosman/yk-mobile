@@ -21,6 +21,7 @@ import {
   buyCryptoFromCryptoWallet,
   getWallets,
 } from '../../../services/wallets';
+import InputWithLabel from '../../../lib/components/InputWithLabel';
 
 const Buy = props => {
   const [accounts, setAccounts] = React.useState([]);
@@ -395,38 +396,52 @@ const Buy = props => {
       </View>
       <View>
         <MenuTitle text="İşlem Bilgileri" textStyles={styles.title} />
-        <StyledText style={styles.label}>
-          Ödenecek Tutar ({targetCurrency.toUpperCase()})
-        </StyledText>
-        <Input
-          placeholder="0,00"
-          keyboardType="numeric"
-          containerStyle={styles.inputWrapper}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputText}
-          value={payingAmount}
-          onChangeText={text => {
+        <InputWithLabel
+          inputValue={payingAmount}
+          setInputValue={text => {
             setPayingAmount(text);
             setCryptoAmount(
               convertCurrency(targetCurrency, text, currency.value).toString()
             );
           }}
+          label={`Ödenecek Tutar (${targetCurrency.toUpperCase()})`}
+          inputPlaceholder="0,00"
+          inputKeyboardType="numeric"
+          styleOverrides={{
+            container: {
+              width: '95%',
+              marginHorizontal: '2.5%',
+            },
+            inputContainer: {
+              paddingRight: theme.sizes.padding,
+            },
+            input: {
+              textAlign: 'right',
+            },
+          }}
         />
-        <StyledText style={[styles.label, { marginTop: 10 }]}>
-          {currency.value.toUpperCase()} Karşılığı
-        </StyledText>
-        <Input
-          placeholder="0,00"
-          keyboardType="numeric"
-          containerStyle={styles.inputWrapper}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputText}
-          value={cryptoAmount}
-          onChangeText={text => {
+        <InputWithLabel
+          inputValue={cryptoAmount}
+          setInputValue={text => {
             setCryptoAmount(text);
             setPayingAmount(
               convertCurrency(currency.value, text, targetCurrency).toString()
             );
+          }}
+          label={`${currency.value.toUpperCase()} Karşılığı`}
+          inputPlaceholder="0,00"
+          inputKeyboardType="numeric"
+          styleOverrides={{
+            container: {
+              width: '95%',
+              marginHorizontal: '2.5%',
+            },
+            inputContainer: {
+              paddingRight: theme.sizes.padding,
+            },
+            input: {
+              textAlign: 'right',
+            },
           }}
         />
       </View>

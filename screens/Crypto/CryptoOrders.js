@@ -11,6 +11,7 @@ import {
 import { Icon } from 'react-native-elements';
 import { DEVICE_WIDTH } from '../../lib/constants';
 import { useTheme } from '../../context/Theme';
+import InputWithLabel from '../../lib/components/InputWithLabel';
 
 const CryptoOrders = ({ navigation }) => {
   const { theme } = useTheme();
@@ -127,6 +128,8 @@ const CryptoOrders = ({ navigation }) => {
     },
   });
 
+  const [email, setEmail] = React.useState('');
+
   return (
     <View style={styles.container}>
       <View style={styles.update}>
@@ -152,18 +155,19 @@ const CryptoOrders = ({ navigation }) => {
           Onaylanan Sözleşmenin Gönderileceği E-Posta
         </Text>
       </View>
-      <Text style={styles.tutarText}>E-posta</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          placeholder="E-posta"
-          placeholderTextColor={theme.colors.text}
-          style={styles.inputStyle}
-        ></TextInput>
-        <Image
-          source={require('../../assets/img/ic_action_forward.png')}
-          style={styles.forwardImage}
-        ></Image>
-      </View>
+      <InputWithLabel
+        label="E-Posta Adresi"
+        inputPlaceholder="ornek@domain.com"
+        inputValue={email}
+        setInputValue={setEmail}
+        styleOverrides={{
+          container: {
+            width: '95%',
+            marginHorizontal: '2.5%',
+            marginTop: theme.sizes.inputPadding,
+          },
+        }}
+      />
 
       <View style={styles.bottomBar}>
         <View style={styles.infoMessage}>
