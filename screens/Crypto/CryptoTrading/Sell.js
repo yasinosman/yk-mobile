@@ -14,6 +14,7 @@ import {
   AmountText,
   StyledText,
   Popup,
+  InputWithLabel,
 } from '../../../lib/components';
 import { getAccounts } from '../../../services/accounts';
 import {
@@ -395,39 +396,52 @@ const Buy = props => {
       </View>
       <View>
         <MenuTitle text="İşlem Bilgileri" textStyles={styles.title} />
-
-        <StyledText style={[styles.label, { marginTop: 10 }]}>
-          Ödenecek Tutar ({currency.value.toUpperCase()})
-        </StyledText>
-        <Input
-          placeholder="0,00"
-          keyboardType="numeric"
-          containerStyle={styles.inputWrapper}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputText}
-          value={payingAmount}
-          onChangeText={text => {
+        <InputWithLabel
+          label={`Ödenecek Tutar (${currency.value.toUpperCase()})`}
+          inputPlaceholder="0,00"
+          inputKeyboardType="numeric"
+          inputValue={payingAmount}
+          setInputValue={text => {
             setPayingAmount(text);
             setCalculatedAmount(
               convertCurrency(currency.value, text, targetCurrency).toString()
             );
           }}
+          styleOverrides={{
+            container: {
+              width: '95%',
+              marginHorizontal: '2.5%',
+            },
+            inputContainer: {
+              paddingRight: theme.sizes.padding,
+            },
+            input: {
+              textAlign: 'right',
+            },
+          }}
         />
-        <StyledText style={styles.label}>
-          {targetCurrency.toUpperCase()} Karşılığı
-        </StyledText>
-        <Input
-          placeholder="0,00"
-          keyboardType="numeric"
-          containerStyle={styles.inputWrapper}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputText}
-          value={calculatedAmount}
-          onChangeText={text => {
+        <InputWithLabel
+          label={`${targetCurrency.toUpperCase()} Karşılığı`}
+          inputKeyboardType="numeric"
+          inputPlaceholder="0,00"
+          inputValue={calculatedAmount}
+          setInputValue={text => {
             setCalculatedAmount(text);
             setPayingAmount(
               convertCurrency(targetCurrency, text, currency.value).toString()
             );
+          }}
+          styleOverrides={{
+            container: {
+              width: '95%',
+              marginHorizontal: '2.5%',
+            },
+            inputContainer: {
+              paddingRight: theme.sizes.padding,
+            },
+            input: {
+              textAlign: 'right',
+            },
           }}
         />
       </View>

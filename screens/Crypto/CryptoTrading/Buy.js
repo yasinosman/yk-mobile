@@ -12,8 +12,8 @@ import {
   ChangePercentageView,
   CardView,
   AmountText,
-  StyledText,
   Popup,
+  InputWithLabel,
 } from '../../../lib/components';
 import { getAccounts } from '../../../services/accounts';
 import {
@@ -21,7 +21,6 @@ import {
   buyCryptoFromCryptoWallet,
   getWallets,
 } from '../../../services/wallets';
-import InputWithLabel from '../../../lib/components/InputWithLabel';
 
 const Buy = props => {
   const [accounts, setAccounts] = React.useState([]);
