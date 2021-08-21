@@ -1,9 +1,8 @@
 import React from 'react';
-import { Image, Input, Button, Avatar, Divider } from 'react-native-elements';
-import { StyleSheet, Text, View } from 'react-native';
-import { Dimensions } from 'react-native';
+import { Image } from 'react-native-elements';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { DEVICE_HEIGHT } from '../common/dimensions';
+import { DEVICE_HEIGHT } from '../lib/constants';
 
 const LogoScreen = ({ navigation }) => {
   return (

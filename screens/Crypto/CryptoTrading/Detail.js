@@ -1,19 +1,20 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../common/dimensions';
-import ChangePercentageView from '../../../components/ChangePercentageView';
-import CurrencyView from '../../../components/CurrencyView';
-import MarketActionView from '../../../components/MarketActionView';
-import StyledText from '../../../components/StyledText';
 import { useTheme } from '../../../context/Theme';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
+import {
+  ChangePercentageView,
+  CurrencyView,
+  MarketActionView,
+  StyledText,
+} from '../../../lib/components';
+
 import {
   CRYPTO_CURRENCIES,
   CURRENCY_DICTIONARY,
 } from '../../../hooks/useCurrency';
-import { generateMockMarketData } from '../../../utils';
+import { generateMockMarketData } from '../../../lib/utils';
 import { LineChart } from 'react-native-chart-kit';
 import useMock from '../../../hooks/useMock';
 

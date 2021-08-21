@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Input, Button, Divider } from 'react-native-elements';
-import { StyleSheet, Text, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native';
-import { Keyboard } from 'react-native';
-import { BLUE } from '../common/colors';
-import { Switch } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Switch,
+  TouchableOpacity,
+} from 'react-native';
 import { Formik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableOpacity } from 'react-native';
-import { useState } from 'react';
 import { object, string } from 'yup';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../lib/constants';
+import { Popup } from '../lib/components';
 import { login } from '../services/authentication';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
-import { StyledText } from '../';
-import Popup from '../components/Popup';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');

@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useTheme } from '../../../context/Theme';
-import StyledText from '../../../components/StyledText';
-import { TouchableOpacity } from 'react-native';
-import CurrencyView from '../../../components/CurrencyView';
-import { DEVICE_HEIGHT } from '../../../common/dimensions';
-import { ScrollView } from 'react-native';
+import { DEVICE_HEIGHT } from '../../../lib/constants';
 import { CRYPTO_CURRENCIES } from '../../../hooks/useCurrency';
-import ChangePercentageView from '../../../components/ChangePercentageView';
+import {
+  StyledText,
+  CurrencyView,
+  ChangePercentageView,
+} from '../../../lib/components';
 
 const AVAILABLE_PARITIES = [
   {

@@ -1,13 +1,11 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { FAB, Icon, Button, Image } from 'react-native-elements';
-import StyledText from '../../components/StyledText';
-import { CURRENCY_DICTIONARY } from '../../hooks/useCurrency';
-import { convertCurrency, formatAmount } from '../../utils';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
-import { useTheme } from '../../context/Theme';
-import { TextInput } from 'react-native';
+import { StyleSheet, View, TextInput } from 'react-native';
+import { Icon, Image } from 'react-native-elements';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { convertCurrency, formatAmount } from '../../lib/utils';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
+import { useTheme } from '../../context/Theme';
+import { StyledText } from '../../lib/components';
 
 const CryptoCalculating = () => {
   const { theme } = useTheme();

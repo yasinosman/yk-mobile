@@ -1,11 +1,16 @@
-import React from 'react';
-import { Switch } from 'react-native';
-import { StyleSheet, Text, View, TextInput, Image, Button } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
-import { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useTheme } from '../../context/Theme';
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  Switch,
+  TouchableOpacity,
+} from 'react-native';
 import { Icon } from 'react-native-elements';
+import { DEVICE_WIDTH } from '../../lib/constants';
+import { useTheme } from '../../context/Theme';
 
 const CryptoOrders = ({ navigation }) => {
   const { theme } = useTheme();

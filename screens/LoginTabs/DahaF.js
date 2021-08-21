@@ -9,7 +9,6 @@ import {
   Divider,
   ScrollView,
 } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
 
 const SifreM = ({ navigation }) => {
   return (

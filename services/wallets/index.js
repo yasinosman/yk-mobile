@@ -1,6 +1,5 @@
 import { fetchCollectionByName, updateDocument } from '../database';
 import { db } from '../../firebase';
-import { EXCHANGE_RATES } from '../../hooks/useCurrency';
 import { checkIfAccountExists } from '../accounts';
 
 /**

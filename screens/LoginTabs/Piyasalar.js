@@ -1,11 +1,14 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
-import { SafeAreaView } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { color } from 'react-native-elements/dist/helpers';
-import { useState } from 'react';
-import ChangePercentageView from '../../components/ChangePercentageView';
+import React, { useState } from 'react';
+import {
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  Image,
+} from 'react-native';
+import { ChangePercentageView } from '../../lib/components';
 
 let start = new Date().toLocaleString();
 

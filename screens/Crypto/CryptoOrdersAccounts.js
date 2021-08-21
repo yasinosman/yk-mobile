@@ -1,11 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { DEVICE_WIDTH } from '../../common/dimensions';
-import { useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { useTheme } from '../../context/Theme';
-import DropDownPicker from 'react-native-dropdown-picker';
+import React, { useState } from 'react';
 import { Icon } from 'react-native-elements';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import { DEVICE_WIDTH } from '../../lib/constants';
+import { useTheme } from '../../context/Theme';
 
 const CryptoOrders = ({ navigation }) => {
   const { theme } = useTheme();

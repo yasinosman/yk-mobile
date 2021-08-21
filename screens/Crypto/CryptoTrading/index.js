@@ -4,8 +4,7 @@ import Dashboard from './Dashboard';
 import Detail from './Detail';
 import Buy from './Buy';
 import Sell from './Sell';
-import Navbar from '../../../components/Navbar';
-import { Text } from 'react-native';
+
 const Stack = createStackNavigator();
 
 const CryptoTrading = () => {

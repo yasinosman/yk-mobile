@@ -1,20 +1,19 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { View } from 'react-native';
-import { Image, makeStyles, Icon } from 'react-native-elements';
-import { ORANGE, RED } from '../common/colors';
-import SmallCardView from '../components/SmallCardView';
-import CardView from '../components/CardView';
-import InfoCard from '../components/InfoCard';
+import { ScrollView, View, StyleSheet } from 'react-native';
+import { Image, Icon } from 'react-native-elements';
+import { ORANGE, RED, DEVICE_HEIGHT, DEVICE_WIDTH } from '../lib/constants';
 import actions from '../mock/actions';
 import offers from '../mock/offers.json';
-import MenuTitle from '../components/MenuTitle';
+import { useTheme } from '../context/Theme';
+import {
+  SmallCardView,
+  CardView,
+  InfoCard,
+  MenuTitle,
+  AmountText,
+} from '../lib/components';
 import { getCards } from '../services/cards';
 import { getAccounts } from '../services/accounts';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../common/dimensions';
-import { useTheme } from '../context/Theme';
-import { StyleSheet } from 'react-native';
-import AmountText from '../components/AmountText';
 
 const Dashboard = props => {
   const { theme } = useTheme();

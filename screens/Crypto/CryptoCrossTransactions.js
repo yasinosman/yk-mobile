@@ -1,20 +1,19 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 import {
   StyleSheet,
   Animated,
   View,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
-import ChangePercentageView from '../../components/ChangePercentageView';
-import StyledText from '../../components/StyledText';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
 import { useTheme } from '../../context/Theme';
 import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../hooks/useCurrency';
 import useMock from '../../hooks/useMock';
-import { formatAmount, formatTime } from '../../utils';
+import { formatAmount, formatTime } from '../../lib/utils';
+import { ChangePercentageView, StyledText } from '../../lib/components';
 
 const CryptoCrossTransactions = ({ navigation }) => {
   //5 saniyede bir güncellenen saat

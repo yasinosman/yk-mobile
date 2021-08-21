@@ -1,25 +1,26 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { useTheme } from '../../../context/Theme';
-import MenuTitle from '../../../components/MenuTitle';
-import CurrencyView from '../../../components/CurrencyView';
-import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
-import ChangePercentageView from '../../../components/ChangePercentageView';
 import { Button, Input, Image, Icon } from 'react-native-elements';
-import CardView from '../../../components/CardView';
-import { getAccounts } from '../../../services/accounts';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../common/dimensions';
-import AmountText from '../../../components/AmountText';
+import { useTheme } from '../../../context/Theme';
+import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
 import { useKeyboard } from '../../../hooks/useKeyboard';
-import StyledText from '../../../components/StyledText';
-import { clearTurkishNumberFormat, convertCurrency } from '../../../utils';
-import Popup from '../../../components/Popup';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
+import { convertCurrency } from '../../../lib/utils';
+import {
+  MenuTitle,
+  CurrencyView,
+  ChangePercentageView,
+  CardView,
+  AmountText,
+  StyledText,
+  Popup,
+} from '../../../lib/components';
+import { getAccounts } from '../../../services/accounts';
 import {
   buyCryptoFromCashAccount,
   buyCryptoFromCryptoWallet,
   getWallets,
 } from '../../../services/wallets';
-import { Platform } from 'react-native';
 
 const Buy = props => {
   const [accounts, setAccounts] = React.useState([]);

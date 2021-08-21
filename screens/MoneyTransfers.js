@@ -1,14 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
-import { StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { BLUE } from '../common/colors';
-import { DEVICE_WIDTH } from '../common/dimensions';
-import MenuContainer from '../components/MenuContainer';
-import MenuTitle from '../components/MenuTitle';
-import SmallCardView from '../components/SmallCardView';
-import Tag from '../components/Tag';
+import { BLUE, DEVICE_WIDTH } from '../lib/constants';
 import { useTheme } from '../context/Theme';
+import {
+  MenuContainer,
+  MenuTitle,
+  SmallCardView,
+  Tag,
+} from '../lib/components';
 
 const MoneyTransfers = () => {
   const { theme } = useTheme();
