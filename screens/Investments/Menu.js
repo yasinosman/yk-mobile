@@ -1,11 +1,9 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { ICON_BLUE } from '../../common/colors';
-import { DEVICE_WIDTH } from '../../common/dimensions';
-import MenuContainer from '../../components/MenuContainer';
-import Tag from '../../components/Tag';
+import { ICON_BLUE, DEVICE_WIDTH } from '../../lib/constants';
 import { useTheme } from '../../context/Theme';
+import { MenuContainer, Tag } from '../../lib/components';
 
 const Menu = props => {
   const { theme } = useTheme();

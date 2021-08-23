@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Image } from 'react-native-elements';
-import { BLUE } from '../common/colors';
+import { BLUE } from '../lib/constants';
 
 const actions = [
   {

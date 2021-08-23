@@ -1,15 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { useTheme } from '../../context/Theme';
-import { PieChart } from 'react-native-chart-kit';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
-import StyledText from '../../components/StyledText';
-import { getWallets } from '../../services/wallets';
-import { convertCurrency, formatAmount } from '../../utils';
-import { CURRENCY_DICTIONARY, EXCHANGE_RATES } from '../../hooks/useCurrency';
-import AmountText from '../../components/AmountText';
-import MarketActionView from '../../components/MarketActionView';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Divider } from 'react-native-elements';
+import { PieChart } from 'react-native-chart-kit';
+import { useTheme } from '../../context/Theme';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
+import { convertCurrency, formatAmount } from '../../lib/utils';
+import { getWallets } from '../../services/wallets';
+import { CURRENCY_DICTIONARY, EXCHANGE_RATES } from '../../hooks/useCurrency';
+import { StyledText, AmountText } from '../../lib/components';
 
 const CryptoWallet = () => {
   const [wallets, setWallets] = React.useState([]);

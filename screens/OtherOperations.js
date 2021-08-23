@@ -1,9 +1,8 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Icon, Image } from 'react-native-elements';
-import { DEVICE_WIDTH } from '../common/dimensions';
-import MenuContainer from '../components/MenuContainer';
-import { BLUE } from '../common/colors';
+import { DEVICE_WIDTH, BLUE } from '../lib/constants';
+import { MenuContainer } from '../lib/components';
 import { useTheme } from '../context/Theme';
 
 const OtherOperations = () => {

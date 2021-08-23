@@ -1,25 +1,26 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { useTheme } from '../../../context/Theme';
-import MenuTitle from '../../../components/MenuTitle';
-import CurrencyView from '../../../components/CurrencyView';
-import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
-import ChangePercentageView from '../../../components/ChangePercentageView';
 import { Button, Input, Image, Icon } from 'react-native-elements';
-import CardView from '../../../components/CardView';
-import { getAccounts } from '../../../services/accounts';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../common/dimensions';
-import AmountText from '../../../components/AmountText';
+import { useTheme } from '../../../context/Theme';
+import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
 import { useKeyboard } from '../../../hooks/useKeyboard';
-import StyledText from '../../../components/StyledText';
-import { clearTurkishNumberFormat, convertCurrency } from '../../../utils';
-import Popup from '../../../components/Popup';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
+import { convertCurrency } from '../../../lib/utils';
+import {
+  MenuTitle,
+  CurrencyView,
+  ChangePercentageView,
+  CardView,
+  AmountText,
+  Popup,
+  InputWithLabel,
+} from '../../../lib/components';
+import { getAccounts } from '../../../services/accounts';
 import {
   buyCryptoFromCashAccount,
   buyCryptoFromCryptoWallet,
   getWallets,
 } from '../../../services/wallets';
-import { Platform } from 'react-native';
 
 const Buy = props => {
   const [accounts, setAccounts] = React.useState([]);
@@ -394,38 +395,52 @@ const Buy = props => {
       </View>
       <View>
         <MenuTitle text="İşlem Bilgileri" textStyles={styles.title} />
-        <StyledText style={styles.label}>
-          Ödenecek Tutar ({targetCurrency.toUpperCase()})
-        </StyledText>
-        <Input
-          placeholder="0,00"
-          keyboardType="numeric"
-          containerStyle={styles.inputWrapper}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputText}
-          value={payingAmount}
-          onChangeText={text => {
+        <InputWithLabel
+          inputValue={payingAmount}
+          setInputValue={text => {
             setPayingAmount(text);
             setCryptoAmount(
               convertCurrency(targetCurrency, text, currency.value).toString()
             );
           }}
+          label={`Ödenecek Tutar (${targetCurrency.toUpperCase()})`}
+          inputPlaceholder="0,00"
+          inputKeyboardType="numeric"
+          styleOverrides={{
+            container: {
+              width: '95%',
+              marginHorizontal: '2.5%',
+            },
+            inputContainer: {
+              paddingRight: theme.sizes.padding,
+            },
+            input: {
+              textAlign: 'right',
+            },
+          }}
         />
-        <StyledText style={[styles.label, { marginTop: 10 }]}>
-          {currency.value.toUpperCase()} Karşılığı
-        </StyledText>
-        <Input
-          placeholder="0,00"
-          keyboardType="numeric"
-          containerStyle={styles.inputWrapper}
-          inputContainerStyle={styles.inputContainer}
-          inputStyle={styles.inputText}
-          value={cryptoAmount}
-          onChangeText={text => {
+        <InputWithLabel
+          inputValue={cryptoAmount}
+          setInputValue={text => {
             setCryptoAmount(text);
             setPayingAmount(
               convertCurrency(currency.value, text, targetCurrency).toString()
             );
+          }}
+          label={`${currency.value.toUpperCase()} Karşılığı`}
+          inputPlaceholder="0,00"
+          inputKeyboardType="numeric"
+          styleOverrides={{
+            container: {
+              width: '95%',
+              marginHorizontal: '2.5%',
+            },
+            inputContainer: {
+              paddingRight: theme.sizes.padding,
+            },
+            input: {
+              textAlign: 'right',
+            },
           }}
         />
       </View>

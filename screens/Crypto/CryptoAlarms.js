@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import { Button } from 'react-native-elements';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../common/dimensions';
-import StyledText from '../../components/StyledText';
+import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
 import { useTheme } from '../../context/Theme';
+import { StyledText } from '../../lib/components';
 
 const CryptoAlarms = ({ navigation }) => {
   const { theme } = useTheme();

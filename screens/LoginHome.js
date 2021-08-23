@@ -1,7 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import UserLoginFlex from './UserLoginFlex';
-import { TabView } from 'react-native-elements';
 import { View, StyleSheet } from 'react-native';
 import Piyasalar from './Piyasalar';
 import ATM from './ATM';

@@ -1,5 +1,5 @@
 import { auth } from '../../firebase';
-import { fetchData } from '../../utils';
+import { fetchData } from '../../lib/utils';
 
 /**
  *

@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import { DEVICE_WIDTH } from '../common/dimensions';
-import MenuContainer from '../components/MenuContainer';
+import { DEVICE_WIDTH } from '../lib/constants';
 import { useTheme } from '../context/Theme';
+import { MenuContainer } from '../lib/components';
 
 const Credits = () => {
   const { theme } = useTheme();

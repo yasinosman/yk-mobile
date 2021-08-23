@@ -1,12 +1,11 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
 import {
+  SafeAreaView,
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   Image,
-  Divider,
 } from 'react-native';
 
 const SifreM = ({ navigation }) => {

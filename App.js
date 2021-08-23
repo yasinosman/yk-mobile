@@ -1,11 +1,11 @@
 import React from 'react';
 import './firebase/index';
-import ThemeProvider from './context/Theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { BLUE } from './common/colors';
+import { useFonts } from 'expo-font';
+
 import Dashboard from './screens/Dashboard';
 import UserLoginFlex from './screens/UserLoginFlex';
 import BusinessLoginFlex from './screens/BusinessLoginFlex';
@@ -17,10 +17,6 @@ import Investments from './screens/Investments';
 import MoneyTransfers from './screens/MoneyTransfers';
 import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
-import useCurrentUser from './hooks/useCurrentUser';
-import Navbar from './components/Navbar';
-import { useFonts } from 'expo-font';
-import NavigationDrawer from './components/NavigationDrawer';
 import LogoScreen from './screens/LogoScreen';
 import Piyasalar from './screens/LoginTabs/Piyasalar';
 import ATM from './screens/LoginTabs/ATM';
@@ -30,8 +26,12 @@ import DahaF from './screens/LoginTabs/DahaF';
 import İletisim from './screens/LoginTabs/İletisim';
 import Araclar from './screens/LoginTabs/Araclar';
 import DahaFKurum from './screens/LoginTabs/DahaFKurum';
-import { DEVICE_HEIGHT } from './common/dimensions';
-import { getCurrentRouteName } from './utils';
+
+import ThemeProvider from './context/Theme';
+import useCurrentUser from './hooks/useCurrentUser';
+import { BLUE, DEVICE_HEIGHT } from './lib/constants';
+import { NavigationDrawer, Navbar } from './lib/components';
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 

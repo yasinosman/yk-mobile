@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Divider,
   ScrollView,
 } from 'react-native';
 
