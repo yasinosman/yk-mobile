@@ -31,6 +31,7 @@ import ThemeProvider from './context/Theme';
 import useCurrentUser from './hooks/useCurrentUser';
 import { BLUE, DEVICE_HEIGHT } from './lib/constants';
 import { NavigationDrawer, Navbar } from './lib/components';
+import Picker from './screens/Picker';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -145,6 +146,7 @@ export default function App() {
                 height: DEVICE_HEIGHT,
               }}
               drawerContent={props => <NavigationDrawer {...props} />}
+              backBehavior="history"
             >
               <Drawer.Screen
                 name="Anasayfa"
@@ -265,6 +267,19 @@ export default function App() {
               <Drawer.Screen
                 name="Diğer İşlemler"
                 component={OtherOperations}
+                options={{
+                  header: props => (
+                    <Navbar
+                      navigation={props.scene.descriptor.navigation}
+                      route={props.scene.route}
+                      {...props}
+                    />
+                  ),
+                }}
+              />
+              <Drawer.Screen
+                name="Seçim"
+                component={Picker}
                 options={{
                   header: props => (
                     <Navbar
