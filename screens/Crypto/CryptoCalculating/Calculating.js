@@ -1,14 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
 import { Icon, Image, Button } from 'react-native-elements';
-import { convertCurrency, formatAmount, formatTime } from '../../lib/utils';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
-import { useTheme } from '../../context/Theme';
-import { InputWithLabel, MenuButton, StyledText } from '../../lib/components';
+import { convertCurrency, formatAmount, formatTime } from '../../../lib/utils';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
+import { useTheme } from '../../../context/Theme';
+import {
+  InputWithLabel,
+  MenuButton,
+  StyledText,
+} from '../../../lib/components';
 
-import useMock from '../../hooks/useMock';
+import useMock from '../../../hooks/useMock';
 
-const CryptoCalculating = props => {
+const Calculating = props => {
   const { theme } = useTheme();
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
@@ -201,7 +205,7 @@ const CryptoCalculating = props => {
             textContainerStyles={styles.pickerInputText}
             iconContainerStyles={styles.pickerInputIcon}
             onPress={() =>
-              props.navigation.navigate('Seçim', {
+              props.navigation.navigate('Satılacak Birim Seçimi', {
                 title: 'Satılacak Tutar Birimi',
                 options: state.currencies.map(option => {
                   if (option.image) {
@@ -212,9 +216,6 @@ const CryptoCalculating = props => {
                         to: 'Kripto Hesaplama',
                         params: {
                           sellingCurrency: option.value,
-                          meta: {
-                            image: option.image,
-                          },
                         },
                       },
                     };
@@ -226,9 +227,6 @@ const CryptoCalculating = props => {
                         to: 'Kripto Hesaplama',
                         params: {
                           sellingCurrency: option.value,
-                          meta: {
-                            icon: option.icon,
-                          },
                         },
                       },
                     };
@@ -287,7 +285,7 @@ const CryptoCalculating = props => {
             textContainerStyles={styles.pickerInputText}
             iconContainerStyles={styles.pickerInputIcon}
             onPress={() =>
-              props.navigation.navigate('Seçim', {
+              props.navigation.navigate('Alınacak Birim Seçimi', {
                 title: 'Alınacak Tutar Birimi',
                 options: state.currencies.map(option => {
                   if (option.image) {
@@ -298,9 +296,6 @@ const CryptoCalculating = props => {
                         to: 'Kripto Hesaplama',
                         params: {
                           buyingCurrency: option.value,
-                          meta: {
-                            image: option.image,
-                          },
                         },
                       },
                     };
@@ -312,9 +307,6 @@ const CryptoCalculating = props => {
                         to: 'Kripto Hesaplama',
                         params: {
                           buyingCurrency: option.value,
-                          meta: {
-                            icon: option.icon,
-                          },
                         },
                       },
                     };
@@ -493,4 +485,4 @@ function reducer(state, action) {
   }
 }
 
-export default CryptoCalculating;
+export default Calculating;

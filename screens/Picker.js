@@ -23,6 +23,7 @@ const Picker = ({ route, navigation }) => {
     titleContainer: {
       height: DEVICE_HEIGHT * (5 / 100),
       justifyContent: 'center',
+      marginVertical: theme.sizes.padding,
     },
     optionsContainer: {
       height: DEVICE_HEIGHT * (95 / 100),
@@ -49,12 +50,14 @@ const Picker = ({ route, navigation }) => {
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.titleContainer}>
+      {/* <View style={styles.titleContainer}>
         <MenuTitle
           text={title}
-          textStyles={{ fontSize: theme.sizes.largeText }}
+          textStyles={{
+            fontSize: theme.sizes.largeText,
+          }}
         />
-      </View>
+      </View> */}
       <View style={styles.optionsContainer}>
         {options.map((option, index) => {
           return (

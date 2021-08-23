@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Icon } from 'react-native-elements';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { DEVICE_WIDTH } from '../../lib/constants';
-import { useTheme } from '../../context/Theme';
+import { DEVICE_WIDTH } from '../../../lib/constants';
+import { useTheme } from '../../../context/Theme';
 
-const CryptoOrders = ({ navigation }) => {
+const Accounts = ({ navigation }) => {
   const { theme } = useTheme();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -265,4 +265,4 @@ const CryptoOrders = ({ navigation }) => {
   );
 };
 
-export default CryptoOrders;
+export default Accounts;

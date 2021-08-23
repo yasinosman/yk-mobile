@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Image,
-  Switch,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { DEVICE_WIDTH } from '../../lib/constants';
-import { useTheme } from '../../context/Theme';
-import InputWithLabel from '../../lib/components/InputWithLabel';
+import { DEVICE_WIDTH } from '../../../lib/constants';
+import { useTheme } from '../../../context/Theme';
+import { MenuButton } from '../../../lib/components';
 
-const CryptoOrders = ({ navigation }) => {
+const Orders = ({ navigation, route }) => {
   const { theme } = useTheme();
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [email, setEmail] = React.useState('selen.senturk@gmail.com');
+
+  React.useEffect(() => {
+    if (route.params) {
+      if (route.params.email) {
+        setEmail(route.params.email);
+      }
+    }
+  }, [route]);
 
   const styles = StyleSheet.create({
     container: {
@@ -128,8 +129,6 @@ const CryptoOrders = ({ navigation }) => {
     },
   });
 
-  const [email, setEmail] = React.useState('');
-
   return (
     <View style={styles.container}>
       <View style={styles.update}>
@@ -155,18 +154,41 @@ const CryptoOrders = ({ navigation }) => {
           Onaylanan Sözleşmenin Gönderileceği E-Posta
         </Text>
       </View>
-      <InputWithLabel
-        label="E-Posta Adresi"
-        inputPlaceholder="ornek@domain.com"
-        inputValue={email}
-        setInputValue={setEmail}
-        styleOverrides={{
-          container: {
-            width: '95%',
-            marginHorizontal: '2.5%',
-            marginTop: theme.sizes.inputPadding,
-          },
+      <MenuButton
+        containerStyles={{
+          borderColor: theme.colors.blue,
+          borderWidth: 0.7,
+          borderRadius: 10,
+          width: '90%',
+          marginHorizontal: '5%',
+          marginVertical: '2%',
         }}
+        title={email}
+        onPress={() =>
+          navigation.navigate('E-Posta Seçimi', {
+            title: 'E-Posta Seçimi',
+            options: [
+              {
+                text: 'selen.senturk@gmail.com',
+                navigation: {
+                  to: 'Emirlerim',
+                  params: {
+                    email: 'selen.senturk@gmail.com',
+                  },
+                },
+              },
+              {
+                text: 'selen.senturk@ykteknoloji.com.tr',
+                navigation: {
+                  to: 'Emirlerim',
+                  params: {
+                    email: 'selen.senturk@ykteknoloji.com.tr',
+                  },
+                },
+              },
+            ],
+          })
+        }
       />
 
       <View style={styles.bottomBar}>
@@ -184,7 +206,7 @@ const CryptoOrders = ({ navigation }) => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Kripto Emirlerim Hesaplar')}
+          onPress={() => navigation.navigate('Hesap Seçimi')}
           style={{
             backgroundColor: 'rgba(5,136,217,255)',
             width: '90%',
@@ -211,4 +233,4 @@ const CryptoOrders = ({ navigation }) => {
   );
 };
 
-export default CryptoOrders;
+export default Orders;
