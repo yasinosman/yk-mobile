@@ -9,6 +9,7 @@ import CryptoCalculating from '../Crypto/CryptoCalculating';
 import CryptoWallet from '../Crypto/CryptoWallet';
 import CryptoOrdersAccounts from '../Crypto/CryptoOrdersAccounts';
 import Buy from '../Crypto/CryptoTrading/Buy';
+import CryptoAlarmIn from '../Crypto/CryptoAlarmIn';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,8 @@ const Investments = props => {
         component={CryptoOrdersAccounts}
       />
       <Stack.Screen name="Kripto Alarmlarım" component={CryptoAlarms} />
+      <Stack.Screen name="Alarm Kur" component={CryptoAlarmIn} />
+
       <Stack.Screen name="Kripto Hesaplama" component={CryptoCalculating} />
       <Stack.Screen name="Kripto Alış" component={Buy} />
     </Stack.Navigator>

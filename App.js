@@ -19,7 +19,9 @@ import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
 import LogoScreen from './screens/LogoScreen';
 import Piyasalar from './screens/LoginTabs/Piyasalar';
+import PiyasalarKurumsal from './screens/LoginTabs/PiyasalarKurumsal';
 import ATM from './screens/LoginTabs/ATM';
+import ATMKurumsal from './screens/LoginTabs/ATMKurumsal';
 import SifreM from './screens/LoginTabs/SifreM';
 import Kampanyalar from './screens/LoginTabs/Kampanyalar';
 import DahaF from './screens/LoginTabs/DahaF';
@@ -75,8 +77,22 @@ export default function App() {
                 }}
               />
               <Stack.Screen
+                name="PİYASALAR Kurumsal"
+                component={PiyasalarKurumsal}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
                 name="ATM/ŞUBE"
                 component={ATM}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="ATM/ŞUBE Kurumsal"
+                component={ATMKurumsal}
                 options={{
                   animationEnabled: false,
                 }}

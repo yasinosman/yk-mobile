@@ -114,7 +114,7 @@ const Piyasalar = ({ navigation }) => {
       <LoginTabHeader
         tabTitle="Piyasa Bilgileri"
         navigation={navigation}
-        navigate="UserLoginFlex"
+        navigate="BusinessLoginFlex"
       />
       <Divider />
       <ScrollView style={styles.scrollView}>

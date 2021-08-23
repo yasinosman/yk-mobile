@@ -1,18 +1,20 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import LoginTabHeader from '../../lib/components/LoginTabHeader';
 import LoginTabOption from '../../lib/components/LoginTabOption';
 import Divider from '../../lib/components/Divider';
 
 const options = [
   {
-    title: 'Mobil Şifre Belirleme',
-    optionHeight: 80,
+    title: 'QR Kod ile Bilet Al',
+    description:
+      'Dilediğiniz şubeden sıra beklemden QR kodu okutarak bilet alabilirsiniz.',
+    isNew: true,
   },
   {
-    title: 'Kart Şifre Belirleme',
-    optionHeight: 80,
+    title: 'En Yakın Yapı Kredi',
+    description:
+      "En Yakın Yapı Kredi şube ve ATM'lerini görüntüyebilir,şubeyoğunluklarını inceleyebilirsiniz.",
   },
 ];
 
@@ -20,18 +22,19 @@ const SifreM = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <LoginTabHeader
+        tabTitle="ATM / Şube"
         navigation={navigation}
-        navigate="UserLoginFlex"
-        tabTitle="Şifre Merkezi"
+        navigate="BusinessLoginFlex"
         flexNumber={0.05}
       />
-      <Divider />
-      <ScrollView style={styles.options}>
+      <ScrollView style={styles.scrollView}>
+        <Divider />
         {options.map((option, index) => {
           return (
             <LoginTabOption
               title={option.title}
-              optionHeight={option.optionHeight}
+              description={option.description}
+              isNew={option.isNew}
               backgroundColor={
                 index % 2 === 0 ? 'white' : 'rgba(245,246,250,255)'
               }
@@ -42,7 +45,6 @@ const SifreM = ({ navigation }) => {
     </View>
   );
 };
-
 export default SifreM;
 
 const styles = StyleSheet.create({
@@ -51,8 +53,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  options: {
-    flex: 2.5,
+  scrollView: {
+    flex: 10,
     width: '100%',
   },
 });
