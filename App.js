@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
+import { Text } from 'react-native';
 
 import Dashboard from './screens/Dashboard';
 import UserLoginFlex from './screens/UserLoginFlex';
@@ -31,7 +32,6 @@ import ThemeProvider from './context/Theme';
 import useCurrentUser from './hooks/useCurrentUser';
 import { BLUE, DEVICE_HEIGHT } from './lib/constants';
 import { NavigationDrawer, Navbar } from './lib/components';
-import Picker from './screens/Picker';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -136,10 +136,13 @@ export default function App() {
               initialRouteName="Dashboard"
               screenOptions={{
                 headerShown: true,
-                headerStyle: {
-                  backgroundColor: BLUE,
-                },
-                headerTintColor: '#fff',
+                header: props => (
+                  <Navbar
+                    navigation={props.scene.descriptor.navigation}
+                    route={props.scene.route}
+                    {...props}
+                  />
+                ),
               }}
               drawerStyle={{
                 width: '84%',
@@ -148,147 +151,20 @@ export default function App() {
               drawerContent={props => <NavigationDrawer {...props} />}
               backBehavior="history"
             >
-              <Drawer.Screen
-                name="Anasayfa"
-                component={Dashboard}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
-              <Drawer.Screen
-                name="Hesaplarım"
-                component={Accounts}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
-              <Drawer.Screen
-                name="Kartlarım"
-                component={Cards}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
+              <Drawer.Screen name="Anasayfa" component={Dashboard} />
+              <Drawer.Screen name="Hesaplarım" component={Accounts} />
+              <Drawer.Screen name="Kartlarım" component={Cards} />
               <Drawer.Screen
                 name="Para Transferleri"
                 component={MoneyTransfers}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
               />
-              <Drawer.Screen
-                name="Yatırımlar"
-                component={Investments}
-                // options={({ route }) => ({
-                //   header: props => (
-                //     <Navbar
-                //       navigation={props.scene.descriptor.navigation}
-                //       route={props.scene.route}
-                //       currentRouteName={
-                //         getCurrentRouteName(route) ?? 'Yatırımlar'
-                //       }
-                //       {...props}
-                //     />
-                //   ),
-                // })}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
-              <Drawer.Screen
-                name="Ödemeler"
-                component={Payments}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
-              <Drawer.Screen
-                name="Krediler"
-                component={Credits}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
-              <Drawer.Screen
-                name="Sigortalar"
-                component={Insurances}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
+              <Drawer.Screen name="Yatırımlar" component={Investments} />
+              <Drawer.Screen name="Ödemeler" component={Payments} />
+              <Drawer.Screen name="Krediler" component={Credits} />
+              <Drawer.Screen name="Sigortalar" component={Insurances} />
               <Drawer.Screen
                 name="Diğer İşlemler"
                 component={OtherOperations}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
-              />
-              <Drawer.Screen
-                name="Seçim"
-                component={Picker}
-                options={{
-                  header: props => (
-                    <Navbar
-                      navigation={props.scene.descriptor.navigation}
-                      route={props.scene.route}
-                      {...props}
-                    />
-                  ),
-                }}
               />
             </Drawer.Navigator>
           </NavigationContainer>
