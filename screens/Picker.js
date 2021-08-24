@@ -88,8 +88,8 @@ const Picker = ({ route, navigation }) => {
                   <Icon
                     name={option.startingIcon.name}
                     type={option.startingIcon.type}
-                    size={20}
-                    color={theme.colors.icon}
+                    size={option.startingIcon.size ?? 20}
+                    color={option.startingIcon.color ?? theme.colors.icon}
                   />
                 </View>
               )}
@@ -100,7 +100,10 @@ const Picker = ({ route, navigation }) => {
                     source={{
                       uri: option.image.uri,
                     }}
-                    style={{ width: 20, height: 20 }}
+                    style={{
+                      width: option.image.size ?? 20,
+                      height: option.image.size ?? 20,
+                    }}
                     resizeMode="contain"
                   />
                 </View>

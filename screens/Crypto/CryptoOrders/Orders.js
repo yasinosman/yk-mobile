@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { DEVICE_WIDTH } from '../../../lib/constants';
+import { TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { Icon, Button, Switch } from 'react-native-elements';
 import { useTheme } from '../../../context/Theme';
-import { MenuButton } from '../../../lib/components';
+import { MenuButton, Popup } from '../../../lib/components';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
 
 const Orders = ({ navigation, route }) => {
   const { theme } = useTheme();
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [isAgreed, setIsAgreed] = useState(false);
+  const toggleAgreementSwitch = () =>
+    setIsAgreed(previousState => !previousState);
+  const [error, setError] = React.useState('');
+  const [protocolPopupOpen, setProtocolPopupOpen] = React.useState(false);
   const [email, setEmail] = React.useState('selen.senturk@gmail.com');
 
   React.useEffect(() => {
@@ -19,6 +23,16 @@ const Orders = ({ navigation, route }) => {
       }
     }
   }, [route]);
+
+  const handleNext = () => {
+    if (!isAgreed) {
+      setError(
+        "Devam etmek için Kripto Alım Satım Emir Bırakma İşlemleri Ek Protokolü'nü onaylamanız gerekmektedir. "
+      );
+    } else {
+      navigation.navigate('Hesap Seçimi');
+    }
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -38,7 +52,6 @@ const Orders = ({ navigation, route }) => {
       color: theme.colors.text,
     },
     protokolContainer: {
-      height: 60,
       width: '100%',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -49,7 +62,6 @@ const Orders = ({ navigation, route }) => {
       fontSize: 12,
       color: 'rgba(136,205,224,255)',
       textDecorationLine: 'underline',
-      marginLeft: 20,
       color: theme.colors.blue,
     },
     protokolStyle: {
@@ -58,11 +70,10 @@ const Orders = ({ navigation, route }) => {
       color: 'black',
       textDecorationColor: 'transparent',
       color: theme.colors.text,
+      marginLeft: 20,
     },
     switch: {
-      width: 20,
-      height: 20,
-      marginRight: 50,
+      marginRight: theme.sizes.padding * 2,
     },
     inputView: {
       height: 40,
@@ -104,8 +115,8 @@ const Orders = ({ navigation, route }) => {
     infoMessage: {
       flexDirection: 'row',
       height: 50,
-      marginLeft: 20,
       alignItems: 'center',
+      width: '100%',
     },
     infoText: {
       fontFamily: 'UbuntuLight',
@@ -115,17 +126,21 @@ const Orders = ({ navigation, route }) => {
       color: theme.colors.text,
     },
     bottomBar: {
-      flex: 1,
       justifyContent: 'flex-end',
       alignItems: 'center',
-      marginRight: 30,
       marginBottom: 30,
+      width: '90%',
+      marginHorizontal: '5%',
+      flex: 1,
     },
-    submitButton: {
-      marginTop: 15,
-      width: DEVICE_WIDTH * (85 / 100),
-      height: 40,
-      borderRadius: 22,
+    button: {
+      backgroundColor: theme.colors.blue,
+      borderWidth: 1,
+      borderRadius: 20,
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 10,
     },
   });
 
@@ -134,19 +149,32 @@ const Orders = ({ navigation, route }) => {
       <View style={styles.update}>
         <Text style={styles.updateText}>Sözleşme Bilgileri</Text>
       </View>
-      <View style={styles.protokolContainer}>
-        <Text style={styles.underlinedProtokol}>
-          Kripto Alım Satım Emir Bırakma İşlemleri Ek{'\n'}Protokolü
-          <Text style={styles.protokolStyle}>'nü okudum ve onaylıyorum.</Text>
-        </Text>
+      <View
+        style={[
+          styles.protokolContainer,
+          {
+            marginVertical: theme.sizes.padding * 2,
+          },
+        ]}
+      >
+        <TouchableOpacity onPress={() => setProtocolPopupOpen(true)}>
+          <Text style={[styles.protokolStyle]}>
+            <Text style={[styles.underlinedProtokol]}>
+              Kripto Alım Satım Emir Bırakma İşlemleri Ek{'\n'}Protokolü
+            </Text>
+            'nü okudum ve onaylıyorum.
+          </Text>
+        </TouchableOpacity>
         <Switch
           trackColor={{
-            false: 'rgb(50,250,255)',
-            true: 'rgb(101,214,255)',
+            false: theme.colors.seperator,
+            true: theme.colors.blue,
           }}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          ios_backgroundColor={theme.colors.seperator}
+          onValueChange={toggleAgreementSwitch}
+          value={isAgreed}
           style={styles.switch}
+          thumbColor="white"
         />
       </View>
       <View style={styles.update}>
@@ -161,7 +189,7 @@ const Orders = ({ navigation, route }) => {
           borderRadius: 10,
           width: '90%',
           marginHorizontal: '5%',
-          marginVertical: '2%',
+          marginTop: theme.sizes.padding * 2,
         }}
         title={email}
         onPress={() =>
@@ -200,35 +228,47 @@ const Orders = ({ navigation, route }) => {
             color={theme.colors.blue}
           />
           <Text style={styles.infoText}>
-            Döviz alım satım emir işlemi yapabilmeniz için Döviz{'\n'}Alım Satım
-            Emir Bırakma işlemleri Ek Protokolü'nü{'\n'}onaylamanız
+            Kripto alım satım emir işlemi yapabilmeniz için Kripto{'\n'}Alım
+            Satım Emir Bırakma işlemleri Ek Protokolü'nü{'\n'}onaylamanız
             gerekmektedir.
           </Text>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Hesap Seçimi')}
-          style={{
-            backgroundColor: 'rgba(5,136,217,255)',
-            width: '90%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginLeft: '5%',
-            marginTop: 10,
-            borderRadius: 22,
-            height: 40,
-          }}
-        >
-          <Text
-            style={{
-              fontFamily: 'Ubuntu',
-              fontSize: 20,
-              color: 'white',
-            }}
-          >
-            Devam
-          </Text>
-        </TouchableOpacity>
+        <View style={{ width: '100%' }}>
+          <Button
+            onPress={handleNext}
+            title="Devam"
+            buttonStyle={styles.button}
+          />
+        </View>
       </View>
+
+      <Popup
+        type="error"
+        open={error !== ''}
+        title="Hata"
+        text={error?.message ?? error}
+        onClose={() => setError('')}
+        styleOverrides={{
+          container: {
+            height: DEVICE_HEIGHT * (30 / 100),
+            width: DEVICE_WIDTH * (3 / 4),
+          },
+        }}
+      />
+
+      <Popup
+        type="info"
+        open={protocolPopupOpen}
+        title="Protokol Detayları"
+        text={'Kripto Alım Satım Emir Bırakma İşlemleri Ek Protokolü'}
+        onClose={() => setProtocolPopupOpen(false)}
+        styleOverrides={{
+          container: {
+            height: DEVICE_HEIGHT * (30 / 100),
+            width: DEVICE_WIDTH * (3 / 4),
+          },
+        }}
+      />
     </View>
   );
 };
