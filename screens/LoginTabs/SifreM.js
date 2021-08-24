@@ -9,10 +9,12 @@ const options = [
   {
     title: 'Mobil Şifre Belirleme',
     optionHeight: 80,
+    image: require('../../assets/mobil.jpg'),
   },
   {
     title: 'Kart Şifre Belirleme',
     optionHeight: 80,
+    image: require('../../assets/kart.jpg'),
   },
 ];
 
@@ -23,7 +25,6 @@ const SifreM = ({ navigation }) => {
         navigation={navigation}
         navigate="UserLoginFlex"
         tabTitle="Şifre Merkezi"
-        flexNumber={0.05}
       />
       <Divider />
       <ScrollView style={styles.options}>
@@ -35,6 +36,9 @@ const SifreM = ({ navigation }) => {
               backgroundColor={
                 index % 2 === 0 ? 'white' : 'rgba(245,246,250,255)'
               }
+              image={option.image}
+              imageHeight={55}
+              imageWidth={55}
             />
           );
         })}

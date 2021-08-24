@@ -5,9 +5,7 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
 } from 'react-native';
-import ChangePercentageView from '../../lib/components/ChangePercentageView';
 import LoginTabHeader from '../../lib/components/LoginTabHeader';
 import Divider from '../../lib/components/Divider';
 import SubHeader from '../../lib/components/SubHeader';
@@ -73,7 +71,7 @@ const optionsShares = [
   },
   {
     title: 'KSTUR',
-    number: 26.6,
+    number: 26.61,
     difference: 10.01,
   },
   {
@@ -118,6 +116,7 @@ const Piyasalar = ({ navigation }) => {
       />
       <Divider />
       <ScrollView style={styles.scrollView}>
+        <Text style={styles.updateText}>Son Güncelleme : {start}</Text>
         <SubHeader title="Döviz / Altın Bilgileri" />
         {/* Currencies */}
         <View style={styles.currencyInfo}>
@@ -187,6 +186,12 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: '100%',
+  },
+  updateText: {
+    textAlign: 'center',
+    fontFamily: 'UbuntuLight',
+    marginTop: 5,
+    marginBottom: 5,
   },
   shareOptions: {
     flexDirection: 'row',

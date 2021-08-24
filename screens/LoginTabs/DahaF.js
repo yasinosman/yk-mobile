@@ -67,7 +67,6 @@ const DahaFazlasi = ({ navigation }) => {
         navigation={navigation}
         navigate="UserLoginFlex"
         tabTitle="Daha Fazlası"
-        flexNumber={0.05}
       />
       <ScrollView style={styles.scrollView}>
         <Divider />

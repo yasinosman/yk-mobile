@@ -7,12 +7,15 @@ import Divider from '../../lib/components/Divider';
 const options = [
   {
     title: 'Mevduat Faizi Hesaplama',
+    image: require('../../assets/mevduat.jpg'),
   },
   {
     title: 'Döviz Hesaplama',
+    image: require('../../assets/doviz.jpg'),
   },
   {
     title: 'Esnek Hesap Hesaplama',
+    image: require('../../assets/esnek.jpg'),
   },
 ];
 
@@ -23,7 +26,6 @@ const İletisim = ({ navigation }) => {
         navigation={navigation}
         navigate="BusinessLoginFlex"
         tabTitle="Araçlar"
-        flexNumber={0.05}
       />
       <ScrollView style={styles.scrollView}>
         <Divider />
@@ -37,6 +39,9 @@ const İletisim = ({ navigation }) => {
                 index % 2 === 0 ? 'white' : 'rgba(245,246,250,255)'
               }
               optionHeight={75}
+              image={option.image}
+              imageHeight={55}
+              imageWidth={55}
             />
           );
         })}

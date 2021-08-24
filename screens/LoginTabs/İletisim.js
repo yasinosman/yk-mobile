@@ -9,12 +9,15 @@ const options = [
     title: "Yapı Kredi'yi Ara",
     description:
       'Ürün ve hizmetlerimizle ilgili şikayet, talep ve önerileriniz için bizi arayabilirsiniz.',
+    image: require('../../assets/ara.jpg'),
   },
   {
     title: '@YapiKrediHizmet',
+    image: require('../../assets/twitter.jpg'),
   },
   {
     title: 'Yapı Kredi',
+    image: require('../../assets/facebook.jpg'),
   },
 ];
 
@@ -25,7 +28,6 @@ const İletisim = ({ navigation }) => {
         navigation={navigation}
         navigate="BusinessLoginFlex"
         tabTitle="İletişim"
-        flexNumber={0.05}
       />
       <View style={styles.imageView}>
         <Image
@@ -44,6 +46,9 @@ const İletisim = ({ navigation }) => {
               backgroundColor={
                 index % 2 === 0 ? 'white' : 'rgba(245,246,250,255)'
               }
+              image={option.image}
+              imageHeight={55}
+              imageWidth={55}
             />
           );
         })}

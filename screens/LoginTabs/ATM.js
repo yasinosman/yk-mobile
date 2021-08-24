@@ -10,11 +10,13 @@ const options = [
     description:
       'Dilediğiniz şubeden sıra beklemden QR kodu okutarak bilet alabilirsiniz.',
     isNew: true,
+    image: require('../../assets/qr.jpg'),
   },
   {
     title: 'En Yakın Yapı Kredi',
     description:
       "En Yakın Yapı Kredi şube ve ATM'lerini görüntüyebilir,şubeyoğunluklarını inceleyebilirsiniz.",
+    image: require('../../assets/enyakin.jpg'),
   },
 ];
 
@@ -25,7 +27,6 @@ const SifreM = ({ navigation }) => {
         tabTitle="ATM / Şube"
         navigation={navigation}
         navigate="UserLoginFlex"
-        flexNumber={0.05}
       />
       <ScrollView style={styles.scrollView}>
         <Divider />
@@ -38,6 +39,9 @@ const SifreM = ({ navigation }) => {
               backgroundColor={
                 index % 2 === 0 ? 'white' : 'rgba(245,246,250,255)'
               }
+              image={option.image}
+              imageHeight={55}
+              imageWidth={55}
             />
           );
         })}
