@@ -9,7 +9,11 @@ const Stack = createStackNavigator();
 
 const CryptoTrading = () => {
   return (
-    <Stack.Navigator initialRouteName="Kripto Alış/Satış" headerMode="none">
+    <Stack.Navigator
+      initialRouteName="Kripto Alış/Satış"
+      headerMode="none"
+      backBehavior="history"
+    >
       <Stack.Screen name="Kripto Alış/Satış" component={Dashboard} />
       <Stack.Screen name="Kripto Detayı" component={Detail} />
       <Stack.Screen name="Kripto Alış" component={Buy} />
