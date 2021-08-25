@@ -4,7 +4,7 @@ import { db } from '../../firebase';
  *
  * @param {string} collectionName Koleksiyon adı
  */
-function fetchCollectionByName(collectionName) {
+export function fetchCollectionByName(collectionName) {
   return new Promise((resolve, reject) => {
     let entities = [];
 
@@ -32,4 +32,12 @@ export function updateDocument(collectionName, documentId, data) {
   return db.collection(collectionName).doc(documentId).update(data);
 }
 
-export { fetchCollectionByName };
+/**
+ *  Firebase'de bulunan bir koleksiyona doküman ekler
+ * @param {string} collectionName Koleksiyon Adı
+ * @param {any} data Doküman Verisi
+ * @returns {Promise}
+ */
+export function addDocumentToCollection(collectionName, data) {
+  return db.collection(collectionName).add(data);
+}
