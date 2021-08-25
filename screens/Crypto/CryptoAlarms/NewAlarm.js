@@ -280,7 +280,7 @@ const NewAlarm = ({ navigation, route }) => {
         title="İşlem Tamamlandı"
         text={success}
         onClose={() => setSuccess('')}
-        styleOverrides={{ container: { height: DEVICE_HEIGHT * (4 / 10) } }}
+        styleOverrides={{ container: { height: DEVICE_HEIGHT * (3 / 10) } }}
         buttons={[
           <TouchableOpacity
             style={{
