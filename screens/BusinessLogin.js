@@ -241,9 +241,10 @@ const Login = ({ navigation }) => {
           }}
         ></View>
         <View style={styles.navigationBar}>
-          {options.map(option => {
+          {options.map((option, index) => {
             return (
               <NavBarComponent
+                key={index}
                 navigation={navigation}
                 navigate={option.navigate}
                 title={option.title}
