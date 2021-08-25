@@ -137,15 +137,25 @@ const Buy = props => {
   const [targetCurrency, setTargetCurrency] = React.useState('usd');
 
   React.useEffect(() => {
-    const curr = CRYPTO_CURRENCIES.find(
-      c => c.value === props.route.params.currency
-    );
-    setCurrency(curr);
+    if (props.route.params) {
+      if (props.route.params.currency) {
+        const curr = CRYPTO_CURRENCIES.find(
+          c => c.value === props.route.params.currency
+        );
+        setCurrency(curr);
 
-    setTargetCurrency(props.route.params.targetCurrency);
+        setTargetCurrency(props.route.params.targetCurrency);
+      }
+
+      if (props.route.params.depositAccount) {
+        const { depositAccount } = props.route.params;
+        setTargetCurrency(depositAccount.currency);
+      }
+    }
   }, [props.route.params]);
 
   const [depositAccountType, setDepositAccountType] = React.useState(null);
+
   React.useEffect(() => {
     if (CRYPTO_CURRENCIES.find(cu => cu.value === targetCurrency)) {
       return setDepositAccountType('crypto');
@@ -219,11 +229,10 @@ const Buy = props => {
     }
   };
 
-  const Wallets = ({ displayCurrency }) =>
+  const Wallets = ({ displayCurrency, navigation }) =>
     wallets.map(wallet => (
       <CardView
         key={wallet.id}
-        onPress={() => alert(wallet.name)}
         iconContainerStyles={{
           height: 50,
           justifyContent: 'flex-start',
@@ -272,6 +281,14 @@ const Buy = props => {
             secondaryTextStyles={styles.amountTextSubTitle}
           />
         }
+        trailingIcon={
+          <Icon
+            name="chevron-right"
+            type="font-awesome"
+            size={20}
+            color={theme.colors.blue}
+          />
+        }
         containerStyles={[
           { height: 100, marginBottom: 0 },
           {
@@ -284,16 +301,34 @@ const Buy = props => {
         ]}
         primaryTextStyles={styles.amountTextTitle}
         secondaryTextStyles={styles.amountTextSubTitle}
+        onPress={() =>
+          navigation.navigate('Cüzdan Seçimi', {
+            options: wallets.map(wallet => ({
+              text: `${wallet.name} (${wallet.number})`,
+              startingIcon: {
+                name: wallet.icon.name,
+                type: wallet.icon.type,
+                color: theme.colors.orange,
+                size: 25,
+              },
+              navigation: {
+                to: 'Kripto Satış',
+                params: {
+                  wallet: wallet,
+                },
+              },
+            })),
+          })
+        }
       />
     ));
 
-  const CashAccounts = () =>
+  const CashAccounts = ({ navigation }) =>
     accounts.map((account, index) => {
       if (account.currency === targetCurrency) {
         return (
           <CardView
             key={account.id}
-            onPress={() => alert(account.name)}
             icon={
               <Image
                 source={{ uri: account.image_url }}
@@ -320,6 +355,14 @@ const Buy = props => {
                 secondaryTextStyles={styles.amountTextSubTitle}
               />
             }
+            trailingIcon={
+              <Icon
+                name="chevron-right"
+                type="font-awesome"
+                size={20}
+                color={theme.colors.blue}
+              />
+            }
             containerStyles={[
               calculateContainerStyles(
                 index,
@@ -328,13 +371,33 @@ const Buy = props => {
             ]}
             primaryTextStyles={styles.amountTextTitle}
             secondaryTextStyles={styles.amountTextSubTitle}
+            onPress={() =>
+              navigation.navigate('Hesap Seçimi', {
+                options: accounts.map(account => ({
+                  text: `${account.name} (${account.number})`,
+                  image: {
+                    uri: account.image_url,
+                    size: 30,
+                  },
+                  navigation: {
+                    to: 'Kripto Satış',
+                    params: {
+                      depositAccount: account,
+                    },
+                  },
+                })),
+              })
+            }
           />
         );
       }
       return null;
     });
 
-  const renderedAccounts = React.useMemo(() => CashAccounts(), [accounts]);
+  const renderedAccounts = React.useMemo(
+    () => <CashAccounts navigation={props.navigation} />,
+    [accounts, props.navigation, targetCurrency]
+  );
 
   return (
     <ScrollView style={styles.wrapper}>
@@ -369,7 +432,12 @@ const Buy = props => {
           decelerationRate={0.5}
           scrollEnabled
         >
-          {<Wallets displayCurrency={currency.value} />}
+          {
+            <Wallets
+              navigation={props.navigation}
+              displayCurrency={currency.value}
+            />
+          }
         </ScrollView>
       </View>
       <View>
@@ -388,7 +456,10 @@ const Buy = props => {
             scrollEnabled
           >
             {depositAccountType === 'crypto' && (
-              <Wallets displayCurrency={targetCurrency} />
+              <Wallets
+                navigation={props.navigation}
+                displayCurrency={targetCurrency}
+              />
             )}
             {depositAccountType === 'cash' && renderedAccounts}
           </ScrollView>
