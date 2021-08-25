@@ -8,14 +8,14 @@ import {
   ScrollView,
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
-import { useTheme } from '../../context/Theme';
-import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../hooks/useCurrency';
-import useMock from '../../hooks/useMock';
-import { formatAmount, formatTime } from '../../lib/utils';
-import { ChangePercentageView, StyledText } from '../../lib/components';
+import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
+import { useTheme } from '../../../context/Theme';
+import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
+import useMock from '../../../hooks/useMock';
+import { formatAmount, formatTime } from '../../../lib/utils';
+import { ChangePercentageView, StyledText } from '../../../lib/components';
 
-const CryptoCrossTransactions = ({ navigation }) => {
+const SearchMenu = ({ navigation }) => {
   //5 saniyede bir güncellenen saat
   const mockDate = useMock(() => formatTime(new Date()), 5000, false);
 
@@ -248,7 +248,7 @@ const CryptoParity = ({
           </StyledText>
           <Image
             style={{ width: 20, height: 20 }}
-            source={require('../../assets/img/search.png')}
+            source={require('../../../assets/img/search.png')}
           ></Image>
         </View>
         <View style={styles.contentContainer}>
@@ -271,4 +271,4 @@ const CryptoParity = ({
   );
 };
 
-export default CryptoCrossTransactions;
+export default SearchMenu;
