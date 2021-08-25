@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Divider } from 'react-native-elements';
+import { Divider, Icon } from 'react-native-elements';
 import { PieChart } from 'react-native-chart-kit';
 import { useTheme } from '../../context/Theme';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
-import { convertCurrency, formatAmount } from '../../lib/utils';
+import { convertCurrency, formatAmount, formatTime } from '../../lib/utils';
 import { getWallets } from '../../services/wallets';
 import { CURRENCY_DICTIONARY, EXCHANGE_RATES } from '../../hooks/useCurrency';
 import { StyledText, AmountText } from '../../lib/components';
+import useMock from '../../hooks/useMock';
 
 const CryptoWallet = () => {
   const [wallets, setWallets] = React.useState([]);
@@ -59,7 +60,7 @@ const CryptoWallet = () => {
       // borderRadius: 10,
     },
     listContainer: {
-      height: DEVICE_HEIGHT * (30 / 100),
+      height: DEVICE_HEIGHT * (25 / 100),
       width: '90%',
       marginHorizontal: '5%',
       alignItems: 'center',
@@ -92,8 +93,8 @@ const CryptoWallet = () => {
       width: '30%',
       fontFamily: 'UbuntuLight',
       fontSize: 14,
-      textAlign: 'center',
-      paddingVertical: 2,
+      textAlign: 'left',
+      paddingVertical: 5,
     },
   });
 
@@ -146,6 +147,8 @@ const CryptoWallet = () => {
     }
   }, [wallets]);
 
+  const mockDate = useMock(() => formatTime(new Date()), 5000, false);
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.titleContainer}>
@@ -191,19 +194,21 @@ const CryptoWallet = () => {
             Para Birimi
           </StyledText>
           <StyledText
-            style={[styles.listContainerHeaderText, { width: '35%' }]}
+            style={[styles.listContainerHeaderText, { width: '45%' }]}
           >
             Miktar
           </StyledText>
           <StyledText
-            style={[styles.listContainerHeaderText, { width: '40%' }]}
+            style={[styles.listContainerHeaderText, { width: '30%' }]}
           >
             TRY Karşılığı
           </StyledText>
         </View>
-        <ScrollView style={{ height: '100%', width: '100%' }}>
+        <ScrollView>
           {walletData.map((data, index) => {
-            const [amountInt, amountDecimal] = formatAmount(data.amount);
+            const [amountInt, amountDecimal] = formatAmount(
+              parseFloat(data.amount).toFixed(2)
+            );
             const [totalInt, totalDecimal] = formatAmount(
               parseFloat(data.total).toFixed(2)
             );
@@ -221,15 +226,37 @@ const CryptoWallet = () => {
                 ]}
                 key={index}
               >
-                <StyledText style={[styles.listElementText, { width: '25%' }]}>
+                <StyledText
+                  style={[
+                    styles.listElementText,
+                    { width: '15%', paddingLeft: theme.sizes.padding },
+                  ]}
+                >
                   {data.name}
                 </StyledText>
-                <StyledText style={[styles.listElementText, { width: '35%' }]}>
+                <StyledText
+                  style={[
+                    styles.listElementText,
+                    {
+                      width: '45%',
+                      textAlign: 'right',
+                    },
+                  ]}
+                >
                   {amountInt}
                   {amountDecimal && `,${amountDecimal}`}{' '}
                   {CURRENCY_DICTIONARY[data.name] ?? data.name.toUpperCase()}
                 </StyledText>
-                <StyledText style={[styles.listElementText, { width: '40%' }]}>
+                <StyledText
+                  style={[
+                    styles.listElementText,
+                    {
+                      width: '40%',
+                      textAlign: 'right',
+                      paddingRight: theme.sizes.padding,
+                    },
+                  ]}
+                >
                   {totalInt}
                   {totalDecimal && `,${totalDecimal}`} {CURRENCY_DICTIONARY.try}
                 </StyledText>
@@ -237,6 +264,32 @@ const CryptoWallet = () => {
             );
           })}
         </ScrollView>
+
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            paddingLeft: theme.sizes.padding,
+          }}
+        >
+          <Icon
+            name="info-circle"
+            type="font-awesome-5"
+            size={25}
+            color={theme.colors.blue}
+          />
+          <StyledText
+            style={{
+              marginLeft: theme.sizes.padding,
+              fontFamily: 'UbuntuLight',
+              fontSize: theme.sizes.smallText,
+            }}
+          >
+            Son güncelleme: {mockDate}
+          </StyledText>
+        </View>
       </View>
     </View>
   );
