@@ -1,15 +1,15 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
-import { useTheme } from '../../context/Theme';
-import { StyledText } from '../../lib/components';
+import { StyleSheet, View } from 'react-native';
+import { Icon, Button } from 'react-native-elements';
+import { useTheme } from '../../../context/Theme';
+import { StyledText } from '../../../lib/components';
 
-const CryptoAlarms = ({ navigation }) => {
+const MyAlarms = ({ navigation }) => {
   const { theme } = useTheme();
   const styles = StyleSheet.create({
     container: {
-      width: DEVICE_WIDTH,
-      height: DEVICE_HEIGHT,
+      width: '100%',
+      height: '100%',
       backgroundColor: theme.colors.bg,
       alignItems: 'center',
       justifyContent: 'flex-start',
@@ -41,17 +41,17 @@ const CryptoAlarms = ({ navigation }) => {
       fontFamily: 'UbuntuLight',
     },
     buttonContainer: {
-      width: '100%',
+      width: '90%',
       height: '30%',
-      justifyContent: 'flex-start',
       alignItems: 'center',
+      justifyContent: 'flex-end',
+      paddingBottom: 30,
     },
     button: {
-      width: '80%',
-      height: '20%',
-      marginVertical: '15%',
       backgroundColor: theme.colors.blue,
+      borderWidth: 1,
       borderRadius: 20,
+      width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -65,10 +65,12 @@ const CryptoAlarms = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.imageAndTextContainer}>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/img/notification.png')}
-          ></Image>
+          <Icon
+            type="font-awesome-5"
+            name="bell"
+            color={theme.colors.blue}
+            size={35}
+          />
         </View>
         <View style={styles.textContainer}>
           <StyledText style={styles.text}>
@@ -77,15 +79,14 @@ const CryptoAlarms = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
+        <Button
+          title="Alarm Kur"
+          containerStyle={{ width: '100%', borderRadius: 20 }}
           onPress={() => navigation.navigate('Alarm Kur')}
-        >
-          <StyledText style={styles.buttonText}>Alarm Kur</StyledText>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );
 };
 
-export default CryptoAlarms;
+export default MyAlarms;
