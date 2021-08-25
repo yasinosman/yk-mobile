@@ -8,7 +8,9 @@ import CryptoAlarms from '../Crypto/CryptoAlarms';
 import CryptoCalculating from '../Crypto/CryptoCalculating';
 import CryptoWallet from '../Crypto/CryptoWallet';
 import Buy from '../Crypto/CryptoTrading/Buy';
+import CryptoAlarmIn from '../Crypto/CryptoAlarmIn';
 import Picker from '../Picker';
+import CryptoDuo from '../Crypto/CryptoDuo';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +30,8 @@ const Investments = props => {
       <Stack.Screen name="Satılacak Birim Seçimi" component={Picker} />
       <Stack.Screen name="Alınacak Birim Seçimi" component={Picker} />
       <Stack.Screen name="Kripto Alış" component={Buy} />
+      <Stack.Screen name="Alarm Kur" component={CryptoAlarmIn} />
+      <Stack.Screen name="Kripto Çiftleri" component={CryptoDuo} />
     </Stack.Navigator>
   );
 };

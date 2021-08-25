@@ -77,7 +77,10 @@ const CryptoAlarms = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Alarm Kur')}
+        >
           <StyledText style={styles.buttonText}>Alarm Kur</StyledText>
         </TouchableOpacity>
       </View>
