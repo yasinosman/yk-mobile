@@ -122,8 +122,9 @@ const Piyasalar = ({ navigation }) => {
         <View style={styles.currencyInfo}>
           {optionsCurrency.map((option, index) => {
             return (
-              <View>
+              <View key={index}>
                 <CurrencyButton
+                  key={index}
                   currency={option.currency}
                   currencyOrigin={option.currencyOrigin}
                   buy={option.buy}
@@ -140,8 +141,9 @@ const Piyasalar = ({ navigation }) => {
         {/* BIST Indexes */}
         {optionsBIST.map((option, index) => {
           return (
-            <View>
+            <View key={index}>
               <BistCell
+                key={index}
                 title={option.title}
                 number={option.number}
                 difference={option.difference}
@@ -159,11 +161,12 @@ const Piyasalar = ({ navigation }) => {
         </View>
         {optionsShares.map((option, index) => {
           return (
-            <View>
+            <View key={index}>
               <ShareCell
                 title={option.title}
                 number={option.number}
                 difference={option.difference}
+                key={index}
               />
               {index != 4 && <Divider />}
             </View>

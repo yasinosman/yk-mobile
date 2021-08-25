@@ -31,6 +31,7 @@ const SifreM = ({ navigation }) => {
         {options.map((option, index) => {
           return (
             <LoginTabOption
+              key={index}
               title={option.title}
               optionHeight={option.optionHeight}
               backgroundColor={

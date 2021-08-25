@@ -7,8 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
 
 import Dashboard from './screens/Dashboard';
-import UserLoginFlex from './screens/UserLoginFlex';
-import BusinessLoginFlex from './screens/BusinessLoginFlex';
+import UserLogin from './screens/UserLogin';
+import BusinessLogin from './screens/BusinessLogin';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
 import Credits from './screens/Credits';
@@ -61,10 +61,10 @@ export default function App() {
                 headerShown: false,
               }}
             >
-              <Stack.Screen name="UserLoginFlex" component={UserLoginFlex} />
+              <Stack.Screen name="UserLoginFlex" component={UserLogin} />
               <Stack.Screen
                 name="BusinessLoginFlex"
-                component={BusinessLoginFlex}
+                component={BusinessLogin}
                 options={{
                   animationEnabled: false,
                 }}
