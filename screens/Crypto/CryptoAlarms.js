@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Image } from 'react-native';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
 import { useTheme } from '../../context/Theme';
 import { StyledText } from '../../lib/components';
+import { CryptoAlarmIn } from './CryptoAlarmIn';
 
 const CryptoAlarms = ({ navigation }) => {
   const { theme } = useTheme();
@@ -77,7 +78,10 @@ const CryptoAlarms = ({ navigation }) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={navigation.navigate('Alarm Kur')}
+        >
           <StyledText style={styles.buttonText}>Alarm Kur</StyledText>
         </TouchableOpacity>
       </View>

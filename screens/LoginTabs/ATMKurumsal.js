@@ -6,26 +6,27 @@ import Divider from '../../lib/components/Divider';
 
 const options = [
   {
-    title: 'Mevduat Faizi Hesaplama',
-    image: require('../../assets/mevduat.jpg'),
+    title: 'QR Kod ile Bilet Al',
+    description:
+      'Dilediğiniz şubeden sıra beklemden QR kodu okutarak bilet alabilirsiniz.',
+    isNew: true,
+    image: require('../../assets/qr.jpg'),
   },
   {
-    title: 'Döviz Hesaplama',
-    image: require('../../assets/doviz.jpg'),
-  },
-  {
-    title: 'Esnek Hesap Hesaplama',
-    image: require('../../assets/esnek.jpg'),
+    title: 'En Yakın Yapı Kredi',
+    description:
+      "En Yakın Yapı Kredi şube ve ATM'lerini görüntüyebilir,şubeyoğunluklarını inceleyebilirsiniz.",
+    image: require('../../assets/enyakin.jpg'),
   },
 ];
 
-const İletisim = ({ navigation }) => {
+const SifreM = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <LoginTabHeader
+        tabTitle="ATM / Şube"
         navigation={navigation}
         navigate="BusinessLoginFlex"
-        tabTitle="Araçlar"
       />
       <ScrollView style={styles.scrollView}>
         <Divider />
@@ -38,7 +39,6 @@ const İletisim = ({ navigation }) => {
               backgroundColor={
                 index % 2 === 0 ? 'white' : 'rgba(245,246,250,255)'
               }
-              optionHeight={75}
               image={option.image}
               imageHeight={55}
               imageWidth={55}
@@ -49,7 +49,7 @@ const İletisim = ({ navigation }) => {
     </View>
   );
 };
-export default İletisim;
+export default SifreM;
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   scrollView: {
-    flex: 1,
+    flex: 10,
     width: '100%',
   },
 });

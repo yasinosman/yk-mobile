@@ -13,10 +13,35 @@ import { Formik } from 'formik';
 import { LinearGradient } from 'expo-linear-gradient';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../lib/constants';
 import { object, string } from 'yup';
+import BusinessScreenHeader from '../lib/components/BusinessScreenHeader';
+import NavBarComponent from '../lib/components/NavBarComponent';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
 };
+
+const options = [
+  {
+    navigate: 'PİYASALAR Kurumsal',
+    title: 'PİYASALAR',
+  },
+  {
+    navigate: 'ATM/ŞUBE Kurumsal',
+    title: 'ATM/ŞUBE',
+  },
+  {
+    navigate: 'İLETİŞİM',
+    title: 'İLETİŞİM',
+  },
+  {
+    navigate: 'ARAÇLAR',
+    title: 'ARAÇLAR',
+  },
+  {
+    navigate: 'DAHA FAZLASI KURUMSAL',
+    title: 'DAHA FAZLASI',
+  },
+];
 
 const testValidationSchema = object().shape({
   firmakodu: string().matches(/^\d{10}$/, 'Firma kodu 10 haneli olmalıdır '),
@@ -41,26 +66,7 @@ const Login = ({ navigation }) => {
         style={styles.container}
         colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
       >
-        <View style={styles.languageAndLogo}>
-          <View style={styles.languageView}>
-            <TouchableOpacity
-              style={styles.languageButton}
-              onPress={buttonClickedHandler}
-            >
-              <Text style={styles.languageText}>TR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.logoView}>
-            <Image
-              source={require('../assets/img/yk-logo-3.png')}
-              style={{
-                width: 150,
-                height: 50,
-              }}
-            ></Image>
-            <Text style={styles.kurumsalText}>| kurumsal</Text>
-          </View>
-        </View>
+        <BusinessScreenHeader />
         <Formik
           initialValues={{ firmakodu: '', kullanicikodu: '', sifre: '' }}
           onSubmit={values => Console.log(value)}
@@ -235,71 +241,15 @@ const Login = ({ navigation }) => {
           }}
         ></View>
         <View style={styles.navigationBar}>
-          <Divider
-            orientation="horizontal"
-            subHeaderStyle={{ color: 'black' }}
-            insetType="middle"
-          />
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('PİYASALAR')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
+          {options.map(option => {
+            return (
+              <NavBarComponent
+                navigation={navigation}
+                navigate={option.navigate}
+                title={option.title}
               />
-              <Text style={styles.navBarText}>PİYASALAR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('ATM/ŞUBE')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>ATM/ŞUBE</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('İLETİŞİM')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>İLETİŞİM</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('ARAÇLAR')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>ARAÇLAR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('DAHA FAZLASI KURUMSAL')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>DAHA FAZLASI</Text>
-            </TouchableOpacity>
-          </View>
+            );
+          })}
         </View>
       </LinearGradient>
     </TouchableWithoutFeedback>
@@ -445,12 +395,6 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH * (85 / 100),
     height: 40,
     borderRadius: 22,
-  },
-  kurumsalText: {
-    color: 'white',
-    fontSize: 17,
-    marginTop: 12,
-    fontFamily: 'Ubuntu',
   },
   navigationBar: {
     flex: 0.2,

@@ -15,6 +15,8 @@ import { object, string } from 'yup';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../lib/constants';
 import { Popup } from '../lib/components';
 import { login } from '../services/authentication';
+import NavBarComponent from '../lib/components/NavBarComponent';
+import UserScreenHeader from '../lib/components/UserScreenHeader';
 
 const buttonClickedHandler = () => {
   console.log('Changed language');
@@ -24,6 +26,29 @@ const testValidationSchema = object().shape({
   tckimlik: string().matches(/^\d{11}$/, 'TC kimlik no 11 haneli olmalıdır '),
   sifre: string().matches(/^\d{6}$/, 'Şifre 6 haneli olmalıdır'),
 });
+
+const options = [
+  {
+    navigate: 'PİYASALAR',
+    title: 'PİYASALAR',
+  },
+  {
+    navigate: 'ATM/ŞUBE',
+    title: 'ATM/ŞUBE',
+  },
+  {
+    navigate: 'ŞİFRE İŞLEMLER',
+    title: 'ŞİFRE MERKEZİ',
+  },
+  {
+    navigate: 'KAMPANYALAR',
+    title: 'KAMPANYALAR',
+  },
+  {
+    navigate: 'DAHA FAZLASI',
+    title: 'DAHA FAZLASI',
+  },
+];
 
 const Login = ({ navigation }) => {
   const [loginError, setLoginError] = React.useState('');
@@ -40,25 +65,7 @@ const Login = ({ navigation }) => {
         style={styles.container}
         colors={['rgba(34,169,241,1)', 'rgba(5,136,218,1)']}
       >
-        <View style={styles.languageAndLogo}>
-          <View style={styles.languageView}>
-            <TouchableOpacity
-              style={styles.languageButton}
-              onPress={buttonClickedHandler}
-            >
-              <Text style={styles.languageText}>TR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.logoView}>
-            <Image
-              source={require('../assets/img/yk-logo-3.png')}
-              style={{
-                width: 180,
-                height: 50,
-              }}
-            ></Image>
-          </View>
-        </View>
+        <UserScreenHeader />
         <Formik
           initialValues={{ tckimlik: '', sifre: '' }}
           onSubmit={values => {
@@ -222,66 +229,16 @@ const Login = ({ navigation }) => {
           }}
         ></View>
         <View style={styles.navigationBar}>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('PİYASALAR')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
+          {options.map((option, index) => {
+            return (
+              <NavBarComponent
+                key={index}
+                navigation={navigation}
+                navigate={option.navigate}
+                title={option.title}
               />
-              <Text style={styles.navBarText}>PİYASALAR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('ATM/ŞUBE')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>ATM/ŞUBE</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('ŞİFRE İŞLEMLER')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>ŞİFRE İŞLEMLER</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('KAMPANYALAR')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>KAMPANYALAR</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.piyasalarView}>
-            <TouchableOpacity
-              style={styles.piyasalarButton}
-              onPress={() => navigation.navigate('DAHA FAZLASI')}
-            >
-              <Image
-                style={styles.piyasalarImage}
-                source={require('../assets/gift.png')}
-              />
-              <Text style={styles.navBarText}>DAHA FAZLASI</Text>
-            </TouchableOpacity>
-          </View>
+            );
+          })}
         </View>
         <Popup
           type="error"
@@ -308,34 +265,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  languageAndLogo: {
-    flex: 1.2,
-    flexDirection: 'row',
-  },
-  languageView: {
-    flex: 1,
-    marginTop: DEVICE_HEIGHT * (1 / 20),
-    marginLeft: DEVICE_WIDTH * (1 / 20),
-  },
-  languageButton: {
-    borderWidth: 2,
-    borderRadius: 100,
-    width: 25,
-    height: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'white',
-    marginTop: 14,
-  },
-  languageText: {
-    fontSize: 13,
-    color: 'white',
-    fontFamily: 'Ubuntu',
-  },
-  logoView: {
-    flex: 3.2,
-    marginTop: DEVICE_HEIGHT * (1 / 17),
-  },
   loginFrame: {
     borderRadius: 10,
     backgroundColor: '#4CBEF9',
@@ -442,22 +371,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginBottom: 28,
-  },
-  piyasalarImage: {
-    width: 20,
-    height: 20,
-  },
-  piyasalarView: {
-    flex: 1,
-  },
-  piyasalarButton: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  navBarText: {
-    fontSize: 9,
-    marginTop: 5,
-    color: 'white',
-    fontFamily: 'Ubuntu',
   },
 });
