@@ -32,5 +32,6 @@ import 'firebase/firestore';
 const db = firebase.firestore();
 const auth = firebase.auth();
 // const storage = firebase.storage();
+const { Timestamp } = firebase.firestore;
 
-export { db, auth };
+export { db, auth, Timestamp };
