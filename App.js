@@ -8,8 +8,8 @@ import { useFonts } from 'expo-font';
 import { Text } from 'react-native';
 
 import Dashboard from './screens/Dashboard';
-import UserLoginFlex from './screens/UserLoginFlex';
-import BusinessLoginFlex from './screens/BusinessLoginFlex';
+import UserLogin from './screens/UserLogin';
+import BusinessLogin from './screens/BusinessLogin';
 import Accounts from './screens/Accounts';
 import Cards from './screens/Cards';
 import Credits from './screens/Credits';
@@ -20,7 +20,9 @@ import OtherOperations from './screens/OtherOperations';
 import Payments from './screens/Payments';
 import LogoScreen from './screens/LogoScreen';
 import Piyasalar from './screens/LoginTabs/Piyasalar';
+import PiyasalarKurumsal from './screens/LoginTabs/PiyasalarKurumsal';
 import ATM from './screens/LoginTabs/ATM';
+import ATMKurumsal from './screens/LoginTabs/ATMKurumsal';
 import SifreM from './screens/LoginTabs/SifreM';
 import Kampanyalar from './screens/LoginTabs/Kampanyalar';
 import DahaF from './screens/LoginTabs/DahaF';
@@ -60,10 +62,10 @@ export default function App() {
                 headerShown: false,
               }}
             >
-              <Stack.Screen name="UserLoginFlex" component={UserLoginFlex} />
+              <Stack.Screen name="UserLoginFlex" component={UserLogin} />
               <Stack.Screen
                 name="BusinessLoginFlex"
-                component={BusinessLoginFlex}
+                component={BusinessLogin}
                 options={{
                   animationEnabled: false,
                 }}
@@ -76,8 +78,22 @@ export default function App() {
                 }}
               />
               <Stack.Screen
+                name="PİYASALAR Kurumsal"
+                component={PiyasalarKurumsal}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
                 name="ATM/ŞUBE"
                 component={ATM}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
+              <Stack.Screen
+                name="ATM/ŞUBE Kurumsal"
+                component={ATMKurumsal}
                 options={{
                   animationEnabled: false,
                 }}
