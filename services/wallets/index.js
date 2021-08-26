@@ -1,6 +1,8 @@
 import { fetchCollectionByName, updateDocument } from '../database';
 import { db } from '../../firebase';
 import { checkIfAccountExists } from '../accounts';
+import { createOrder } from '../orders';
+import { convertCurrency } from '../../lib/utils';
 
 /**
  *  Nakit hesabından kripto cüzdana kripto varlık alırken kullanılır.
@@ -48,6 +50,14 @@ export function buyCryptoFromCashAccount(
             : asset
         ),
       });
+
+      await createOrder(
+        `${cryptoCurrency}/${accountData.currency}`,
+        calculatedCryptoAmount,
+        convertCurrency(cryptoCurrency, 1, accountData.currency),
+        'buy',
+        accountData.currency
+      );
 
       return resolve('Al/Sat işlemi başarılı.');
     } catch (error) {
@@ -111,6 +121,14 @@ export function buyCashFromCryptoWallet(
         ).toFixed(6),
       });
 
+      await createOrder(
+        `${cryptoCurrency}/${accountData.currency}`,
+        withdrawCryptoAmount,
+        convertCurrency(cryptoCurrency, 1, accountData.currency),
+        'sell',
+        accountData.currency
+      );
+
       return resolve('Al/Sat işlemi başarılı.');
     } catch (error) {
       return reject(error.message);
@@ -154,14 +172,6 @@ export function buyCryptoFromCryptoWallet(
         return reject('Yetersiz bakiye');
       }
 
-      //Withdraw
-      // console.log({
-      //   withdrawWalletId,
-      //   withdrawAmount,
-      //   withdrawCurrency,
-      //   depositCurrency,
-      //   depositWalletId,
-      // });
       await updateDocument('wallets', depositWalletId, {
         assets: depositWalletData.assets.map(asset => {
           if (asset.currency === depositCurrency) {
@@ -182,6 +192,14 @@ export function buyCryptoFromCryptoWallet(
           return asset;
         }),
       });
+
+      await createOrder(
+        `${depositCurrency}/${withdrawCurrency}`,
+        calculatedDepositAmount,
+        convertCurrency(depositCurrency, 1, withdrawCurrency),
+        'buy',
+        withdrawCurrency
+      );
 
       return resolve('Al/Sat işlemi başarılı.');
     } catch (error) {

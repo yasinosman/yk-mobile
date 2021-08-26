@@ -89,12 +89,12 @@ const EXCHANGE_RATES = {
     xrp: 0.26521,
   },
   xrp: {
-    try: 10796,
+    try: 9.269,
     usd: 1.2678,
-    eur: 1079,
+    eur: 0.979,
     btc: 0.0000269,
     eth: 0.00039,
-    doge: 21861,
+    doge: 19.889,
   },
 };
 

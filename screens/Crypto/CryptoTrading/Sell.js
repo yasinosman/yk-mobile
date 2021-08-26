@@ -145,11 +145,31 @@ const Buy = props => {
         setCurrency(curr);
 
         setTargetCurrency(props.route.params.targetCurrency);
+
+        if (calculatedAmount !== '') {
+          setCalculatedAmount(
+            convertCurrency(
+              curr.value,
+              payingAmount,
+              props.route.params.targetCurrency
+            ).toString()
+          );
+        }
       }
 
       if (props.route.params.depositAccount) {
         const { depositAccount } = props.route.params;
         setTargetCurrency(depositAccount.currency);
+
+        if (calculatedAmount !== '') {
+          setCalculatedAmount(
+            convertCurrency(
+              currency.value,
+              payingAmount,
+              depositAccount.currency
+            ).toString()
+          );
+        }
       }
     }
   }, [props.route.params]);
