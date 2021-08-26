@@ -15,7 +15,13 @@ const CryptoChooseAccount = () => {
     >
       <Stack.Screen name="Çapraz Kripto İşlemleri" component={SearchMenu} />
       <Stack.Screen name="Kripto Alış" component={Buy} />
-      <Stack.Screen name="Cüzdan Seçimi" component={Picker} />
+      <Stack.Screen
+        name="Cüzdan Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

@@ -12,8 +12,20 @@ const CryptoChooseAccount = () => {
       headerMode="none"
       backBehavior="history"
     >
-      <Stack.Screen name="Hesap Seçimi" component={ChooseAccount} />
-      <Stack.Screen name="Ödeme Aracı Seçimi" component={Picker} />
+      <Stack.Screen
+        name="Hesap Seçimi"
+        component={ChooseAccount}
+        options={{
+          animationEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Ödeme Aracı Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

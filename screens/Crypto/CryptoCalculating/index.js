@@ -13,8 +13,20 @@ const CryptoCalculating = () => {
       backBehavior="history"
     >
       <Stack.Screen name="Kripto Hesaplama" component={Calculating} />
-      <Stack.Screen name="Satılacak Birim Seçimi" component={Picker} />
-      <Stack.Screen name="Alınacak Birim Seçimi" component={Picker} />
+      <Stack.Screen
+        name="Satılacak Birim Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Alınacak Birim Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

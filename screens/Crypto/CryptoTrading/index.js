@@ -19,8 +19,20 @@ const CryptoTrading = () => {
       <Stack.Screen name="Kripto Detayı" component={Detail} />
       <Stack.Screen name="Kripto Alış" component={Buy} />
       <Stack.Screen name="Kripto Satış" component={Sell} />
-      <Stack.Screen name="Hesap Seçimi" component={Picker} />
-      <Stack.Screen name="Cüzdan Seçimi" component={Picker} />
+      <Stack.Screen
+        name="Hesap Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="Cüzdan Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

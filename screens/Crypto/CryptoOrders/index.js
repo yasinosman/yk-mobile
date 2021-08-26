@@ -13,9 +13,21 @@ const CryptoOrders = () => {
       headerMode="none"
       backBehavior="history"
     >
-      <Stack.Screen name="Emirlerim" component={Orders} />
+      <Stack.Screen
+        name="Emirlerim"
+        component={Orders}
+        options={{
+          animationEnabled: false,
+        }}
+      />
       <Stack.Screen name="Hesap Seçimi" component={Accounts} />
-      <Stack.Screen name="E-Posta Seçimi" component={Picker} />
+      <Stack.Screen
+        name="E-Posta Seçimi"
+        component={Picker}
+        options={{
+          animationEnabled: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
