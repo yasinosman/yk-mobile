@@ -373,6 +373,6 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
   switch: {
-    marginRight: 20,
+    marginRight: 10,
   },
 });

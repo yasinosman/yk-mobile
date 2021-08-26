@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Image, Input, Button, Divider } from 'react-native-elements';
+import { Image, Input, Button, Divider, Switch } from 'react-native-elements';
 import {
   StyleSheet,
   Text,
   View,
   TouchableWithoutFeedback,
   Keyboard,
-  Switch,
   TouchableOpacity,
 } from 'react-native';
 import { Formik } from 'formik';
@@ -202,16 +201,17 @@ const Login = ({ navigation }) => {
               </View>
               <View>
                 <View style={styles.viewRememberMe}>
-                  <Text style={styles.textRememberMe}>Beni Hatırla</Text>
+                  <Text style={styles.textRememberMe}>Beni Hatırla </Text>
                   <Switch
-                    ios_backgroundColor="rgb(80,180,255)"
                     trackColor={{
-                      false: 'rgb(50,250,255)',
+                      false: 'rgb(150, 150, 150)',
                       true: 'rgb(101,214,255)',
                     }}
+                    ios_backgroundColor="rgb(216,224,237)"
                     onValueChange={toggleSwitch}
                     value={isEnabled}
-                    style={styles.switchRememberMe}
+                    style={styles.switch}
+                    thumbColor="white"
                   />
                 </View>
               </View>
@@ -378,7 +378,6 @@ const styles = StyleSheet.create({
   },
   textRememberMe: {
     color: 'white',
-    opacity: 0.9,
     fontFamily: 'Ubuntu',
   },
 
@@ -419,5 +418,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: 'white',
     fontFamily: 'Ubuntu',
+  },
+  switch: {
+    marginRight: 10,
   },
 });
