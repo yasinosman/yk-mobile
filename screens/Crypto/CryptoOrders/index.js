@@ -16,18 +16,8 @@ const CryptoOrders = () => {
       headerMode="none"
       backBehavior="history"
     >
-      <Stack.Screen
-        name="Emirlerim"
-        component={Orders}
-        options={{
-          transitionSpec: {
-            open: theme.animation.route,
-            close: theme.animation.route,
-          },
-        }}
-      />
-      <Stack.Screen name="Hesap Seçimi" component={Accounts} />
-      <Stack.Screen
+      <Stack.Screen name="Emirlerim" component={Orders} />
+      {/* <Stack.Screen
         name="E-Posta Seçimi"
         component={Picker}
         options={{
@@ -36,7 +26,7 @@ const CryptoOrders = () => {
             close: theme.animation.route,
           },
         }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };
