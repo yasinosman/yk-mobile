@@ -144,11 +144,31 @@ const Buy = props => {
         setCurrency(curr);
 
         setTargetCurrency(props.route.params.targetCurrency);
+
+        if (cryptoAmount !== '') {
+          setPayingAmount(
+            convertCurrency(
+              curr.value,
+              cryptoAmount,
+              props.route.params.targetCurrency
+            ).toString()
+          );
+        }
       }
 
       if (props.route.params.withdrawAccount) {
         const { withdrawAccount } = props.route.params;
         setTargetCurrency(withdrawAccount.currency);
+
+        if (cryptoAmount !== '') {
+          setPayingAmount(
+            convertCurrency(
+              currency.value,
+              cryptoAmount,
+              withdrawAccount.currency
+            ).toString()
+          );
+        }
       }
     }
   }, [props.route.params]);

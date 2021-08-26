@@ -1,44 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTheme } from '../../../context/Theme';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { StyledText } from '../../../lib/components';
 import Divider from '../../../lib/components/Divider';
 import Order from '../../../lib/components/Order';
-
-const orders = [
-  {
-    name: 'BTC/USD',
-    type: 'buy',
-    price: 44550.75,
-    amount: 0.05,
-    total: 2225,
-    created_at: '26/08/2021 11:15:30',
-  },
-  {
-    name: 'BTC/DOGE',
-    type: 'sell',
-    price: 44550.75,
-    amount: 0.05,
-    total: 2225,
-    created_at: '26/08/2021 11:15:30',
-  },
-  {
-    name: 'ETH/USD',
-    type: 'sell',
-    price: 44550.75,
-    amount: 0.05,
-    total: 2225,
-    created_at: '26/08/2021 11:15:30',
-  },
-  {
-    name: 'BTC/ETH',
-    type: 'buy',
-    price: 44550.75,
-    amount: 0.05,
-    total: 2225,
-    created_at: '26/08/2021 11:15:30',
-  },
-];
+import { getOrders } from '../../../services/orders';
 
 const Orders = ({ navigation, route }) => {
   const { theme } = useTheme();
@@ -53,20 +18,29 @@ const Orders = ({ navigation, route }) => {
     },
   });
 
+  const [orders, setOrders] = React.useState([]);
+
+  React.useEffect(() => {
+    getOrders()
+      .then(orders => setOrders(orders))
+      .catch(error => console.log(error));
+  }, [navigation, route]);
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Divider />
-        {orders.map((option, index) => {
+        {orders.map((order, index) => {
           return (
             <Order
               key={index}
-              name={option.name}
-              created_at={option.created_at}
-              type={option.type}
-              price={option.price}
-              amount={option.amount}
-              total={option.total}
+              name={order.name}
+              created_at={order.created_at}
+              type={order.type}
+              price={order.price}
+              amount={order.amount}
+              total={order.total}
+              priceCurrency={order.price_currency}
             />
           );
         })}
