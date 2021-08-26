@@ -3,10 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Orders from './Orders';
 import Accounts from './Accounts';
 import Picker from '../../Picker';
+import { useTheme } from '../../../context/Theme';
 
 const Stack = createStackNavigator();
 
 const CryptoOrders = () => {
+  const { theme } = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName="Emirlerim"
@@ -17,7 +20,10 @@ const CryptoOrders = () => {
         name="Emirlerim"
         component={Orders}
         options={{
-          animationEnabled: false,
+          transitionSpec: {
+            open: theme.animation.route,
+            close: theme.animation.route,
+          },
         }}
       />
       <Stack.Screen name="Hesap Seçimi" component={Accounts} />
@@ -25,7 +31,10 @@ const CryptoOrders = () => {
         name="E-Posta Seçimi"
         component={Picker}
         options={{
-          animationEnabled: false,
+          transitionSpec: {
+            open: theme.animation.route,
+            close: theme.animation.route,
+          },
         }}
       />
     </Stack.Navigator>

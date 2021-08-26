@@ -2,10 +2,13 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ChooseAccount from './ChooseAccount';
 import Picker from '../../../Picker';
+import { useTheme } from '../../../../context/Theme';
 
 const Stack = createStackNavigator();
 
 const CryptoChooseAccount = () => {
+  const { theme } = useTheme();
+
   return (
     <Stack.Navigator
       initialRouteName="Hesap Seçimi"
@@ -16,14 +19,20 @@ const CryptoChooseAccount = () => {
         name="Hesap Seçimi"
         component={ChooseAccount}
         options={{
-          animationEnabled: false,
+          transitionSpec: {
+            open: theme.animation.route,
+            close: theme.animation.route,
+          },
         }}
       />
       <Stack.Screen
         name="Ödeme Aracı Seçimi"
         component={Picker}
         options={{
-          animationEnabled: false,
+          transitionSpec: {
+            open: theme.animation.route,
+            close: theme.animation.route,
+          },
         }}
       />
     </Stack.Navigator>

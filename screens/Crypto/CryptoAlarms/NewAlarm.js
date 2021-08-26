@@ -56,8 +56,10 @@ const NewAlarm = ({ navigation, route }) => {
       setError(
         'İşleminize devam etmek için kripto çifti seçmeniz gerekmektedir.'
       );
+      setLoading(false);
     } else if (targetValue === '') {
       setError('İşleminize devam etmek için hedef kur girmeniz gerekmektedir.');
+      setLoading(false);
     } else {
       try {
         await createAlarm(selectedParity, targetValue, option);
