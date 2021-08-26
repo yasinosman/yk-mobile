@@ -7,10 +7,12 @@ export function getAlarms() {
     fetchCollectionByName('alarms')
       .then(alarms =>
         resolve(
-          alarms.map(alarm => ({
-            ...alarm,
-            created_at: formatDate(alarm.created_at.toDate()),
-          }))
+          alarms
+            .sort((a, b) => b.created_at.toDate() - a.created_at.toDate())
+            .map(alarm => ({
+              ...alarm,
+              created_at: formatDate(alarm.created_at.toDate()),
+            }))
         )
       )
       .catch(error => reject(error));
