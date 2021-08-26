@@ -49,7 +49,6 @@ const Orders = ({ navigation, route }) => {
       backgroundColor: theme.colors.bg,
     },
     scrollView: {
-      flex: 10,
       width: '100%',
     },
   });
