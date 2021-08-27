@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
 import { Button } from 'react-native-elements';
 import { useTheme } from '../../../context/Theme';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
@@ -9,21 +10,23 @@ import {
   MarketActionView,
   StyledText,
 } from '../../../lib/components';
-
 import {
   CRYPTO_CURRENCIES,
   CURRENCY_DICTIONARY,
 } from '../../../hooks/useCurrency';
-import { generateMockMarketData } from '../../../lib/utils';
-import { LineChart } from 'react-native-chart-kit';
+import { formatAmount, generateMockMarketData } from '../../../lib/utils';
 import useMock from '../../../hooks/useMock';
+import { getOrders } from '../../../services/orders';
 
 const Detail = props => {
   const [currency, setCurrency] = React.useState(CRYPTO_CURRENCIES[0]);
   const [targetCurrency, setTargetCurrency] = React.useState('usd');
 
-  const marketData = useMock(() =>
-    generateMockMarketData(currency.value, targetCurrency)
+  const marketData = useMock(
+    () => generateMockMarketData(currency.value, targetCurrency),
+    2000,
+    true,
+    (a, b) => new Date(b.rawDate) - new Date(a.rawDate)
   );
 
   React.useEffect(() => {
@@ -66,9 +69,9 @@ const Detail = props => {
       justifyContent: 'space-around',
       width: '95%',
       marginHorizontal: '2.5%',
-      borderBottomWidth: 0.5,
-      borderColor: theme.colors.blue,
       marginBottom: 10,
+      borderBottomWidth: 0.5,
+      borderColor: theme.colors.secondaryText,
     },
     marketTypeButton: {
       width: '30%',
@@ -76,6 +79,10 @@ const Detail = props => {
     marketTypeButtonTitle: {
       fontFamily: 'Ubuntu',
       fontSize: 13,
+      color: theme.colors.secondaryText,
+    },
+    activeMarketTypeButtonTitle: {
+      color: theme.colors.blue,
     },
     chartContainer: {
       height: DEVICE_HEIGHT * (30 / 100),
@@ -106,16 +113,11 @@ const Detail = props => {
       backgroundColor: theme.colors.bg,
       justifyContent: 'center',
       alignItems: 'center',
-      // //iOS
-      // shadowOffset: { width: 0, height: 3 },
-      // shadowOpacity: 0.1,
-      // shadowRadius: 5,
-      // //Android
-      //elevation: 2,
       borderRadius: 10,
     },
     marketInfoButton: {
       width: '25%',
+      borderRadius: 0,
     },
     marketInfoBar: {
       width: '100%',
@@ -134,6 +136,23 @@ const Detail = props => {
       fontSize: 12,
     },
   });
+
+  const [selectedDetailTab, setSelectedDetailTab] = React.useState('market');
+  const [orderHistory, setOrderHistory] = React.useState([]);
+
+  React.useEffect(() => {
+    getOrders()
+      .then(orders => {
+        setOrderHistory(
+          orders.filter(
+            order =>
+              order.name.toUpperCase() ===
+              `${currency.value}/${targetCurrency}`.toUpperCase()
+          )
+        );
+      })
+      .catch(e => console.log(e));
+  }, [currency, targetCurrency, selectedDetailTab]);
 
   return (
     <ScrollView style={styles.wrapper}>
@@ -185,33 +204,63 @@ const Detail = props => {
           title="Piyasa"
           type="outline"
           containerStyle={styles.marketInfoButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
+          buttonStyle={{
+            borderWidth: 0,
+          }}
+          titleStyle={[
+            styles.marketTypeButtonTitle,
+            selectedDetailTab === 'market' &&
+              styles.activeMarketTypeButtonTitle,
+          ]}
+          onPress={() => setSelectedDetailTab('market')}
         />
         <Button
           title="Açık Emirler"
           type="outline"
           containerStyle={styles.marketInfoButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
-          disabled
+          buttonStyle={{
+            borderWidth: 0,
+          }}
+          titleStyle={[
+            styles.marketTypeButtonTitle,
+            selectedDetailTab === 'orders' &&
+              styles.activeMarketTypeButtonTitle,
+          ]}
+          onPress={() => setSelectedDetailTab('orders')}
         />
         <Button
           title="Geçmiş"
           type="outline"
           containerStyle={styles.marketInfoButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
-          disabled
+          buttonStyle={{
+            borderWidth: 0,
+          }}
+          titleStyle={[
+            styles.marketTypeButtonTitle,
+            selectedDetailTab === 'history' &&
+              styles.activeMarketTypeButtonTitle,
+          ]}
+          onPress={() => setSelectedDetailTab('history')}
         />
-        <Button
+        {/* <Button
           title="Son İşlemler"
           type="outline"
           containerStyle={styles.marketInfoButton}
-          buttonStyle={{ borderWidth: 0 }}
-          titleStyle={styles.marketTypeButtonTitle}
-          disabled
-        />
+          buttonStyle={{
+            borderWidth: 0,
+            borderBottomWidth: 0.5,
+            borderBottomColor:
+              selectedDetailTab === 'recent-transactions'
+                ? theme.colors.blue
+                : theme.colors.secondaryText,
+          }}
+          titleStyle={[
+            styles.marketTypeButtonTitle,
+            selectedDetailTab === 'recent-transactions' &&
+              styles.activeMarketTypeButtonTitle,
+          ]}
+          onPress={() => setSelectedDetailTab('recent-transactions')}
+        /> */}
       </View>
 
       <View style={styles.infoContainer}>
@@ -220,21 +269,67 @@ const Detail = props => {
           <StyledText style={[styles.marketInfoText]}>Miktar</StyledText>
           <StyledText style={[styles.marketInfoText]}>Tarih</StyledText>
         </View>
-        <ScrollView style={{ height: '100%', width: '100%' }}>
-          {marketData.map((data, index) => (
-            <MarketActionView
-              key={data.id}
-              date={data.date}
-              price={data.price}
-              quantity={data.quantity}
-              type={data.type}
-              containerStyle={{
-                backgroundColor:
-                  index % 2 !== 0 ? theme.colors.highlight : theme.colors.bg,
-              }}
-            />
-          ))}
-        </ScrollView>
+        {selectedDetailTab === 'market' && (
+          <ScrollView style={{ height: '100%', width: '100%' }}>
+            {marketData.map((data, index) => (
+              <MarketActionView
+                key={data.id}
+                date={data.date}
+                price={data.price}
+                quantity={data.quantity}
+                type={data.type}
+                containerStyle={{
+                  backgroundColor:
+                    index % 2 !== 0 ? theme.colors.highlight : theme.colors.bg,
+                }}
+              />
+            ))}
+          </ScrollView>
+        )}
+        {selectedDetailTab === 'orders' && (
+          <View
+            style={{
+              height: '100%',
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <StyledText style={{ fontFamily: 'UbuntuLight' }}>
+              Açık emriniz bulunmamaktadır.
+            </StyledText>
+          </View>
+        )}
+        {selectedDetailTab === 'history' && (
+          <ScrollView style={{ height: '100%', width: '100%' }}>
+            {orderHistory.map((order, index) => {
+              const [priceInt, priceDecimal] = formatAmount(order.price);
+              const priceStr = `${priceInt}${
+                priceDecimal ? `,${priceDecimal}` : ''
+              }`;
+              const [amountInt, amountDecimal] = formatAmount(order.amount);
+              const amountStr = `${amountInt}${
+                amountDecimal ? `,${amountDecimal}` : ''
+              }`;
+
+              return (
+                <MarketActionView
+                  key={order.id}
+                  date={order.created_at}
+                  price={priceStr}
+                  quantity={amountStr}
+                  type={order.type}
+                  containerStyle={{
+                    backgroundColor:
+                      index % 2 !== 0
+                        ? theme.colors.highlight
+                        : theme.colors.bg,
+                  }}
+                />
+              );
+            })}
+          </ScrollView>
+        )}
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity

@@ -11,13 +11,20 @@ import useInterval from './useInterval';
 const useMock = (
   mockDataGenerator,
   timeout = 2000,
-  generateRealisticData = true
+  generateRealisticData = true,
+  sorterFunction = null
 ) => {
   const [mockData, setMockData] = React.useState(mockDataGenerator());
 
   useInterval(() => {
     generateRealisticData
-      ? setMockData([...mockData, ...mockDataGenerator()].slice(1, 21))
+      ? sorterFunction
+        ? setMockData(
+            [...mockData, ...mockDataGenerator()]
+              .sort(sorterFunction)
+              .slice(1, 21)
+          )
+        : setMockData([...mockData, ...mockDataGenerator()].slice(1, 21))
       : setMockData(mockDataGenerator());
   }, timeout);
 
