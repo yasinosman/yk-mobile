@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Platform } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Platform,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import { Icon, Image, Button } from 'react-native-elements';
 import { convertCurrency, formatAmount, formatTime } from '../../../lib/utils';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
@@ -165,189 +171,194 @@ const Calculating = props => {
   }, [state.buyingCurrency]);
 
   return (
-    <View style={styles.wrapper}>
-      <View style={[styles.container, { marginTop: theme.sizes.padding }]}>
-        <View style={styles.amountContainer}>
-          <InputWithLabel
-            inputPlaceholder="0,00"
-            label="Satılacak Tutar ve Para Birimi"
-            inputValue={state.sellingAmount}
-            setInputValue={text => {
-              dispatch({
-                type: 'sellingAmountChanged',
-                payload: { value: text },
-              });
-            }}
-            inputKeyboardType="numeric"
-            styleOverrides={{
-              inputContainer:
-                Platform.OS === 'ios'
-                  ? {
-                      height: 45,
-                      marginTop: 3,
-                      justifyContent: 'center',
-                      paddingRight: theme.sizes.padding,
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.wrapper}>
+        <View style={[styles.container, { marginTop: theme.sizes.padding }]}>
+          <View style={styles.amountContainer}>
+            <InputWithLabel
+              inputPlaceholder="0,00"
+              label="Satılacak Tutar ve Para Birimi"
+              inputValue={state.sellingAmount}
+              setInputValue={text => {
+                dispatch({
+                  type: 'sellingAmountChanged',
+                  payload: { value: text },
+                });
+              }}
+              inputKeyboardType="numeric"
+              styleOverrides={{
+                inputContainer:
+                  Platform.OS === 'ios'
+                    ? {
+                        height: 45,
+                        marginTop: 3,
+                        justifyContent: 'center',
+                        paddingRight: theme.sizes.padding,
+                      }
+                    : {
+                        paddingRight: theme.sizes.padding,
+                      },
+                input: {
+                  textAlign: 'right',
+                },
+              }}
+            />
+          </View>
+          <View style={styles.pickerInputContainer}>
+            <MenuButton
+              startingIcon={sellingIcon}
+              title={state.sellingCurrency.toUpperCase()}
+              containerStyles={styles.pickerInput}
+              textContainerStyles={styles.pickerInputText}
+              iconContainerStyles={styles.pickerInputIcon}
+              onPress={() =>
+                props.navigation.navigate('Satılacak Birim Seçimi', {
+                  title: 'Satılacak Tutar Birimi',
+                  options: state.currencies.map(option => {
+                    if (option.image) {
+                      return {
+                        text: option.label,
+                        image: option.image,
+                        navigation: {
+                          to: 'Kripto Hesaplama',
+                          params: {
+                            sellingCurrency: option.value,
+                          },
+                        },
+                      };
+                    } else {
+                      return {
+                        text: option.label,
+                        startingIcon: option.icon,
+                        navigation: {
+                          to: 'Kripto Hesaplama',
+                          params: {
+                            sellingCurrency: option.value,
+                          },
+                        },
+                      };
                     }
-                  : {
-                      paddingRight: theme.sizes.padding,
-                    },
-              input: {
-                textAlign: 'right',
-              },
-            }}
-          />
+                  }),
+                })
+              }
+            />
+          </View>
         </View>
-        <View style={styles.pickerInputContainer}>
-          <MenuButton
-            startingIcon={sellingIcon}
-            title={state.sellingCurrency.toUpperCase()}
-            containerStyles={styles.pickerInput}
-            textContainerStyles={styles.pickerInputText}
-            iconContainerStyles={styles.pickerInputIcon}
-            onPress={() =>
-              props.navigation.navigate('Satılacak Birim Seçimi', {
-                title: 'Satılacak Tutar Birimi',
-                options: state.currencies.map(option => {
-                  if (option.image) {
-                    return {
-                      text: option.label,
-                      image: option.image,
-                      navigation: {
-                        to: 'Kripto Hesaplama',
-                        params: {
-                          sellingCurrency: option.value,
-                        },
-                      },
-                    };
-                  } else {
-                    return {
-                      text: option.label,
-                      startingIcon: option.icon,
-                      navigation: {
-                        to: 'Kripto Hesaplama',
-                        params: {
-                          sellingCurrency: option.value,
-                        },
-                      },
-                    };
-                  }
-                }),
-              })
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => dispatch({ type: 'currenciesSwitched' })}
+            buttonStyle={styles.button}
+            icon={
+              <Icon name="sync" type="font-awesome-5" size={20} color="white" />
             }
           />
         </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          onPress={() => dispatch({ type: 'currenciesSwitched' })}
-          buttonStyle={styles.button}
-          icon={
-            <Icon name="sync" type="font-awesome-5" size={20} color="white" />
-          }
-        />
-      </View>
-      <View style={[styles.container]}>
-        <View style={styles.amountContainer}>
-          <InputWithLabel
-            inputPlaceholder="0,00"
-            label="Alınacak Tutar ve Para Birimi"
-            inputValue={state.buyingAmount}
-            setInputValue={text => {
-              dispatch({
-                type: 'buyingAmountChanged',
-                payload: { value: text },
-              });
-            }}
-            inputKeyboardType="numeric"
-            styleOverrides={{
-              inputContainer:
-                Platform.OS === 'ios'
-                  ? {
-                      height: 45,
-                      marginTop: 3,
-                      justifyContent: 'center',
-                      paddingRight: theme.sizes.padding,
+        <View style={[styles.container]}>
+          <View style={styles.amountContainer}>
+            <InputWithLabel
+              inputPlaceholder="0,00"
+              label="Alınacak Tutar ve Para Birimi"
+              inputValue={state.buyingAmount}
+              setInputValue={text => {
+                dispatch({
+                  type: 'buyingAmountChanged',
+                  payload: { value: text },
+                });
+              }}
+              inputKeyboardType="numeric"
+              styleOverrides={{
+                inputContainer:
+                  Platform.OS === 'ios'
+                    ? {
+                        height: 45,
+                        marginTop: 3,
+                        justifyContent: 'center',
+                        paddingRight: theme.sizes.padding,
+                      }
+                    : {
+                        paddingRight: theme.sizes.padding,
+                      },
+                input: {
+                  textAlign: 'right',
+                },
+              }}
+            />
+          </View>
+          <View style={styles.pickerInputContainer}>
+            <MenuButton
+              startingIcon={buyingIcon}
+              title={state.buyingCurrency.toUpperCase()}
+              containerStyles={styles.pickerInput}
+              textContainerStyles={styles.pickerInputText}
+              iconContainerStyles={styles.pickerInputIcon}
+              onPress={() =>
+                props.navigation.navigate('Alınacak Birim Seçimi', {
+                  title: 'Alınacak Tutar Birimi',
+                  options: state.currencies.map(option => {
+                    if (option.image) {
+                      return {
+                        text: option.label,
+                        image: option.image,
+                        navigation: {
+                          to: 'Kripto Hesaplama',
+                          params: {
+                            buyingCurrency: option.value,
+                          },
+                        },
+                      };
+                    } else {
+                      return {
+                        text: option.label,
+                        startingIcon: option.icon,
+                        navigation: {
+                          to: 'Kripto Hesaplama',
+                          params: {
+                            buyingCurrency: option.value,
+                          },
+                        },
+                      };
                     }
-                  : {
-                      paddingRight: theme.sizes.padding,
-                    },
-              input: {
-                textAlign: 'right',
-              },
-            }}
-          />
+                  }),
+                })
+              }
+            />
+          </View>
         </View>
-        <View style={styles.pickerInputContainer}>
-          <MenuButton
-            startingIcon={buyingIcon}
-            title={state.buyingCurrency.toUpperCase()}
-            containerStyles={styles.pickerInput}
-            textContainerStyles={styles.pickerInputText}
-            iconContainerStyles={styles.pickerInputIcon}
-            onPress={() =>
-              props.navigation.navigate('Alınacak Birim Seçimi', {
-                title: 'Alınacak Tutar Birimi',
-                options: state.currencies.map(option => {
-                  if (option.image) {
-                    return {
-                      text: option.label,
-                      image: option.image,
-                      navigation: {
-                        to: 'Kripto Hesaplama',
-                        params: {
-                          buyingCurrency: option.value,
-                        },
-                      },
-                    };
-                  } else {
-                    return {
-                      text: option.label,
-                      startingIcon: option.icon,
-                      navigation: {
-                        to: 'Kripto Hesaplama',
-                        params: {
-                          buyingCurrency: option.value,
-                        },
-                      },
-                    };
-                  }
-                }),
-              })
-            }
-          />
-        </View>
-      </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingTop: theme.sizes.padding,
-          width: '85%',
-          marginHorizontal: '6.5%',
-          marginVertical: '2%',
-        }}
-      >
-        <Icon
-          name="info-circle"
-          type="font-awesome-5"
-          size={theme.sizes.largeText}
-          color={theme.colors.blue}
-        />
-
-        <StyledText
-          style={{ fontFamily: 'UbuntuLight', fontSize: theme.sizes.tinyText }}
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingTop: theme.sizes.padding,
+            width: '85%',
+            marginHorizontal: '6.5%',
+            marginVertical: '2%',
+          }}
         >
-          {' '}
-          {state.sellingCurrency.toUpperCase()} Banka Satış:{' '}
-          {calculateBuyingAmount(
-            state.sellingCurrency,
-            1,
-            state.buyingCurrency
-          )}{' '}
-          {state.buyingCurrency.toUpperCase()} (Son Güncelleme : {mockTime} )
-        </StyledText>
+          <Icon
+            name="info-circle"
+            type="font-awesome-5"
+            size={theme.sizes.largeText}
+            color={theme.colors.blue}
+          />
+
+          <StyledText
+            style={{
+              fontFamily: 'UbuntuLight',
+              fontSize: theme.sizes.tinyText,
+            }}
+          >
+            {' '}
+            {state.sellingCurrency.toUpperCase()} Banka Satış:{' '}
+            {calculateBuyingAmount(
+              state.sellingCurrency,
+              1,
+              state.buyingCurrency
+            )}{' '}
+            {state.buyingCurrency.toUpperCase()} (Son Güncelleme : {mockTime} )
+          </StyledText>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
