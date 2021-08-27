@@ -62,7 +62,13 @@ export default function App() {
                 headerShown: false,
               }}
             >
-              <Stack.Screen name="UserLoginFlex" component={UserLogin} />
+              <Stack.Screen
+                name="UserLoginFlex"
+                component={UserLogin}
+                options={{
+                  animationEnabled: false,
+                }}
+              />
               <Stack.Screen
                 name="BusinessLoginFlex"
                 component={BusinessLogin}
