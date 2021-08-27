@@ -5,25 +5,13 @@ import { PieChart } from 'react-native-chart-kit';
 import { useTheme } from '../../context/Theme';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
 import { convertCurrency, formatAmount, formatTime } from '../../lib/utils';
-import { getWallets } from '../../services/wallets';
 import { CURRENCY_DICTIONARY, EXCHANGE_RATES } from '../../hooks/useCurrency';
 import { StyledText, AmountText } from '../../lib/components';
 import useMock from '../../hooks/useMock';
+import useWallets from '../../hooks/useWallets';
 
 const CryptoWallet = () => {
-  const [wallets, setWallets] = React.useState([]);
-
-  React.useEffect(() => {
-    async function fetchData() {
-      try {
-        setWallets(await getWallets());
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchData();
-  }, []);
+  const wallets = useWallets();
 
   const { theme } = useTheme();
 

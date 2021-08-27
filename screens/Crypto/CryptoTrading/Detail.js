@@ -16,7 +16,7 @@ import {
 } from '../../../hooks/useCurrency';
 import { formatAmount, generateMockMarketData } from '../../../lib/utils';
 import useMock from '../../../hooks/useMock';
-import { getOrders } from '../../../services/orders';
+import useOrders from '../../../hooks/useOrders';
 
 const Detail = props => {
   const [currency, setCurrency] = React.useState(CRYPTO_CURRENCIES[0]);
@@ -24,7 +24,7 @@ const Detail = props => {
 
   const marketData = useMock(
     () => generateMockMarketData(currency.value, targetCurrency),
-    2000,
+    3000,
     true,
     (a, b) => new Date(b.rawDate) - new Date(a.rawDate)
   );
@@ -138,21 +138,18 @@ const Detail = props => {
   });
 
   const [selectedDetailTab, setSelectedDetailTab] = React.useState('market');
-  const [orderHistory, setOrderHistory] = React.useState([]);
 
-  React.useEffect(() => {
-    getOrders()
-      .then(orders => {
-        setOrderHistory(
-          orders.filter(
-            order =>
-              order.name.toUpperCase() ===
-              `${currency.value}/${targetCurrency}`.toUpperCase()
-          )
-        );
-      })
-      .catch(e => console.log(e));
-  }, [currency, targetCurrency, selectedDetailTab]);
+  const ordersData = useOrders();
+
+  const orderHistory = React.useMemo(
+    () =>
+      ordersData.filter(
+        order =>
+          order.name.toUpperCase() ===
+          `${currency.value}/${targetCurrency}`.toUpperCase()
+      ),
+    [ordersData]
+  );
 
   return (
     <ScrollView style={styles.wrapper}>
@@ -172,16 +169,20 @@ const Detail = props => {
       <View style={styles.chartContainer}>
         <LineChart
           data={{
-            labels: marketData.map(data => data.date).slice(-4),
+            labels: marketData
+              .reverse()
+              .map(data => data.date)
+              .slice(-4),
             datasets: [
               {
                 data: marketData
+                  .reverse()
                   .map(data =>
                     parseInt(
                       data.price.split('.').join('').split(',').join('.')
                     )
                   )
-                  .slice(-10),
+                  .slice(10),
               },
             ],
           }}
@@ -190,10 +191,6 @@ const Detail = props => {
           chartConfig={chartConfig}
           bezier
           withInnerLines={false}
-          // withOuterLines={false}
-          // style={{
-          //   backgroundColor: 'gray',
-          // }}
           yLabelsOffset={5}
           yAxisSuffix={CURRENCY_DICTIONARY[targetCurrency] ?? targetCurrency}
         />
@@ -242,25 +239,6 @@ const Detail = props => {
           ]}
           onPress={() => setSelectedDetailTab('history')}
         />
-        {/* <Button
-          title="Son İşlemler"
-          type="outline"
-          containerStyle={styles.marketInfoButton}
-          buttonStyle={{
-            borderWidth: 0,
-            borderBottomWidth: 0.5,
-            borderBottomColor:
-              selectedDetailTab === 'recent-transactions'
-                ? theme.colors.blue
-                : theme.colors.secondaryText,
-          }}
-          titleStyle={[
-            styles.marketTypeButtonTitle,
-            selectedDetailTab === 'recent-transactions' &&
-              styles.activeMarketTypeButtonTitle,
-          ]}
-          onPress={() => setSelectedDetailTab('recent-transactions')}
-        /> */}
       </View>
 
       <View style={styles.infoContainer}>

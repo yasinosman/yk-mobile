@@ -4,20 +4,10 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, Button, Switch } from 'react-native-elements';
 import { useTheme } from '../../../context/Theme';
 import { AmountText, StyledText } from '../../../lib/components';
-import { getAlarms } from '../../../services/alarms';
+import useAlarms from '../../../hooks/useAlarms';
 
 const MyAlarms = ({ navigation, route }) => {
-  const [alarms, setAlarms] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    setLoading(true);
-
-    getAlarms()
-      .then(alarms => setAlarms(alarms))
-      .catch(error => console.log(error))
-      .finally(() => setLoading(false));
-  }, [route, navigation]);
+  const alarms = useAlarms();
 
   const { theme } = useTheme();
   const styles = StyleSheet.create({
@@ -188,28 +178,16 @@ const MyAlarms = ({ navigation, route }) => {
       {alarms.length <= 0 && (
         <View style={styles.imageAndTextContainer}>
           <View style={styles.imageContainer}>
-            {!loading && (
-              <Icon
-                type="font-awesome-5"
-                name="bell"
-                color={theme.colors.blue}
-                size={35}
-              />
-            )}
+            <Icon
+              type="font-awesome-5"
+              name="bell"
+              color={theme.colors.blue}
+              size={35}
+            />
           </View>
           <View style={styles.textContainer}>
-            <StyledText
-              style={[
-                styles.text,
-                loading && {
-                  width: 230,
-                  height: 20,
-                  backgroundColor: theme.colors.seperator,
-                  borderRadius: 10,
-                },
-              ]}
-            >
-              {!loading ? 'Alarmınız bulunmamaktadır.' : ''}
+            <StyledText style={[styles.text]}>
+              Alarmınız bulunmamaktadır.
             </StyledText>
           </View>
         </View>

@@ -3,9 +3,9 @@ import { useTheme } from '../../../context/Theme';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import Divider from '../../../lib/components/Divider';
 import Order from '../../../lib/components/Order';
-import { getOrders } from '../../../services/orders';
+import useOrders from '../../../hooks/useOrders';
 
-const Orders = ({ navigation, route }) => {
+const Orders = () => {
   const { theme } = useTheme();
 
   const styles = StyleSheet.create({
@@ -18,13 +18,7 @@ const Orders = ({ navigation, route }) => {
     },
   });
 
-  const [orders, setOrders] = React.useState([]);
-
-  React.useEffect(() => {
-    getOrders()
-      .then(orders => setOrders(orders))
-      .catch(error => console.log(error));
-  }, [navigation, route]);
+  const orders = useOrders();
 
   return (
     <View style={styles.container}>
