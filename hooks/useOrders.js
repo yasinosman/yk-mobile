@@ -5,7 +5,7 @@ import useFirestoreCollection from './useFirestoreCollection';
 const useOrders = () => {
   const [orders, setOrders] = React.useState([]);
 
-  const ordersData = useFirestoreCollection('orders');
+  const [ordersData, loading] = useFirestoreCollection('orders');
 
   React.useEffect(() => {
     setOrders(
@@ -20,7 +20,7 @@ const useOrders = () => {
     );
   }, [ordersData]);
 
-  return orders;
+  return [orders, loading];
 };
 
 export default useOrders;

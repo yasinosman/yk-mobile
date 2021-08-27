@@ -139,7 +139,7 @@ const Detail = props => {
 
   const [selectedDetailTab, setSelectedDetailTab] = React.useState('market');
 
-  const ordersData = useOrders();
+  const [ordersData, isOrdersLoading] = useOrders();
 
   const orderHistory = React.useMemo(
     () =>

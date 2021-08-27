@@ -1,7 +1,9 @@
 import useFirestoreCollection from './useFirestoreCollection';
 
 const useCards = () => {
-  return useFirestoreCollection('cards');
+  const [cards, loading] = useFirestoreCollection('cards');
+
+  return [cards, loading];
 };
 
 export default useCards;

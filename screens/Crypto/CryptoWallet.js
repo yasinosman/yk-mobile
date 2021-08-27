@@ -11,7 +11,7 @@ import useMock from '../../hooks/useMock';
 import useWallets from '../../hooks/useWallets';
 
 const CryptoWallet = () => {
-  const wallets = useWallets();
+  const [wallets, isWalletsLoading] = useWallets();
 
   const { theme } = useTheme();
 
@@ -116,7 +116,7 @@ const CryptoWallet = () => {
               parseFloat(parseFloat(c.amount) * EXCHANGE_RATES[c.currency].try)
             ).toFixed(2);
           }, 0)
-        : 0,
+        : '',
     [wallets]
   );
 

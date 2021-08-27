@@ -1,7 +1,9 @@
 import useFirestoreCollection from './useFirestoreCollection';
 
 function useAccounts() {
-  return useFirestoreCollection('accounts');
+  const [accounts, loading] = useFirestoreCollection('accounts');
+
+  return [accounts, loading];
 }
 
 export default useAccounts;

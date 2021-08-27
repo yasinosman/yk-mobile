@@ -14,6 +14,7 @@ import {
   AmountText,
   Popup,
   InputWithLabel,
+  CardViewPlaceholder,
 } from '../../../lib/components';
 import {
   buyCryptoFromCashAccount,
@@ -23,8 +24,8 @@ import useAccounts from '../../../hooks/useAccounts';
 import useWallets from '../../../hooks/useWallets';
 
 const Buy = props => {
-  const accounts = useAccounts();
-  const wallets = useWallets();
+  const [accounts, isAccountsLoading] = useAccounts();
+  const [wallets, isWalletsLoading] = useWallets();
   const [payingAmount, setPayingAmount] = React.useState('');
   const [cryptoAmount, setCryptoAmount] = React.useState('');
   const keyboardHeight = useKeyboard();
@@ -229,173 +230,199 @@ const Buy = props => {
   };
 
   const Wallets = ({ displayCurrency, navigation }) =>
-    wallets.map(wallet => (
-      <CardView
-        key={wallet.id}
-        iconContainerStyles={{
-          height: 50,
-          justifyContent: 'flex-start',
-        }}
-        icon={
-          wallet.icon ? (
-            <Icon
-              name={wallet.icon.name}
-              type={wallet.icon.type}
-              size={40}
-              color={theme.colors.orange}
-            />
-          ) : (
-            <Image
-              source={{ uri: wallet.image_url }}
-              style={{ width: 60, height: 45 }}
-            />
-          )
-        }
-        title={wallet.name}
-        subTitle={wallet.number}
-        key1={`Cüzdandaki ${displayCurrency.toUpperCase()} Miktarı`}
-        value1Component={
-          <AmountText
-            amount={
-              wallet.assets.find(asset => asset.currency === displayCurrency)
-                .amount
-            }
-            currency={displayCurrency}
-            primaryTextStyles={styles.amountTextTitle}
-            secondaryTextStyles={styles.amountTextSubTitle}
-          />
-        }
-        key2={`Toplam Bakiye (${displayCurrency.toUpperCase()})`}
-        value2Component={
-          <AmountText
-            amount={wallet.assets.reduce((accumulator, current) => {
-              return (
-                parseFloat(accumulator) +
-                parseFloat(current.amount) *
-                  (EXCHANGE_RATES[current.currency][displayCurrency] ?? 1)
-              ).toFixed(6);
-            }, 0)}
-            currency={displayCurrency}
-            primaryTextStyles={styles.amountTextTitle}
-            secondaryTextStyles={styles.amountTextSubTitle}
-          />
-        }
-        trailingIcon={
-          <Icon
-            name="chevron-right"
-            type="font-awesome"
-            size={20}
-            color={theme.colors.blue}
-          />
-        }
-        containerStyles={[
-          { height: 100, marginBottom: 0 },
-          {
+    isWalletsLoading ? (
+      <CardViewPlaceholder
+        styleOverrides={{
+          container: {
+            height: 100,
+            marginBottom: 0,
             marginLeft: DEVICE_WIDTH * (5 / 100),
             marginRight: DEVICE_WIDTH * (3 / 100),
           },
-          {
-            borderColor: theme.colors.orange,
-          },
-        ]}
-        primaryTextStyles={styles.amountTextTitle}
-        secondaryTextStyles={styles.amountTextSubTitle}
-        onPress={() =>
-          navigation.navigate('Cüzdan Seçimi', {
-            options: wallets.map(wallet => ({
-              text: `${wallet.name} (${wallet.number})`,
-              startingIcon: {
-                name: wallet.icon.name,
-                type: wallet.icon.type,
-                color: theme.colors.orange,
-                size: 25,
-              },
-              navigation: {
-                to: 'Kripto Alış',
-                params: {
-                  wallet: wallet,
-                },
-              },
-            })),
-          })
-        }
+        }}
       />
-    ));
-
-  const CashAccounts = ({ navigation }) =>
-    accounts.map((account, index) => {
-      if (account.currency === targetCurrency) {
-        return (
-          <CardView
-            key={account.id}
-            icon={
+    ) : (
+      wallets.map(wallet => (
+        <CardView
+          key={wallet.id}
+          iconContainerStyles={{
+            height: 50,
+            justifyContent: 'flex-start',
+          }}
+          icon={
+            wallet.icon ? (
+              <Icon
+                name={wallet.icon.name}
+                type={wallet.icon.type}
+                size={40}
+                color={theme.colors.orange}
+              />
+            ) : (
               <Image
-                source={{ uri: account.image_url }}
+                source={{ uri: wallet.image_url }}
                 style={{ width: 60, height: 45 }}
               />
-            }
-            title={account.name}
-            subTitle={account.number}
-            key1={'Kullanılabilir Bakiye'}
-            value1Component={
-              <AmountText
-                amount={parseFloat(account.available_balance).toFixed(2)}
-                currency={account.currency}
-                primaryTextStyles={styles.amountTextTitle}
-                secondaryTextStyles={styles.amountTextSubTitle}
-              />
-            }
-            key2={'Güncel Bakiye'}
-            value2Component={
-              <AmountText
-                amount={account.current_balance}
-                currency={account.currency}
-                primaryTextStyles={styles.amountTextTitle}
-                secondaryTextStyles={styles.amountTextSubTitle}
-              />
-            }
-            trailingIcon={
-              <Icon
-                name="chevron-right"
-                type="font-awesome"
-                size={20}
-                color={theme.colors.blue}
-              />
-            }
-            containerStyles={[
-              calculateContainerStyles(
-                index,
-                accounts.filter(a => a.currency === targetCurrency).length
-              ),
-            ]}
-            primaryTextStyles={styles.amountTextTitle}
-            secondaryTextStyles={styles.amountTextSubTitle}
-            onPress={() =>
-              navigation.navigate('Hesap Seçimi', {
-                options: accounts.map(account => ({
-                  text: `${account.name} (${account.number})`,
-                  image: {
-                    uri: account.image_url,
-                    size: 30,
+            )
+          }
+          title={wallet.name}
+          subTitle={wallet.number}
+          key1={`Cüzdandaki ${displayCurrency.toUpperCase()} Miktarı`}
+          value1Component={
+            <AmountText
+              amount={
+                wallet.assets.find(asset => asset.currency === displayCurrency)
+                  .amount
+              }
+              currency={displayCurrency}
+              primaryTextStyles={styles.amountTextTitle}
+              secondaryTextStyles={styles.amountTextSubTitle}
+            />
+          }
+          key2={`Toplam Bakiye (${displayCurrency.toUpperCase()})`}
+          value2Component={
+            <AmountText
+              amount={wallet.assets.reduce((accumulator, current) => {
+                return (
+                  parseFloat(accumulator) +
+                  parseFloat(current.amount) *
+                    (EXCHANGE_RATES[current.currency][displayCurrency] ?? 1)
+                ).toFixed(6);
+              }, 0)}
+              currency={displayCurrency}
+              primaryTextStyles={styles.amountTextTitle}
+              secondaryTextStyles={styles.amountTextSubTitle}
+            />
+          }
+          trailingIcon={
+            <Icon
+              name="chevron-right"
+              type="font-awesome"
+              size={20}
+              color={theme.colors.blue}
+            />
+          }
+          containerStyles={[
+            { height: 100, marginBottom: 0 },
+            {
+              marginLeft: DEVICE_WIDTH * (5 / 100),
+              marginRight: DEVICE_WIDTH * (3 / 100),
+            },
+            {
+              borderColor: theme.colors.orange,
+            },
+          ]}
+          primaryTextStyles={styles.amountTextTitle}
+          secondaryTextStyles={styles.amountTextSubTitle}
+          onPress={() =>
+            navigation.navigate('Cüzdan Seçimi', {
+              options: wallets.map(wallet => ({
+                text: `${wallet.name} (${wallet.number})`,
+                startingIcon: {
+                  name: wallet.icon.name,
+                  type: wallet.icon.type,
+                  color: theme.colors.orange,
+                  size: 25,
+                },
+                navigation: {
+                  to: 'Kripto Alış',
+                  params: {
+                    wallet: wallet,
                   },
-                  navigation: {
-                    to: 'Kripto Alış',
-                    params: {
-                      withdrawAccount: account,
+                },
+              })),
+            })
+          }
+        />
+      ))
+    );
+
+  const CashAccounts = ({ navigation }) =>
+    isAccountsLoading ? (
+      <CardViewPlaceholder
+        styleOverrides={{
+          container: {
+            height: 100,
+            marginBottom: 0,
+            marginLeft: DEVICE_WIDTH * (5 / 100),
+            marginRight: DEVICE_WIDTH * (3 / 100),
+          },
+        }}
+      />
+    ) : (
+      accounts.map((account, index) => {
+        if (account.currency === targetCurrency) {
+          return (
+            <CardView
+              key={account.id}
+              icon={
+                <Image
+                  source={{ uri: account.image_url }}
+                  style={{ width: 60, height: 45 }}
+                />
+              }
+              title={account.name}
+              subTitle={account.number}
+              key1={'Kullanılabilir Bakiye'}
+              value1Component={
+                <AmountText
+                  amount={parseFloat(account.available_balance).toFixed(2)}
+                  currency={account.currency}
+                  primaryTextStyles={styles.amountTextTitle}
+                  secondaryTextStyles={styles.amountTextSubTitle}
+                />
+              }
+              key2={'Güncel Bakiye'}
+              value2Component={
+                <AmountText
+                  amount={account.current_balance}
+                  currency={account.currency}
+                  primaryTextStyles={styles.amountTextTitle}
+                  secondaryTextStyles={styles.amountTextSubTitle}
+                />
+              }
+              trailingIcon={
+                <Icon
+                  name="chevron-right"
+                  type="font-awesome"
+                  size={20}
+                  color={theme.colors.blue}
+                />
+              }
+              containerStyles={[
+                calculateContainerStyles(
+                  index,
+                  accounts.filter(a => a.currency === targetCurrency).length
+                ),
+              ]}
+              primaryTextStyles={styles.amountTextTitle}
+              secondaryTextStyles={styles.amountTextSubTitle}
+              onPress={() =>
+                navigation.navigate('Hesap Seçimi', {
+                  options: accounts.map(account => ({
+                    text: `${account.name} (${account.number})`,
+                    image: {
+                      uri: account.image_url,
+                      size: 30,
                     },
-                  },
-                })),
-              })
-            }
-          />
-        );
-      }
-      return null;
-    });
+                    navigation: {
+                      to: 'Kripto Alış',
+                      params: {
+                        withdrawAccount: account,
+                      },
+                    },
+                  })),
+                })
+              }
+            />
+          );
+        }
+        return null;
+      })
+    );
 
   const memoizedAccounts = React.useMemo(
     () => <CashAccounts navigation={props.navigation} />,
-    [accounts, props.navigation, targetCurrency]
+    [accounts, props.navigation, targetCurrency, isAccountsLoading]
   );
 
   return (

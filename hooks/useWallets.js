@@ -1,7 +1,9 @@
 import useFirestoreCollection from './useFirestoreCollection';
 
 const useWallets = () => {
-  return useFirestoreCollection('wallets');
+  const [wallets, loading] = useFirestoreCollection('wallets');
+
+  return [wallets, loading];
 };
 
 export default useWallets;

@@ -7,7 +7,7 @@ import { AmountText, StyledText } from '../../../lib/components';
 import useAlarms from '../../../hooks/useAlarms';
 
 const MyAlarms = ({ navigation, route }) => {
-  const alarms = useAlarms();
+  const [alarms, isAlarmsLoading] = useAlarms();
 
   const { theme } = useTheme();
   const styles = StyleSheet.create({
