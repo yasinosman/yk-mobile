@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Button, Input, Image, Icon } from 'react-native-elements';
+import { Button, Image, Icon } from 'react-native-elements';
 import { useTheme } from '../../../context/Theme';
 import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
 import { useKeyboard } from '../../../hooks/useKeyboard';
@@ -15,35 +15,22 @@ import {
   Popup,
   InputWithLabel,
 } from '../../../lib/components';
-import { getAccounts } from '../../../services/accounts';
 import {
   buyCryptoFromCashAccount,
   buyCryptoFromCryptoWallet,
-  getWallets,
 } from '../../../services/wallets';
+import useAccounts from '../../../hooks/useAccounts';
+import useWallets from '../../../hooks/useWallets';
 
 const Buy = props => {
-  const [accounts, setAccounts] = React.useState([]);
-  const [wallets, setWallets] = React.useState([]);
+  const accounts = useAccounts();
+  const wallets = useWallets();
   const [payingAmount, setPayingAmount] = React.useState('');
   const [cryptoAmount, setCryptoAmount] = React.useState('');
   const keyboardHeight = useKeyboard();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
   const [success, setSuccess] = React.useState('');
-
-  async function fetchAllData() {
-    try {
-      setAccounts(await getAccounts());
-      setWallets(await getWallets());
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  React.useEffect(() => {
-    fetchAllData();
-  }, []);
 
   const { theme } = useTheme();
 
@@ -214,9 +201,6 @@ const Buy = props => {
           //Reset form
           setPayingAmount('');
           setCryptoAmount('');
-
-          //Fetch accounts
-          fetchAllData();
         })
         .catch(error => setError(error))
         .finally(() => setLoading(false));
@@ -234,9 +218,6 @@ const Buy = props => {
           //Reset form
           setPayingAmount('');
           setCryptoAmount('');
-
-          //Fetch accounts
-          fetchAllData();
         })
         .catch(error => setError(error))
         .finally(() => setLoading(false));

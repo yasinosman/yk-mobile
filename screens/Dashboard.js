@@ -12,26 +12,13 @@ import {
   MenuTitle,
   AmountText,
 } from '../lib/components';
-import { getCards } from '../services/cards';
-import { getAccounts } from '../services/accounts';
+import useCards from '../hooks/useCards';
+import useAccounts from '../hooks/useAccounts';
 
 const Dashboard = props => {
   const { theme } = useTheme();
-  const [cards, setCards] = React.useState([]);
-  const [accounts, setAccounts] = React.useState([]);
-
-  React.useEffect(() => {
-    async function fetchAllData() {
-      try {
-        setCards(await getCards());
-        setAccounts(await getAccounts());
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    fetchAllData();
-  }, []);
+  const cards = useCards();
+  const accounts = useAccounts();
 
   const styles = StyleSheet.create({
     wrapper: {

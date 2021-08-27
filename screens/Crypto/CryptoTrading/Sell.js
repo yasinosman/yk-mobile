@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { Button, Input, Image, Icon } from 'react-native-elements';
+import { Button, Image, Icon } from 'react-native-elements';
 import { useTheme } from '../../../context/Theme';
 import { CRYPTO_CURRENCIES, EXCHANGE_RATES } from '../../../hooks/useCurrency';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../lib/constants';
@@ -12,20 +12,19 @@ import {
   ChangePercentageView,
   CardView,
   AmountText,
-  StyledText,
   Popup,
   InputWithLabel,
 } from '../../../lib/components';
-import { getAccounts } from '../../../services/accounts';
 import {
   buyCashFromCryptoWallet,
   buyCryptoFromCryptoWallet,
-  getWallets,
 } from '../../../services/wallets';
+import useAccounts from '../../../hooks/useAccounts';
+import useWallets from '../../../hooks/useWallets';
 
 const Buy = props => {
-  const [accounts, setAccounts] = React.useState([]);
-  const [wallets, setWallets] = React.useState([]);
+  const accounts = useAccounts();
+  const wallets = useWallets();
   const [payingAmount, setPayingAmount] = React.useState('');
   const [calculatedAmount, setCalculatedAmount] = React.useState('');
   const keyboardHeight = useKeyboard();
@@ -33,21 +32,7 @@ const Buy = props => {
   const [error, setError] = React.useState('');
   const [success, setSuccess] = React.useState('');
 
-  async function fetchAllData() {
-    try {
-      setAccounts(await getAccounts());
-      setWallets(await getWallets());
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  React.useEffect(() => {
-    fetchAllData();
-  }, []);
-
   const { theme } = useTheme();
-
   const styles = StyleSheet.create({
     wrapper: {
       backgroundColor: theme.colors.bg,
@@ -216,9 +201,6 @@ const Buy = props => {
           //Reset form
           setPayingAmount('');
           setCalculatedAmount('');
-
-          //Fetch accounts
-          fetchAllData();
         })
         .catch(error => setError(error))
         .finally(() => setLoading(false));
@@ -236,9 +218,6 @@ const Buy = props => {
           //Reset form
           setPayingAmount('');
           setCalculatedAmount('');
-
-          //Fetch accounts
-          fetchAllData();
         })
         .catch(error => setError(error))
         .finally(() => setLoading(false));
