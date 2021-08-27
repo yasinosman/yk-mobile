@@ -61,7 +61,15 @@ export default function App() {
               screenOptions={{
                 headerShown: false,
               }}
+              options={{
+                animationEnabled: false,
+              }}
             >
+              <Stack.Screen
+                name="BusinessLoginFlex"
+                component={BusinessLogin}
+              />
+
               <Stack.Screen
                 name="UserLoginFlex"
                 component={UserLogin}
@@ -69,13 +77,7 @@ export default function App() {
                   animationEnabled: false,
                 }}
               />
-              <Stack.Screen
-                name="BusinessLoginFlex"
-                component={BusinessLogin}
-                options={{
-                  animationEnabled: false,
-                }}
-              />
+
               <Stack.Screen
                 name="PİYASALAR"
                 component={Piyasalar}
