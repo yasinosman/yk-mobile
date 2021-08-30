@@ -6,7 +6,11 @@ import { useTheme } from '../../context/Theme';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
 import { convertCurrency, formatAmount, formatTime } from '../../lib/utils';
 import { CURRENCY_DICTIONARY, EXCHANGE_RATES } from '../../hooks/useCurrency';
-import { StyledText, AmountText } from '../../lib/components';
+import {
+  StyledText,
+  AmountText,
+  CryptoWalletPlaceholder,
+} from '../../lib/components';
 import useMock from '../../hooks/useMock';
 import useWallets from '../../hooks/useWallets';
 
@@ -137,6 +141,7 @@ const CryptoWallet = () => {
 
   const mockDate = useMock(() => formatTime(new Date()), 5000, false);
 
+  return <CryptoWalletPlaceholder />;
   return (
     <View style={styles.wrapper}>
       <View style={styles.titleContainer}>
