@@ -141,7 +141,9 @@ const CryptoWallet = () => {
 
   const mockDate = useMock(() => formatTime(new Date()), 5000, false);
 
-  return <CryptoWalletPlaceholder />;
+  if (isWalletsLoading) {
+    return <CryptoWalletPlaceholder />;
+  }
   return (
     <View style={styles.wrapper}>
       <View style={styles.titleContainer}>
