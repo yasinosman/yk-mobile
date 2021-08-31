@@ -5,7 +5,7 @@ import useFirestoreCollection from './useFirestoreCollection';
 const useAlarms = () => {
   const [alarms, setAlarms] = React.useState([]);
 
-  const alarmsData = useFirestoreCollection('alarms');
+  const [alarmsData, loading] = useFirestoreCollection('alarms');
 
   React.useEffect(() => {
     setAlarms(
@@ -18,7 +18,7 @@ const useAlarms = () => {
     );
   }, [alarmsData]);
 
-  return alarms;
+  return [alarms, loading];
 };
 
 export default useAlarms;

@@ -11,14 +11,15 @@ import {
   InfoCard,
   MenuTitle,
   AmountText,
+  CardViewPlaceholder,
 } from '../lib/components';
 import useCards from '../hooks/useCards';
 import useAccounts from '../hooks/useAccounts';
 
 const Dashboard = props => {
   const { theme } = useTheme();
-  const cards = useCards();
-  const accounts = useAccounts();
+  const [cards, isCardsLoading] = useCards();
+  const [accounts, isAccountsLoading] = useAccounts();
 
   const styles = StyleSheet.create({
     wrapper: {
@@ -63,105 +64,114 @@ const Dashboard = props => {
         {/* Hesaplarım */}
         <View style={[styles.container, { marginTop: 0 }]}>
           <MenuTitle text="Hesaplarım" />
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            snapToInterval={DEVICE_WIDTH - 28}
-            decelerationRate={0.5}
-            scrollEnabled
-          >
-            {accounts.map((account, index) => {
-              return (
-                <CardView
-                  key={account.id}
-                  onPress={() => alert(account.name)}
-                  icon={
-                    account.icon ? (
-                      <Icon
-                        name={account.icon.name}
-                        type={account.icon.type}
-                        size={40}
-                        color={theme.colors.blue}
+          {!isAccountsLoading && (
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              snapToInterval={DEVICE_WIDTH - 28}
+              decelerationRate={0.5}
+              scrollEnabled
+            >
+              {accounts.map((account, index) => {
+                return (
+                  <CardView
+                    key={account.id}
+                    onPress={() => alert(account.name)}
+                    icon={
+                      account.icon ? (
+                        <Icon
+                          name={account.icon.name}
+                          type={account.icon.type}
+                          size={40}
+                          color={theme.colors.blue}
+                        />
+                      ) : (
+                        <Image
+                          source={{ uri: account.image_url }}
+                          style={{ width: 60, height: 45 }}
+                        />
+                      )
+                    }
+                    title={account.name}
+                    subTitle={account.number}
+                    key1={'Kullanılabilir Bakiye'}
+                    value1Component={
+                      <AmountText
+                        amount={parseFloat(account.available_balance).toFixed(
+                          2
+                        )}
+                        currency={account.currency}
                       />
-                    ) : (
-                      <Image
-                        source={{ uri: account.image_url }}
-                        style={{ width: 60, height: 45 }}
+                    }
+                    key2={'Güncel Bakiye'}
+                    value2Component={
+                      <AmountText
+                        amount={account.current_balance}
+                        currency={account.currency}
                       />
-                    )
-                  }
-                  title={account.name}
-                  subTitle={account.number}
-                  key1={'Kullanılabilir Bakiye'}
-                  value1Component={
-                    <AmountText
-                      amount={parseFloat(account.available_balance).toFixed(2)}
-                      currency={account.currency}
-                    />
-                  }
-                  key2={'Güncel Bakiye'}
-                  value2Component={
-                    <AmountText
-                      amount={account.current_balance}
-                      currency={account.currency}
-                    />
-                  }
-                  containerStyles={[
-                    index === 0
-                      ? {
-                          marginLeft: DEVICE_WIDTH * (5 / 100),
-                          marginRight: DEVICE_WIDTH * (3 / 100),
-                        }
-                      : {
-                          marginLeft: 0,
-                          marginRight: DEVICE_WIDTH * (3 / 100),
-                        },
-                    index === accounts.length - 1 && {
-                      marginRight: DEVICE_WIDTH * (5 / 100),
-                    },
-                  ]}
-                />
-              );
-            })}
-          </ScrollView>
+                    }
+                    containerStyles={[
+                      index === 0
+                        ? {
+                            marginLeft: DEVICE_WIDTH * (5 / 100),
+                            marginRight: DEVICE_WIDTH * (3 / 100),
+                          }
+                        : {
+                            marginLeft: 0,
+                            marginRight: DEVICE_WIDTH * (3 / 100),
+                          },
+                      index === accounts.length - 1 && {
+                        marginRight: DEVICE_WIDTH * (5 / 100),
+                      },
+                    ]}
+                  />
+                );
+              })}
+            </ScrollView>
+          )}
+
+          {isAccountsLoading && <CardViewPlaceholder />}
         </View>
 
         {/* Kartlarım */}
         <View style={styles.container}>
           <MenuTitle text="Kartlarım" />
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {cards.map(card => {
-              return (
-                <CardView
-                  key={card.id}
-                  onPress={() => alert(card.name)}
-                  icon={
-                    <Image
-                      source={require('../assets/img/Card.png')}
-                      style={{ width: 60, height: 40 }}
-                    />
-                  }
-                  title={card.name}
-                  subTitle={card.number}
-                  key1={'Güncel Borç'}
-                  value1Component={
-                    <AmountText
-                      amount={card.current_dept}
-                      currency={card.currency}
-                    />
-                  }
-                  key2={'Kullanılabilir Limit'}
-                  value2Component={
-                    <AmountText
-                      amount={card.available_limit}
-                      currency={card.currency}
-                    />
-                  }
-                  containerStyles={{ borderColor: theme.colors.text }}
-                />
-              );
-            })}
-          </ScrollView>
+          {!isCardsLoading && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {cards.map(card => {
+                return (
+                  <CardView
+                    key={card.id}
+                    onPress={() => alert(card.name)}
+                    icon={
+                      <Image
+                        source={require('../assets/img/Card.png')}
+                        style={{ width: 60, height: 40 }}
+                      />
+                    }
+                    title={card.name}
+                    subTitle={card.number}
+                    key1={'Güncel Borç'}
+                    value1Component={
+                      <AmountText
+                        amount={card.current_dept}
+                        currency={card.currency}
+                      />
+                    }
+                    key2={'Kullanılabilir Limit'}
+                    value2Component={
+                      <AmountText
+                        amount={card.available_limit}
+                        currency={card.currency}
+                      />
+                    }
+                    containerStyles={{ borderColor: theme.colors.text }}
+                  />
+                );
+              })}
+            </ScrollView>
+          )}
+          {isCardsLoading && <CardViewPlaceholder />}
         </View>
         {/* Dİğer işlemler */}
         <View style={styles.smallContainer}>

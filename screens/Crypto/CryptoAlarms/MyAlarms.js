@@ -1,13 +1,17 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { Icon, Button, Switch } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 import { useTheme } from '../../../context/Theme';
-import { AmountText, StyledText } from '../../../lib/components';
+import {
+  CryptoAlarm,
+  CryptoAlarmPlaceholder,
+  StyledText,
+} from '../../../lib/components';
 import useAlarms from '../../../hooks/useAlarms';
 
 const MyAlarms = ({ navigation, route }) => {
-  const alarms = useAlarms();
+  const [alarms, isAlarmsLoading] = useAlarms();
 
   const { theme } = useTheme();
   const styles = StyleSheet.create({
@@ -67,27 +71,49 @@ const MyAlarms = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      {alarms.length > 0 && (
-        <View
-          style={{
-            height: '90%',
-            maxHeight: '90%',
-            width: '95%',
-            marginHorizontal: '2.5%',
-          }}
-        >
-          <ScrollView>
-            {alarms.map((alarm, index) => {
+      <View
+        style={{
+          height: '90%',
+          maxHeight: '90%',
+          width: '95%',
+          marginHorizontal: '2.5%',
+        }}
+      >
+        <ScrollView>
+          {!isAlarmsLoading &&
+            alarms.length > 0 &&
+            alarms.map((alarm, index) => {
               return (
-                <View
+                <CryptoAlarm
+                  created_at={alarm.created_at}
+                  name={alarm.name}
+                  target_value={alarm.target_value}
+                  type={alarm.type}
                   key={index}
-                  style={[
-                    {
-                      backgroundColor: theme.colors.bg,
-                      height: 70,
-                      flexDirection: 'row',
-                    },
-                    index !== alarms.length - 1
+                  styleOverrides={{
+                    container:
+                      index !== alarms.length - 1
+                        ? {
+                            borderTopWidth: 0.7,
+                            borderColor: theme.colors.seperator,
+                          }
+                        : {
+                            borderTopWidth: 0.7,
+                            borderBottomWidth: 0.7,
+                            borderColor: theme.colors.seperator,
+                          },
+                  }}
+                />
+              );
+            })}
+
+          {isAlarmsLoading &&
+            [1, 2, 3, 4, 5, 6].map(i => (
+              <CryptoAlarmPlaceholder
+                key={i}
+                styleOverrides={{
+                  container:
+                    i !== 5
                       ? {
                           borderTopWidth: 0.7,
                           borderColor: theme.colors.seperator,
@@ -97,85 +123,13 @@ const MyAlarms = ({ navigation, route }) => {
                           borderBottomWidth: 0.7,
                           borderColor: theme.colors.seperator,
                         },
-                  ]}
-                >
-                  <View
-                    style={{
-                      width: '35%',
-                      height: '100%',
-                      padding: theme.sizes.padding,
-                    }}
-                  >
-                    <StyledText
-                      style={{
-                        fontFamily: 'UbuntuBold',
-                        fontSize: theme.sizes.largeText,
-                        marginBottom: theme.sizes.inputPadding,
-                      }}
-                    >
-                      {alarm.name}
-                    </StyledText>
-                    <StyledText style={{ fontFamily: 'UbuntuLight' }}>
-                      {alarm.created_at}
-                    </StyledText>
-                  </View>
-                  <View
-                    style={{
-                      width: '40%',
-                      height: '100%',
-                      padding: theme.sizes.padding,
-                    }}
-                  >
-                    <StyledText
-                      style={{
-                        fontFamily: 'UbuntuBold',
-                        fontSize: theme.sizes.largeText,
-                        marginBottom: theme.sizes.inputPadding,
-                      }}
-                    >
-                      Banka {alarm.type === 'buy' ? 'Alış' : 'Satış'}
-                    </StyledText>
-                    <AmountText
-                      amount={alarm.target_value}
-                      currency="try"
-                      primaryTextStyles={{
-                        fontFamily: 'Ubuntu',
-                        fontSize: theme.sizes.smallText,
-                        textAlign: 'left',
-                      }}
-                      secondaryTextStyles={{
-                        fontFamily: 'Ubuntu',
-                        fontSize: theme.sizes.tinyText,
-                        textAlign: 'left',
-                      }}
-                    />
-                  </View>
-                  <View
-                    style={{
-                      width: '25%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Switch
-                      trackColor={{
-                        false: theme.colors.seperator,
-                        true: theme.colors.blue,
-                      }}
-                      ios_backgroundColor={theme.colors.seperator}
-                      // onValueChange={toggleAgreementSwitch}
-                      value={true}
-                      style={styles.switch}
-                      thumbColor="white"
-                    />
-                  </View>
-                </View>
-              );
-            })}
-          </ScrollView>
-        </View>
-      )}
-      {alarms.length <= 0 && (
+                }}
+              />
+            ))}
+        </ScrollView>
+      </View>
+
+      {alarms.length <= 0 && !isAlarmsLoading && (
         <View style={styles.imageAndTextContainer}>
           <View style={styles.imageContainer}>
             <Icon

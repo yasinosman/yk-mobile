@@ -6,12 +6,16 @@ import { useTheme } from '../../context/Theme';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../lib/constants';
 import { convertCurrency, formatAmount, formatTime } from '../../lib/utils';
 import { CURRENCY_DICTIONARY, EXCHANGE_RATES } from '../../hooks/useCurrency';
-import { StyledText, AmountText } from '../../lib/components';
+import {
+  StyledText,
+  AmountText,
+  CryptoWalletPlaceholder,
+} from '../../lib/components';
 import useMock from '../../hooks/useMock';
 import useWallets from '../../hooks/useWallets';
 
 const CryptoWallet = () => {
-  const wallets = useWallets();
+  const [wallets, isWalletsLoading] = useWallets();
 
   const { theme } = useTheme();
 
@@ -116,7 +120,7 @@ const CryptoWallet = () => {
               parseFloat(parseFloat(c.amount) * EXCHANGE_RATES[c.currency].try)
             ).toFixed(2);
           }, 0)
-        : 0,
+        : '',
     [wallets]
   );
 
@@ -137,6 +141,9 @@ const CryptoWallet = () => {
 
   const mockDate = useMock(() => formatTime(new Date()), 5000, false);
 
+  if (isWalletsLoading) {
+    return <CryptoWalletPlaceholder />;
+  }
   return (
     <View style={styles.wrapper}>
       <View style={styles.titleContainer}>
